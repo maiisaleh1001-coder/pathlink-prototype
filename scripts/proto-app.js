@@ -75,7 +75,7 @@
   initControls(document);
 
   // ---------- bottom sheets open over the current page (overlay + slide up), not as a new screen ----------
-  var SHEETS = { 'add.html': 1, 'job-filter.html': 1, 'job-apply.html': 1 };
+  var SHEETS = { 'add.html': 1, 'job-filter.html': 1, 'job-apply.html': 1, 'freelance-filter.html': 1, 'consult-filter.html': 1, 'course-filter.html': 1, 'orders-filter.html': 1 };
   var SHEET_CSS = '.pl-wrap{position:absolute;inset:0;font-family:"Thmanyah Sans",Tajawal,sans-serif;direction:rtl}' +
     '.pl-backdrop{position:absolute;inset:0;background:rgba(14,26,43,.48);opacity:0;transition:opacity .25s ease}' +
     '.pl-sheet{position:absolute;left:0;right:0;bottom:0;max-height:92%;overflow-y:auto;scrollbar-width:none;transform:translateY(100%);transition:transform .32s cubic-bezier(.2,.8,.2,1)}' +
@@ -180,6 +180,20 @@
     };
     chips.forEach(function (c) { c.addEventListener('click', function () { paint(c); if (c.textContent.trim() !== 'الكل') toast('الفلترة في النموذج للعرض فقط'); }); });
     if (chips.length) paint(chips[0]);
+  }
+
+  // ---------- search: typing + Enter shows the results screen ----------
+  if (page === 'search.html' || page === 'search-results.html') {
+    var q = document.querySelector('input[type="search"]');
+    if (q) {
+      if (page === 'search.html' && standalone === false) q.focus({ preventScroll: true });
+      q.addEventListener('keydown', function (e) {
+        if (e.key !== 'Enter') return;
+        e.preventDefault();
+        if (!q.value.trim()) { toast('اكتب كلمة للبحث'); return; }
+        location.href = 'search-results.html';
+      });
+    }
   }
 
   // ---------- apply sheet: pick a CV, send, success ----------

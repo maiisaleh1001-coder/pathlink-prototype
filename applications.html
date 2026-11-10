@@ -100,6 +100,19 @@ a{color:#1F6FEB;text-decoration:none}a:hover{color:#0E2A47}
 .dot{width:24px;height:24px;flex:none;border-radius:999px;background:#E8EBEF;color:#FFFFFF;display:flex;align-items:center;justify-content:center;position:relative;z-index:1}
 .done .dot{background:#1F6FEB}
 .now .dot{background:#FFFFFF;border:2px solid #1F6FEB;box-sizing:border-box}
+.range{position:relative;height:28px;margin:0 11px}
+.range .tr{position:absolute;left:0;right:0;top:12px;height:4px;border-radius:999px;background:#E8EBEF}
+.range .sel{position:absolute;top:12px;height:4px;border-radius:999px;background:#1F6FEB}
+.range .kn{position:absolute;top:3px;width:22px;height:22px;margin-right:-11px;border-radius:999px;background:#FFFFFF;border:2px solid #1F6FEB;box-sizing:border-box;box-shadow:0 2px 6px rgba(21,32,43,.15)}
+.minmax{display:flex;gap:10px;align-items:center}.minmax .field{flex:1;height:44px}
+.search{height:48px;border-radius:999px;border:1.5px solid #1F6FEB;background:#FFFFFF;display:flex;align-items:center;gap:8px;padding:0 16px;box-sizing:border-box;flex-grow:1;color:#6B7684}
+.search input{flex:1;border:0;outline:0;background:transparent;font-family:inherit;font-size:14px;color:#15202B;min-width:0}
+.hist{display:flex;align-items:center;gap:10px;padding:12px 0;border-bottom:1px solid #EEF0F3;font-size:14px;color:#15202B}
+.hist:last-child{border-bottom:0}
+.shead{display:flex;align-items:center;gap:8px}
+.shead .sec{flex-grow:1;font-size:16px}
+.mini{display:flex;flex-direction:column;border-radius:20px;background:#FFFFFF;overflow:hidden;color:#15202B}
+.thumb{height:86px;display:flex;align-items:center;justify-content:center;font-size:12px}
 </style>
 </head>
 <body>
@@ -109,7 +122,8 @@ a{color:#1F6FEB;text-decoration:none}a:hover{color:#0E2A47}
   <div class="scroll">
     <div class="bar">
       <span class="ttl" style="text-align: right;">طلباتي</span>
-      <a href="#" aria-label="بحث في الطلبات" class="ib"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" data-iconsax="SearchNormal1"><path d="M11.5 21a9.5 9.5 0 1 0 0-19 9.5 9.5 0 0 0 0 19ZM22 22l-2-2" stroke-width="1.5"/></svg></a>
+      <a href="search.html" aria-label="بحث" class="ib"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" data-iconsax="SearchNormal1"><path d="M11.5 21a9.5 9.5 0 1 0 0-19 9.5 9.5 0 0 0 0 19ZM22 22l-2-2" stroke-width="1.5"/></svg></a>
+      <a href="orders-filter.html" aria-label="فلترة الطلبات" class="ib" style="background: #1F6FEB; border-color: #1F6FEB; color: #FFFFFF;"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" data-iconsax="Setting4"><path d="M22 6.5h-6M6 6.5H2M10 10a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7ZM22 17.5h-4M8 17.5H2M14 21a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7Z" stroke-width="1.5"/></svg></a>
     </div>
 
     <div class="rail">

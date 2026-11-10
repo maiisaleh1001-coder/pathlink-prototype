@@ -25,7 +25,13 @@ $pages = @(
   @('Applicants.dc.html',        'applicants.html',      'Path Link · المتقدمون'),
   @('ApplicantDetail.dc.html',   'applicant.html',       'Path Link · تفاصيل المتقدم'),
   @('CompanyProfile.dc.html',    'company-profile.html', 'Path Link · ملف الشركة'),
-  @('CompanyPlans.dc.html',      'company-plans.html',   'Path Link · باقات الشركات')
+  @('CompanyPlans.dc.html',      'company-plans.html',   'Path Link · باقات الشركات'),
+  @('Search.dc.html',            'search.html',          'Path Link · البحث'),
+  @('SearchResults.dc.html',     'search-results.html',  'Path Link · نتائج البحث'),
+  @('FreelanceFilter.dc.html',   'freelance-filter.html','Path Link · فلترة العمل الحر'),
+  @('ConsultFilter.dc.html',     'consult-filter.html',  'Path Link · فلترة الاستشارات'),
+  @('CourseFilter.dc.html',      'course-filter.html',   'Path Link · فلترة الكورسات'),
+  @('OrdersFilter.dc.html',      'orders-filter.html',   'Path Link · فلترة الطلبات')
 )
 # uploaded canvas fonts -> repo fonts/
 $blobs = @{
