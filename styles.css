@@ -27,6 +27,7 @@ html.standalone .proto-statusbar { display: none !important; }
 .proto-hide { display: none !important; }
 .proto-pop-in { animation: proto-pop-in .35s ease both; }
 @keyframes proto-pop-in { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: none; } }
+.proto-sheet-host { position: absolute; inset: 0; z-index: 30; }
 .rail { scroll-snap-type: x mandatory; scroll-padding-inline: 16px; cursor: grab; overscroll-behavior-x: contain; }
 .rail.dragging { scroll-snap-type: none; cursor: grabbing; }
 .rail > a { scroll-snap-align: start; -webkit-user-drag: none; user-select: none; }

@@ -43,6 +43,95 @@
     toast(label && label.length <= 24 ? '«' + label + '» قيد التصميم' : 'هذه الشاشة قيد التصميم');
   });
 
+  // ---------- shared controls on the designed screens (also run inside a sheet opened over the page) ----------
+  // segmented tabs and chip rails (single choice), chip groups (multiple choice), on/off toggles
+  function initControls(root) {
+  [].forEach.call(root.querySelectorAll('.seg, .rail'), function (group) {
+    var items = [].filter.call(group.children, function (c) { return c.matches('.seg > a, a.chip'); });
+    if (!items.length) return;
+    items.forEach(function (a) {
+      a.setAttribute('data-chip', '');
+      a.addEventListener('click', function (e) {
+        e.preventDefault();
+        items.forEach(function (o) { o.classList.toggle('on', o === a); o.setAttribute('aria-pressed', o === a ? 'true' : 'false'); });
+      });
+    });
+  });
+  [].forEach.call(root.querySelectorAll('.chips .chip'), function (c) {
+    c.setAttribute('role', 'button');
+    c.setAttribute('tabindex', '0');
+    c.setAttribute('aria-pressed', c.classList.contains('on') ? 'true' : 'false');
+    c.addEventListener('click', function () { var on = c.classList.toggle('on'); c.setAttribute('aria-pressed', on ? 'true' : 'false'); });
+  });
+  [].forEach.call(root.querySelectorAll('.tog'), function (t) {
+    t.addEventListener('click', function (e) {
+      e.preventDefault(); e.stopPropagation();
+      var off = t.classList.toggle('off');
+      t.setAttribute('aria-pressed', off ? 'false' : 'true');
+      toast(off ? 'تم إيقاف التقديم التلقائي' : 'تم تفعيل التقديم التلقائي');
+    });
+  });
+  }
+  initControls(document);
+
+  // ---------- bottom sheets open over the current page (overlay + slide up), not as a new screen ----------
+  var SHEETS = { 'add.html': 1, 'job-filter.html': 1, 'job-apply.html': 1 };
+  var SHEET_CSS = '.pl-wrap{position:absolute;inset:0;font-family:"Thmanyah Sans",Tajawal,sans-serif;direction:rtl}' +
+    '.pl-backdrop{position:absolute;inset:0;background:rgba(14,26,43,.48);opacity:0;transition:opacity .25s ease}' +
+    '.pl-sheet{position:absolute;left:0;right:0;bottom:0;max-height:92%;overflow-y:auto;scrollbar-width:none;transform:translateY(100%);transition:transform .32s cubic-bezier(.2,.8,.2,1)}' +
+    '.pl-sheet::-webkit-scrollbar{display:none}.pl-sheet>.sheet{position:relative;max-height:none}' +
+    '.pl-wrap.open .pl-backdrop{opacity:1}.pl-wrap.open .pl-sheet{transform:none}' +
+    '.proto-hide{display:none!important}.proto-pop-in{animation:pl-in .35s ease both}@keyframes pl-in{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}' +
+    '@media (prefers-reduced-motion:reduce){.pl-backdrop,.pl-sheet{transition:none}.proto-pop-in{animation:none}}';
+  var sheetCache = {};
+  function fileOf(href) { var f = String(href || '').split('#')[0].split('?')[0].replace(/^\.\//, ''); return f || 'index.html'; }
+  function openSheet(file) {
+    var got = sheetCache[file] ? Promise.resolve(sheetCache[file]) : fetch(file).then(function (r) { if (!r.ok) throw new Error(r.status); return r.text(); });
+    got.then(function (text) {
+      sheetCache[file] = text;
+      var doc = new DOMParser().parseFromString(text, 'text/html');
+      var dialog = doc.querySelector('[role="dialog"]');
+      if (!dialog) { location.href = file; return; }
+      var host = document.createElement('div');
+      host.className = 'proto-sheet-host';
+      var root = host.attachShadow({ mode: 'open' });
+      var css = [].map.call(doc.querySelectorAll('head style'), function (st) { return st.textContent; }).join('\n');
+      root.innerHTML = '<style>' + css + '\n' + SHEET_CSS + '</style><div class="pl-wrap"><div class="pl-backdrop"></div><div class="pl-sheet"></div></div>';
+      var wrap = root.querySelector('.pl-wrap');
+      root.querySelector('.pl-sheet').appendChild(document.importNode(dialog, true));
+      screen.appendChild(host);
+      var close = function () { wrap.classList.remove('open'); setTimeout(function () { host.remove(); }, 330); };
+      root.addEventListener('click', function (e) {
+        if (e.target.classList && e.target.classList.contains('pl-backdrop')) return close();
+        var a = e.target.closest && e.target.closest('a[href]');
+        if (!a) return;
+        var h = a.getAttribute('href');
+        if (h === '#') {
+          e.preventDefault();
+          if (a.hasAttribute('data-chip')) return;
+          var label = (a.getAttribute('aria-label') || a.textContent || '').replace(/\s+/g, ' ').trim();
+          toast(label && label.length <= 24 ? '«' + label + '» قيد التصميم' : 'هذه الشاشة قيد التصميم');
+          return;
+        }
+        if (fileOf(h) === page) { // links back to the page underneath close the sheet
+          e.preventDefault();
+          close();
+          if (/^عرض \d+/.test(a.textContent.trim())) toast('تم تطبيق الفلاتر');
+        }
+      });
+      initControls(root);
+      if (file === 'job-apply.html') initApply(root);
+      host.getBoundingClientRect(); // commit the closed position so the slide-up animates
+      setTimeout(function () { wrap.classList.add('open'); }, 20);
+    }).catch(function () { location.href = file; });
+  }
+  document.addEventListener('click', function (e) {
+    var a = e.target.closest && e.target.closest('a[href]');
+    if (!a || !screen || !screen.contains(a)) return;
+    var f = fileOf(a.getAttribute('href'));
+    if (SHEETS[f] && f !== page) { e.preventDefault(); openSheet(f); }
+  });
+
   // ---------- home: the services rail scrolls with drag, wheel and touch, and snaps to a card ----------
   [].forEach.call(document.querySelectorAll('.rail'), function (el) {
     var down = false, moved = false, startX = 0, startLeft = 0;
@@ -94,9 +183,11 @@
   }
 
   // ---------- apply sheet: pick a CV, send, success ----------
-  if (page === 'job-apply.html') {
-    var confirmStep = document.querySelector('[data-step="confirm"]');
-    var doneStep = document.querySelector('[data-step="done"]');
+  if (page === 'job-apply.html') initApply(document);
+  function initApply(root) {
+    var confirmStep = root.querySelector('[data-step="confirm"]');
+    var doneStep = root.querySelector('[data-step="done"]');
+    if (!confirmStep || !doneStep) return;
     var buttons = confirmStep ? confirmStep.querySelectorAll('button') : [];
     var saved = buttons[0], upload = buttons[1], send = buttons[2];
     var ring = function (btn) { var s = btn && btn.querySelectorAll('span'); return s && s[s.length - 1]; };

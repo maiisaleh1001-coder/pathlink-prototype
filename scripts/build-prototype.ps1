@@ -13,7 +13,19 @@ $pages = @(
   @('JobsList.dc.html',  'jobs.html',      'Path Link · الوظائف'),
   @('JobDetail.dc.html', 'job.html',       'Path Link · تفاصيل الوظيفة'),
   @('JobApply.dc.html',  'job-apply.html', 'Path Link · تأكيد التقديم'),
-  @('AddSheet.dc.html',  'add.html',       'Path Link · ماذا تريد أن تنشر')
+  @('AddSheet.dc.html',  'add.html',       'Path Link · ماذا تريد أن تنشر'),
+  @('JobFilter.dc.html',         'job-filter.html',      'Path Link · فلترة الوظائف'),
+  @('MyApplications.dc.html',    'applications.html',    'Path Link · طلباتي'),
+  @('ApplicationDetail.dc.html', 'application.html',     'Path Link · تفاصيل الطلب'),
+  @('SeekerProfile.dc.html',     'profile.html',         'Path Link · الملف المهني'),
+  @('SeekerPlan.dc.html',        'seeker-plan.html',     'Path Link · باقة الباحث عن عمل'),
+  @('AutoApply.dc.html',         'auto-apply.html',      'Path Link · التقديم التلقائي'),
+  @('PostJob.dc.html',           'post-job.html',        'Path Link · نشر وظيفة'),
+  @('CompanyJobs.dc.html',       'company.html',         'Path Link · لوحة الشركة'),
+  @('Applicants.dc.html',        'applicants.html',      'Path Link · المتقدمون'),
+  @('ApplicantDetail.dc.html',   'applicant.html',       'Path Link · تفاصيل المتقدم'),
+  @('CompanyProfile.dc.html',    'company-profile.html', 'Path Link · ملف الشركة'),
+  @('CompanyPlans.dc.html',      'company-plans.html',   'Path Link · باقات الشركات')
 )
 # uploaded canvas fonts -> repo fonts/
 $blobs = @{
@@ -82,6 +94,9 @@ foreach ($pg in $pages) {
   # sc-if branches become plain blocks the prototype script switches; the first one shows
   $doc = [regex]::Replace($doc, '<sc-if value="\{\{(\w+)\}\}"[^>]*>', { param($m) '<div data-step="' + $m.Groups[1].Value + '">' })
   $doc = $doc.Replace('</sc-if>', '</div>')
+  # a sheet's artboard shows its parent page underneath on the canvas; in the prototype the sheet opens over the live page instead
+  $doc = [regex]::Replace($doc, '(?s)\s*<div data-sheet-backdrop[^>]*>.*?</dc-import></div>', '')
+  if ($doc -match '<dc-import') { throw "unhandled dc-import in $($pg[0])" }
   $doc = [regex]::Replace($doc, '\s+(on[A-Za-z]+|ref)="\{\{\w+\}\}"', '')
   $doc = [regex]::Replace($doc, '\{\{(\w+)\}\}', { param($m) if ($tplDefaults.ContainsKey($m.Groups[1].Value)) { $tplDefaults[$m.Groups[1].Value] } else { '' } })
   $helmet = [regex]::Match($doc, '(?s)<helmet>(.*?)</helmet>').Groups[1].Value.Trim()
@@ -89,6 +104,8 @@ foreach ($pg in $pages) {
   if (-not $body) { throw "no screen found in $($pg[0])" }
   # the screen fills the phone: tag the root, let fixed 844px scroll areas follow the screen height
   $body = [regex]::Replace($body, '^<div style="', '<div class="screen" style="')
+  $body = [regex]::Replace($body, '^<div class="scr"', '<div class="scr screen"')
+  if ($body -notmatch '^<div class="[^"]*\bscreen\b') { throw "screen root not tagged in $($pg[0])" }
   $body = $body.Replace('height: 844px; overflow-y: auto', 'height: 100%; overflow-y: auto')
   # every step after the first starts hidden
   $seen = 0
@@ -165,6 +182,7 @@ html.standalone .proto-statusbar { display: none !important; }
 .proto-hide { display: none !important; }
 .proto-pop-in { animation: proto-pop-in .35s ease both; }
 @keyframes proto-pop-in { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: none; } }
+.proto-sheet-host { position: absolute; inset: 0; z-index: 30; }
 .rail { scroll-snap-type: x mandatory; scroll-padding-inline: 16px; cursor: grab; overscroll-behavior-x: contain; }
 .rail.dragging { scroll-snap-type: none; cursor: grabbing; }
 .rail > a { scroll-snap-align: start; -webkit-user-drag: none; user-select: none; }

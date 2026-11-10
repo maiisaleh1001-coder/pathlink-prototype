@@ -1,0 +1,162 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#F9FAFB">
+<title>Path Link · لوحة الشركة</title>
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="apple-touch-icon" sizes="180x180" href="icons/apple-touch-icon.png">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="Path Link">
+<script>
+(function () {
+  // ?app=1 is the installed app's start_url; remember it for the session so later pages keep the app layout
+  var app = /[?&]app=1/.test(location.search);
+  try { if (app) sessionStorage.setItem('pl-app', '1'); else app = sessionStorage.getItem('pl-app') === '1'; } catch (e) {}
+  var standalone = (window.matchMedia && window.matchMedia('(display-mode: standalone)').matches) || window.navigator.standalone === true || app;
+  if (standalone) document.documentElement.classList.add('standalone');
+  // home goes through the splash once per session (before anything paints, so there is no flash)
+  var file = location.pathname.split('/').pop() || 'index.html';
+  var seen = false; try { seen = sessionStorage.getItem('pl-intro-seen') === 'true'; } catch (e) {}
+  if (file === 'index.html' && !seen && !/[?&]skip/.test(location.search)) {
+    try { sessionStorage.setItem('pl-intro-seen', 'true'); } catch (e) {}
+    location.replace('splash.html' + (standalone ? '?app=1' : ''));
+  }
+})();
+</script>
+<link rel="stylesheet" href="ds/pathlink/tokens.css">
+<link rel="stylesheet" href="styles.css">
+<style>
+@font-face{font-family:"Thmanyah Sans";src:url("fonts/thmanyahsans-Regular.otf") format("opentype");font-weight:400;font-display:swap}
+@font-face{font-family:"Thmanyah Sans";src:url("fonts/thmanyahsans-Medium.otf") format("opentype");font-weight:500;font-display:swap}
+@font-face{font-family:"Thmanyah Sans";src:url("fonts/thmanyahsans-Bold.otf") format("opentype");font-weight:700;font-display:swap}
+body{margin:0}
+a{color:#1F6FEB;text-decoration:none}a:hover{color:#0E2A47}
+.scr{position:relative;width:390px;height:844px;overflow:hidden;background:#F9FAFB;color:#15202B;font-family:'Thmanyah Sans',Tajawal,sans-serif;direction:rtl}
+.scroll{height:100%;overflow-y:auto;box-sizing:border-box;padding:18px 16px 120px;display:flex;flex-direction:column;gap:14px;scrollbar-width:none}
+.scroll::-webkit-scrollbar{display:none}
+.scroll > *{flex-shrink:0}
+.bar{display:flex;align-items:center;gap:10px}
+.ib{width:42px;height:42px;flex:none;border-radius:999px;border:1px solid #E8EBEF;background:#FFFFFF;color:#15202B;display:flex;align-items:center;justify-content:center;box-sizing:border-box}
+.ttl{flex-grow:1;text-align:center;font-size:17px;font-weight:700}
+.card{background:#FFFFFF;border-radius:20px;padding:16px;display:flex;flex-direction:column;gap:10px;color:#15202B}
+.h{font-size:15px;font-weight:700}
+.sec{font-size:17px;font-weight:700}
+.sub{font-size:12px;color:#6B7684;line-height:18px}
+.txt{font-size:13px;line-height:22px;color:#3F4A57}
+.row{display:flex;align-items:center;gap:12px}
+.grow{flex-grow:1;min-width:0;display:flex;flex-direction:column}
+.av{width:44px;height:44px;flex:none;border-radius:999px;display:flex;align-items:center;justify-content:center;font-size:17px;font-weight:700}
+.pill{display:inline-flex;align-items:center;gap:4px;height:24px;padding:0 10px;border-radius:999px;font-size:12px;font-weight:500;white-space:nowrap;flex:none}
+.p-ok{background:#E6F4EC;color:#1E7F4F}.p-warn{background:#FDF3DC;color:#8A5A00}.p-bad{background:#FCEBEA;color:#C2362F}.p-info{background:#E6EEFF;color:#1F6FEB}.p-mute{background:#F2F4F7;color:#3F4A57}.p-auto{background:#EFEAFD;color:#5B3FA8}
+.chips{display:flex;flex-wrap:wrap;gap:8px}
+.chip{height:36px;padding:0 14px;border-radius:999px;border:1px solid #E8EBEF;background:#FFFFFF;color:#15202B;font-size:13px;display:inline-flex;align-items:center;gap:6px;box-sizing:border-box;cursor:pointer}
+.chip.on{background:#1F6FEB;border-color:#1F6FEB;color:#FFFFFF;font-weight:700}
+.tag{height:26px;padding:0 10px;border-radius:999px;background:#F2F4F7;font-size:12px;display:inline-flex;align-items:center;gap:4px}
+.lbl{font-size:13px;font-weight:700}
+.field{height:48px;border-radius:14px;border:1px solid #E8EBEF;background:#FFFFFF;display:flex;align-items:center;gap:8px;padding:0 14px;font-size:14px;color:#15202B;box-sizing:border-box}
+.field .ph{color:#8A94A0;flex-grow:1}
+.field .v{flex-grow:1}
+.area{min-height:92px;border-radius:14px;border:1px solid #E8EBEF;background:#FFFFFF;padding:12px 14px;font-size:14px;line-height:22px;color:#15202B;box-sizing:border-box}
+.fg{display:flex;flex-direction:column;gap:8px}
+.btn{height:54px;border-radius:999px;background:#1F6FEB;color:#FFFFFF;font-size:15px;font-weight:700;display:flex;align-items:center;justify-content:center;gap:8px;border:0;font-family:inherit;cursor:pointer}
+.btn2{height:54px;border-radius:999px;border:1px solid #E8EBEF;background:#FFFFFF;color:#15202B;font-size:15px;font-weight:700;display:flex;align-items:center;justify-content:center;gap:8px;box-sizing:border-box;font-family:inherit;cursor:pointer}
+.btn-s{height:36px;padding:0 14px;border-radius:999px;background:#1F6FEB;color:#FFFFFF;font-size:13px;font-weight:700;display:inline-flex;align-items:center;gap:6px;flex:none}
+.btn-s2{height:36px;padding:0 14px;border-radius:999px;border:1px solid #E8EBEF;background:#FFFFFF;color:#15202B;font-size:13px;font-weight:700;display:inline-flex;align-items:center;gap:6px;flex:none;box-sizing:border-box}
+.foot{position:absolute;right:0;left:0;bottom:0;display:flex;gap:10px;padding:14px 16px 26px;background:#FFFFFF;box-shadow:0 -6px 18px rgba(21,32,43,.08);border-radius:26px 26px 0 0}
+.foot > *{flex:1}
+.hero{position:relative;overflow:hidden;border-radius:26px;padding:18px;background:#1F6FEB;color:#FFFFFF;display:flex;flex-direction:column;gap:10px}
+.hero::before{content:"";position:absolute;top:-80px;left:-80px;width:230px;height:230px;border-radius:999px;border:1px solid rgba(255,255,255,.18);background:rgba(255,255,255,.05)}
+.hero::after{content:"";position:absolute;top:-34px;left:-34px;width:140px;height:140px;border-radius:999px;border:1px solid rgba(255,255,255,.18)}
+.hero > *{position:relative;z-index:1}
+.hero .sub{color:rgba(255,255,255,.85)}
+.ring{width:64px;height:64px;flex:none;border-radius:999px;display:flex;align-items:center;justify-content:center}
+.ring > span{width:52px;height:52px;border-radius:999px;background:#FFFFFF;display:flex;align-items:center;justify-content:center;font-size:15px;font-weight:700;color:#1F6FEB}
+.ring.sm{width:46px;height:46px}.ring.sm > span{width:36px;height:36px;font-size:12px}
+.seg{display:flex;padding:4px;border-radius:999px;background:#EEF0F3}
+.seg a{flex:1;height:36px;border-radius:999px;display:flex;align-items:center;justify-content:center;font-size:13px;color:#3F4A57}
+.seg a.on{background:#FFFFFF;color:#15202B;font-weight:700;box-shadow:0 1px 3px rgba(21,32,43,.12)}
+.tog{width:46px;height:28px;border-radius:999px;background:#1F6FEB;position:relative;flex:none;cursor:pointer;border:0;padding:0}
+.tog::after{content:"";position:absolute;top:3px;left:3px;width:22px;height:22px;border-radius:999px;background:#FFFFFF;transition:all .2s}
+.tog.off{background:#D5DAE1}.tog.off::after{left:21px}
+.dv{height:1px;background:#EEF0F3;flex:none}
+.ic{width:38px;height:38px;flex:none;border-radius:999px;display:flex;align-items:center;justify-content:center}
+.note{display:flex;align-items:flex-start;gap:8px;padding:10px 12px;border-radius:14px;font-size:12px;line-height:19px}
+.n-info{background:#E6EEFF;color:#1A4F9C}.n-warn{background:#FDF3DC;color:#8A5A00}.n-ok{background:#E6F4EC;color:#1E7F4F}
+.rail{display:flex;gap:8px;overflow-x:auto;margin:0 -16px;padding:0 16px;scrollbar-width:none;flex:none}
+.rail::-webkit-scrollbar{display:none}
+.rail > *{flex:none}
+.sheet{position:absolute;right:0;left:0;bottom:0;display:flex;flex-direction:column;gap:14px;padding:10px 16px 26px;border-radius:28px 28px 0 0;background:#FFFFFF;max-height:88%;box-sizing:border-box;overflow-y:auto;scrollbar-width:none}
+.handle{align-self:center;width:40px;height:4px;border-radius:999px;background:#DADDE2;flex:none}
+.dim{position:absolute;inset:0;background:rgba(14,26,43,.48)}
+.tl{display:flex;flex-direction:column;gap:0}
+.tl > div{display:flex;gap:12px;align-items:flex-start;padding-bottom:16px;position:relative}
+.tl > div:not(:last-child)::before{content:"";position:absolute;right:11px;top:24px;bottom:0;width:2px;background:#E8EBEF}
+.tl > div.done:not(:last-child)::before{background:#1F6FEB}
+.dot{width:24px;height:24px;flex:none;border-radius:999px;background:#E8EBEF;color:#FFFFFF;display:flex;align-items:center;justify-content:center;position:relative;z-index:1}
+.done .dot{background:#1F6FEB}
+.now .dot{background:#FFFFFF;border:2px solid #1F6FEB;box-sizing:border-box}
+</style>
+</head>
+<body>
+<main class="stage">
+<div class="device">
+<div class="scr screen">
+  <div class="scroll">
+    <div class="bar">
+      <a href="company-profile.html" aria-label="ملف الشركة" class="av" style="width: 42px; height: 42px; font-size: 16px; background: #E6EEFF; color: #1F6FEB;">م</a>
+      <span class="grow"><span class="h">مدار للتقنية</span><span class="sub">لوحة الشركة</span></span>
+      <a href="post-job.html" class="btn-s"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" data-iconsax="Add"><path d="M6 12h12M12 18V6" stroke-width="1.5"/></svg>وظيفة</a>
+    </div>
+
+    <a href="company-plans.html" class="hero" style="gap: 12px;">
+      <span class="row"><span class="grow"><span class="h">الباقة المتقدمة</span><span class="sub">تنتهي 30 نوفمبر 2026 · متبقي 20 يومًا</span></span><span class="btn-s" style="background: #FFFFFF; color: #1F6FEB;">تجديد</span></span>
+      <span style="display: flex; flex-direction: column; gap: 6px;"><span class="row" style="font-size: 12px;"><span style="flex-grow: 1;">الوظائف النشطة</span><span>2 من 5</span></span><span style="height: 8px; border-radius: 999px; background: rgba(255,255,255,.25); overflow: hidden;"><span style="display: block; width: 40%; height: 8px; border-radius: 999px; background: #FFFFFF;"></span></span></span>
+    </a>
+
+    <div class="row" style="gap: 10px;">
+      <div class="card" style="flex: 1; gap: 2px;"><span style="font-size: 22px; font-weight: 700;">34</span><span class="sub">متقدم هذا الشهر</span></div>
+      <div class="card" style="flex: 1; gap: 2px;"><span style="font-size: 22px; font-weight: 700; color: #1F6FEB;">9</span><span class="sub">بانتظار مراجعتك</span></div>
+    </div>
+
+    <div class="seg"><a href="#" class="on">نشطة (2)</a><a href="#">مغلقة (3)</a></div>
+
+    <div class="card" style="gap: 12px;">
+      <span class="row"><span class="grow"><span class="h" style="font-size: 14px;">مصمم واجهات مستخدم</span><span class="sub">الرياض · دوام كامل · نُشرت منذ يومين</span></span><span class="pill p-ok">تستقبل الطلبات</span></span>
+      <span class="row" style="gap: 8px;"><span class="tag"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" data-iconsax="Profile"><path d="M12.16 10.87c-.1-.01-.22-.01-.33 0a4.42 4.42 0 0 1-4.27-4.43C7.56 3.99 9.54 2 12 2a4.435 4.435 0 0 1 .16 8.87ZM7.16 14.56c-2.42 1.62-2.42 4.26 0 5.87 2.75 1.84 7.26 1.84 10.01 0 2.42-1.62 2.42-4.26 0-5.87-2.74-1.83-7.25-1.83-10.010 0Z" stroke-width="1.5"/></svg>21 متقدمًا</span><span class="tag" style="background: #E6EEFF; color: #1F6FEB;">6 جدد</span><span class="tag"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" data-iconsax="Flash"><path d="M6.09 13.28h3.09v7.2c0 1.68.91 2.02 2.02.76l7.57-8.6c.93-1.05.54-1.92-.87-1.92h-3.09v-7.2c0-1.68-.91-2.02-2.02-.76l-7.57 8.6c-.92 1.06-.53 1.92.87 1.92Z" stroke-width="1.5"/></svg>8 تلقائي</span></span>
+      <span class="dv"></span>
+      <span class="row" style="gap: 8px;"><a href="applicants.html" class="btn-s" style="flex: 1; justify-content: center;">عرض المتقدمين</a><a href="#" class="btn-s2"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" data-iconsax="Edit2"><path d="m13.26 3.6-8.21 8.69c-.31.33-.61.98-.67 1.43l-.37 3.24c-.13 1.17.71 1.97 1.87 1.77l3.22-.55c.45-.08 1.08-.41 1.39-.75l8.21-8.69c1.42-1.5 2.06-3.21-.15-5.3-2.2-2.07-3.87-1.34-5.29.16Z" stroke-width="1.5"/><path d="M11.89 5.05a6.126 6.126 0 0 0 5.45 5.15M3 22h18" stroke-width="1.5"/></svg>تعديل</a><a href="#" class="btn-s2">إغلاق</a></span>
+    </div>
+
+    <div class="card" style="gap: 12px;">
+      <span class="row"><span class="grow"><span class="h" style="font-size: 14px;">مدير منتج</span><span class="sub">الرياض · دوام كامل · نُشرت منذ أسبوع</span></span><span class="pill p-ok">تستقبل الطلبات</span></span>
+      <span class="row" style="gap: 8px;"><span class="tag"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" data-iconsax="Profile"><path d="M12.16 10.87c-.1-.01-.22-.01-.33 0a4.42 4.42 0 0 1-4.27-4.43C7.56 3.99 9.54 2 12 2a4.435 4.435 0 0 1 .16 8.87ZM7.16 14.56c-2.42 1.62-2.42 4.26 0 5.87 2.75 1.84 7.26 1.84 10.01 0 2.42-1.62 2.42-4.26 0-5.87-2.74-1.83-7.25-1.83-10.010 0Z" stroke-width="1.5"/></svg>13 متقدمًا</span><span class="tag" style="background: #E6EEFF; color: #1F6FEB;">3 جدد</span></span>
+      <span class="dv"></span>
+      <span class="row" style="gap: 8px;"><a href="applicants.html" class="btn-s" style="flex: 1; justify-content: center;">عرض المتقدمين</a><a href="#" class="btn-s2"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" data-iconsax="Edit2"><path d="m13.26 3.6-8.21 8.69c-.31.33-.61.98-.67 1.43l-.37 3.24c-.13 1.17.71 1.97 1.87 1.77l3.22-.55c.45-.08 1.08-.41 1.39-.75l8.21-8.69c1.42-1.5 2.06-3.21-.15-5.3-2.2-2.07-3.87-1.34-5.29.16Z" stroke-width="1.5"/><path d="M11.89 5.05a6.126 6.126 0 0 0 5.45 5.15M3 22h18" stroke-width="1.5"/></svg>تعديل</a><a href="#" class="btn-s2">إغلاق</a></span>
+    </div>
+
+    <div class="note n-warn"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" data-iconsax="Warning2" style="flex: none; margin-top: 1px;"><path d="M12 7.75V13M21.08 8.58v6.84c0 1.12-.6 2.16-1.57 2.73l-5.94 3.43c-.97.56-2.17.56-3.15 0l-5.94-3.43a3.15 3.15 0 0 1-1.57-2.73V8.58c0-1.12.6-2.16 1.57-2.73l5.94-3.43c.97-.56 2.17-.56 3.15 0l5.94 3.43c.97.57 1.57 1.6 1.57 2.73Z" stroke-width="1.5"/><path d="M12 16.2v.1" stroke-width="2"/></svg><span>لو انتهى اشتراكك، تتوقف وظائفك عن استقبال طلبات جديدة حتى التجديد، ويبقى المتقدمون السابقون متاحين.</span></div>
+  </div>
+    <nav aria-label="التنقل الرئيسي" style="position: absolute; right: 16px; left: 16px; bottom: 20px; display: flex; align-items: center; gap: 12px;">
+    <span style="flex-grow: 1; display: flex; align-items: center; justify-content: space-between; height: 60px; padding: 0 6px; border-radius: 999px; box-shadow: 0 6px 18px rgba(21,32,43,0.10); background-color: #FFFFFF;">
+      <a href="./?skip=1" aria-label="الرئيسية" style="width: 48px; height: 48px; border-radius: 999px; background: #FFFFFF; color: #1F6FEB; display: flex; align-items: center; justify-content: center; box-shadow: 0 2px 6px rgba(21,32,43,0.12);"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" data-iconsax="Home2"><path d="m9.02 2.84-5.39 4.2C2.73 7.74 2 9.23 2 10.36v7.41c0 2.32 1.89 4.22 4.21 4.22h11.58c2.32 0 4.21-1.9 4.21-4.21V10.5c0-1.21-.81-2.76-1.8-3.45l-6.18-4.33c-1.4-.98-3.65-.93-5 .12ZM12 17.99v-3" stroke-width="1.5"/></svg></a>
+      <a href="applications.html" aria-label="طلباتي" style="width: 48px; height: 48px; border-radius: 999px; color: #15202B; display: flex; align-items: center; justify-content: center;"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" data-iconsax="ClipboardText"><path d="M8 12.2h7M8 16.2h4.38M10 6h4c2 0 2-1 2-2 0-2-1-2-2-2h-4C9 2 8 2 8 4s1 2 2 2Z" stroke-width="1.5"/><path d="M16 4.02c3.33.18 5 1.41 5 5.98v6c0 4-1 6-6 6H9c-5 0-6-2-6-6v-6c0-4.56 1.67-5.8 5-5.98" stroke-width="1.5"/></svg></a>
+      <a href="#" aria-label="المستحقات" style="width: 48px; height: 48px; border-radius: 999px; color: #15202B; display: flex; align-items: center; justify-content: center;"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" data-iconsax="EmptyWallet"><path d="M18.04 13.55c-.42.41-.66 1-.6 1.63.09 1.08 1.08 1.87 2.16 1.87h1.9v1.19c0 2.07-1.69 3.76-3.76 3.76H6.26c-2.07 0-3.76-1.69-3.76-3.76v-6.73c0-2.07 1.69-3.76 3.76-3.76h11.48c2.07 0 3.76 1.69 3.76 3.76v1.44h-2.02c-.56 0-1.07.22-1.44.6Z" stroke-width="1.5"/><path d="M2.5 12.41V7.84c0-1.19.73-2.25 1.84-2.67l7.94-3a1.9 1.9 0 0 1 2.57 1.78v3.8M22.559 13.97v2.06c0 .55-.44 1-1 1.02h-1.96c-1.08 0-2.07-.79-2.16-1.87-.06-.63.18-1.22.6-1.63.37-.38.88-.6 1.44-.6h2.08c.56.02 1 .47 1 1.02ZM7 12h7" stroke-width="1.5"/></svg></a>
+      <a href="profile.html" aria-label="حسابي" style="width: 48px; height: 48px; border-radius: 999px; color: #15202B; display: flex; align-items: center; justify-content: center;"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" data-iconsax="Profile"><path d="M12.16 10.87c-.1-.01-.22-.01-.33 0a4.42 4.42 0 0 1-4.27-4.43C7.56 3.99 9.54 2 12 2a4.435 4.435 0 0 1 .16 8.87ZM7.16 14.56c-2.42 1.62-2.42 4.26 0 5.87 2.75 1.84 7.26 1.84 10.01 0 2.42-1.62 2.42-4.26 0-5.87-2.74-1.83-7.25-1.83-10.010 0Z" stroke-width="1.5"/></svg></a>
+    </span>
+    <a href="add.html" aria-label="إضافة" style="flex: none; width: 60px; height: 60px; border-radius: 999px; background: #1F6FEB; color: #FFFFFF; display: flex; align-items: center; justify-content: center;"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" data-iconsax="Add"><path d="M6 12h12M12 18V6" stroke-width="1.5"/></svg></a>
+  </nav>
+</div>
+</div>
+</main>
+<script src="app.js"></script>
+<script>
+if ('serviceWorker' in navigator && (location.protocol === 'https:' || location.hostname === 'localhost' || location.hostname === '127.0.0.1')) {
+  window.addEventListener('load', function () { navigator.serviceWorker.register('sw.js').catch(function () {}); });
+}
+</script></body>
+</html>
