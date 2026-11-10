@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#1F6FEB">
+<title>Path Link</title>
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="apple-touch-icon" sizes="180x180" href="icons/apple-touch-icon.png">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="Path Link">
+<script>
+(function () {
+  // ?app=1 is the installed app's start_url; remember it for the session so later pages keep the app layout
+  var app = /[?&]app=1/.test(location.search);
+  try { if (app) sessionStorage.setItem('pl-app', '1'); else app = sessionStorage.getItem('pl-app') === '1'; } catch (e) {}
+  var standalone = (window.matchMedia && window.matchMedia('(display-mode: standalone)').matches) || window.navigator.standalone === true || app;
+  if (standalone) document.documentElement.classList.add('standalone');
+  // home goes through the splash once per session (before anything paints, so there is no flash)
+  var file = location.pathname.split('/').pop() || 'index.html';
+  var seen = false; try { seen = sessionStorage.getItem('pl-intro-seen') === 'true'; } catch (e) {}
+  if (file === 'index.html' && !seen && !/[?&]skip/.test(location.search)) {
+    try { sessionStorage.setItem('pl-intro-seen', 'true'); } catch (e) {}
+    location.replace('splash.html' + (standalone ? '?app=1' : ''));
+  }
+})();
+</script>
+<link rel="stylesheet" href="ds/pathlink/tokens.css">
+<link rel="stylesheet" href="styles.css">
+<style>
+@font-face{font-family:"Thmanyah Sans";src:url("fonts/thmanyahsans-Bold.otf") format("opentype");font-weight:700;font-display:swap}
+body{margin:0}
+.splash{position:relative;width:390px;height:844px;overflow:hidden;background:#1F6FEB;color:#FFFFFF;font-family:'Thmanyah Sans',Tajawal,sans-serif;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:14px;direction:rtl;cursor:pointer}
+.splash .ring{position:absolute;border-radius:999px;border:1px solid rgba(255,255,255,0.16)}
+.splash .mark{width:88px;height:88px;border-radius:999px;background:#FFFFFF;color:#1F6FEB;display:flex;align-items:center;justify-content:center;animation:pl-pop .6s cubic-bezier(.34,1.56,.64,1) both}
+.splash .name{font-size:28px;font-weight:700;direction:ltr;animation:pl-up .5s .2s ease both}
+.splash .tag{font-size:14px;color:rgba(255,255,255,0.85);animation:pl-up .5s .35s ease both}
+@keyframes pl-pop{from{transform:scale(.6);opacity:0}to{transform:none;opacity:1}}
+@keyframes pl-up{from{transform:translateY(10px);opacity:0}to{transform:none;opacity:1}}
+@media (prefers-reduced-motion:reduce){.splash *{animation:none!important}}
+</style>
+</head>
+<body>
+<main class="stage">
+<div class="device">
+<div class="screen splash" role="button" aria-label="متابعة">
+<span class="ring" aria-hidden="true" style="width:520px;height:520px;top:-180px;left:-200px"></span>
+<span class="ring" aria-hidden="true" style="width:300px;height:300px;top:-60px;left:-80px"></span>
+<span class="ring" aria-hidden="true" style="width:420px;height:420px;bottom:-200px;right:-180px"></span>
+<span class="mark"><svg width="44" height="44" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5.47 9a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7ZM16.97 15h3c1.1 0 2 .9 2 2v3c0 1.1-.9 2-2 2h-3c-1.1 0-2-.9-2-2v-3c0-1.1.9-2 2-2Z" stroke-width="1.5"/><path d="M12 5h2.68c1.85 0 2.71 2.29 1.32 3.51L8.01 15.5C6.62 16.71 7.48 19 9.32 19H12" stroke-width="1.5"/></svg></span>
+<span class="name">Path Link</span>
+<span class="tag">كل خدماتك المهنية في مكان واحد</span>
+</div>
+</div>
+</main>
+<script src="app.js"></script>
+<script>
+if ('serviceWorker' in navigator && (location.protocol === 'https:' || location.hostname === 'localhost' || location.hostname === '127.0.0.1')) {
+  window.addEventListener('load', function () { navigator.serviceWorker.register('sw.js').catch(function () {}); });
+}
+</script></body>
+</html>

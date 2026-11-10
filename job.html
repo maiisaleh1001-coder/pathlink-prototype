@@ -1,0 +1,140 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#F9FAFB">
+<title>Path Link · تفاصيل الوظيفة</title>
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="apple-touch-icon" sizes="180x180" href="icons/apple-touch-icon.png">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="Path Link">
+<script>
+(function () {
+  // ?app=1 is the installed app's start_url; remember it for the session so later pages keep the app layout
+  var app = /[?&]app=1/.test(location.search);
+  try { if (app) sessionStorage.setItem('pl-app', '1'); else app = sessionStorage.getItem('pl-app') === '1'; } catch (e) {}
+  var standalone = (window.matchMedia && window.matchMedia('(display-mode: standalone)').matches) || window.navigator.standalone === true || app;
+  if (standalone) document.documentElement.classList.add('standalone');
+  // home goes through the splash once per session (before anything paints, so there is no flash)
+  var file = location.pathname.split('/').pop() || 'index.html';
+  var seen = false; try { seen = sessionStorage.getItem('pl-intro-seen') === 'true'; } catch (e) {}
+  if (file === 'index.html' && !seen && !/[?&]skip/.test(location.search)) {
+    try { sessionStorage.setItem('pl-intro-seen', 'true'); } catch (e) {}
+    location.replace('splash.html' + (standalone ? '?app=1' : ''));
+  }
+})();
+</script>
+<link rel="stylesheet" href="ds/pathlink/tokens.css">
+<link rel="stylesheet" href="styles.css">
+<style>
+@font-face{font-family:"Thmanyah Sans";src:url("fonts/thmanyahsans-Regular.otf") format("opentype");font-weight:400;font-display:swap}
+@font-face{font-family:"Thmanyah Sans";src:url("fonts/thmanyahsans-Medium.otf") format("opentype");font-weight:500;font-display:swap}
+@font-face{font-family:"Thmanyah Sans";src:url("fonts/thmanyahsans-Bold.otf") format("opentype");font-weight:700;font-display:swap}
+body{margin:0}
+a{color:#1F6FEB;text-decoration:none}a:hover{color:#0E2A47}
+.no-scrollbar{scrollbar-width:none;-ms-overflow-style:none}
+.no-scrollbar::-webkit-scrollbar{display:none;width:0;height:0}
+</style>
+</head>
+<body>
+<main class="stage">
+<div class="device">
+<div class="screen" style="position: relative; width: 390px; height: 844px; overflow: hidden; background: #F9FAFB; color: #15202B; font-family: 'Thmanyah Sans', Tajawal, sans-serif; direction: rtl;">
+
+  <div class="no-scrollbar" style="height: 100%; overflow-y: auto; box-sizing: border-box; padding: 18px 16px 120px; display: flex; flex-direction: column; gap: 14px;">
+
+    <div style="display: flex; align-items: center; gap: 10px;">
+      <a href="jobs.html" aria-label="رجوع" style="width: 42px; height: 42px; flex: none; border-radius: 999px; border: 1px solid #E8EBEF; background: #FFFFFF; color: #15202B; display: flex; align-items: center; justify-content: center;"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" data-iconsax="ArrowRight2"><path d="M8.91 19.92l6.52-6.52c.77-.77.77-2.03 0-2.8L8.91 4.08" stroke-width="1.5"></path></svg></a>
+      <span style="flex-grow: 1; text-align: center; font-size: 17px; font-weight: 700;">تفاصيل الوظيفة</span>
+      <a href="#" aria-label="مشاركة" style="width: 42px; height: 42px; flex: none; border-radius: 999px; border: 1px solid #E8EBEF; background: #FFFFFF; color: #15202B; display: flex; align-items: center; justify-content: center;"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" data-iconsax="Share"><path d="M16.96 6.17c2 1.39 3.38 3.6 3.66 6.15M3.49 12.37a8.601 8.601 0 0 1 3.6-6.15M8.19 20.94c1.16.59 2.48.92 3.87.92 1.34 0 2.6-.3 3.73-.85M12.06 7.7a2.78 2.78 0 1 0 0-5.56 2.78 2.78 0 0 0 0 5.56ZM4.83 19.92a2.78 2.78 0 1 0 0-5.56 2.78 2.78 0 0 0 0 5.56ZM19.170 19.92a2.78 2.78 0 1 0 0-5.56 2.78 2.78 0 0 0 0 5.56Z" stroke-width="1.5"></path></svg></a>
+    </div>
+
+    <div style="position: relative; display: flex; flex-direction: column; gap: 12px; padding: 18px; border-radius: 26px; background: #1F6FEB; color: #FFFFFF; overflow: hidden; height: 40px">
+      <span aria-hidden="true" style="position: absolute; top: -80px; left: -80px; width: 230px; height: 230px; border-radius: 999px; border: 1px solid rgba(255,255,255,0.18); background: rgba(255,255,255,0.05);"></span>
+      <span aria-hidden="true" style="position: absolute; top: -34px; left: -34px; width: 140px; height: 140px; border-radius: 999px; border: 1px solid rgba(255,255,255,0.18);"></span>
+      <span style="position: relative; width: 56px; height: 56px; border-radius: 999px; background: #FFFFFF; color: #1F6FEB; display: flex; align-items: center; justify-content: center; font-size: 22px; font-weight: 700;">م</span>
+      <span style="position: relative; display: flex; flex-direction: column; gap: 2px;">
+        <span style="font-size: 22px; line-height: 30px; font-weight: 700;">مصمم واجهات مستخدم</span>
+        <span style="display: flex; align-items: center; gap: 4px; font-size: 13px; color: rgba(255,255,255,0.88);">مدار للتقنية <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" data-iconsax="ShieldTick"><path d="M10.49 2.23 5.5 4.11c-1.15.43-2.09 1.79-2.09 3.01v7.43c0 1.18.78 2.73 1.73 3.44l4.3 3.21c1.41 1.06 3.73 1.06 5.14 0l4.3-3.21c.95-.71 1.73-2.26 1.73-3.44V7.12c0-1.23-.94-2.59-2.09-3.02l-4.99-1.87c-.85-.31-2.21-.31-3.04 0Z" stroke-width="1.5"></path><path d="m9.05 11.87 1.61 1.61 4.3-4.3" stroke-width="1.5"></path></svg> · الرياض</span>
+      </span>
+      <span style="position: relative; display: flex; gap: 6px; flex-wrap: wrap;">
+        <span style="display: flex; align-items: center; gap: 4px; height: 28px; padding: 0 10px; border-radius: 999px; border: 1px solid rgba(255,255,255,0.5); font-size: 12px;"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" data-iconsax="Clock"><path d="M22 12c0 5.52-4.48 10-10 10S2 17.52 2 12 6.48 2 12 2s10 4.48 10 10Z" stroke-width="1.5"></path><path d="m15.71 15.18-3.1-1.85c-.54-.32-.98-1.09-.98-1.72v-4.1" stroke-width="1.5"></path></svg>نُشرت منذ يومين</span>
+        <span style="display: flex; align-items: center; gap: 4px; height: 28px; padding: 0 10px; border-radius: 999px; background: #FFFFFF; color: #1E7F4F; font-size: 12px; font-weight: 500;"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" data-iconsax="TickCircle"><path d="M12 22c5.5 0 10-4.5 10-10S17.5 2 12 2 2 6.5 2 12s4.5 10 10 10Z" stroke-width="1.5"></path><path d="m7.75 12 2.83 2.83 5.67-5.66" stroke-width="1.5"></path></svg>تستقبل الطلبات</span>
+      </span>
+    </div>
+
+    <div style="display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); padding: 14px 6px; border-radius: 20px; background: #FFFFFF;">
+      <span style="display: flex; flex-direction: column; align-items: center; gap: 6px; text-align: center;">
+        <span style="width: 38px; height: 38px; border-radius: 999px; background: #E6EEFF; color: #1F6FEB; display: flex; align-items: center; justify-content: center;"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" data-iconsax="Timer1"><path d="M20.75 13.25c0 4.83-3.92 8.75-8.75 8.75s-8.75-3.92-8.75-8.75S7.17 4.5 12 4.5s8.75 3.92 8.75 8.75ZM12 8v5" stroke-width="1.5"></path><path d="M9 2h6" stroke-width="1.5"></path></svg></span>
+        <span style="font-size: 11px; color: #6B7684;">نوع الدوام</span>
+        <span style="font-size: 13px; font-weight: 700;">دوام كامل</span>
+      </span>
+      <span style="display: flex; flex-direction: column; align-items: center; gap: 6px; text-align: center; border-right: 1px solid #EEF0F3; border-left: 1px solid #EEF0F3;">
+        <span style="width: 38px; height: 38px; border-radius: 999px; background: #EFEAFD; color: #7C5CE6; display: flex; align-items: center; justify-content: center;"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" data-iconsax="Award"><path d="M4.26 11.02v4.97c0 1.82 0 1.82 1.72 2.98l4.73 2.730c.71.41 1.87.41 2.58 0l4.73-2.73c1.72-1.16 1.72-1.16 1.72-2.98v-4.97c0-1.82 0-1.82-1.72-2.98l-4.73-2.73c-.71-.41-1.87-.41-2.58 0L5.98 8.04C4.26 9.2 4.26 9.2 4.26 11.02Z" stroke-width="1.5"></path><path d="M17.5 7.63V5c0-2-1-3-3-3h-5c-2 0-3 1-3 3v2.56" stroke-width="1.5"></path></svg></span>
+        <span style="font-size: 11px; color: #6B7684;">الخبرة</span>
+        <span style="font-size: 13px; font-weight: 700;">+3 سنوات</span>
+      </span>
+      <span style="display: flex; flex-direction: column; align-items: center; gap: 6px; text-align: center;">
+        <span style="width: 38px; height: 38px; border-radius: 999px; background: #FCEFE3; color: #B4531C; display: flex; align-items: center; justify-content: center;"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" data-iconsax="Category"><path d="M5 10h2c2 0 3-1 3-3V5c0-2-1-3-3-3H5C3 2 2 3 2 5v2c0 2 1 3 3 3ZM17 10h2c2 0 3-1 3-3V5c0-2-1-3-3-3h-2c-2 0-3 1-3 3v2c0 2 1 3 3 3ZM17 22h2c2 0 3-1 3-3v-2c0-2-1-3-3-3h-2c-2 0-3 1-3 3v2c0 2 1 3 3 3ZM5 22h2c2 0 3-1 3-3v-2c0-2-1-3-3-3H5c-2 0-3 1-3 3v2c0 2 1 3 3 3Z" stroke-width="1.5"></path></svg></span>
+        <span style="font-size: 11px; color: #6B7684;">التصنيف</span>
+        <span style="font-size: 13px; font-weight: 700;">تصميم</span>
+      </span>
+    </div>
+
+    <div style="display: flex; align-items: center; gap: 14px; padding: 14px; border-radius: 20px; background: #FFFFFF;">
+      <span style="flex: none; width: 64px; height: 64px; border-radius: 999px; background: conic-gradient(#1F6FEB 0 86%, #E6EEFF 86% 100%); display: flex; align-items: center; justify-content: center;"><span style="width: 52px; height: 52px; border-radius: 999px; background: #FFFFFF; display: flex; align-items: center; justify-content: center; font-size: 15px; font-weight: 700; color: #1F6FEB;">86%</span></span>
+      <span style="display: flex; flex-direction: column; gap: 2px; min-width: 0;">
+        <span style="font-size: 15px; font-weight: 700;">توافقك مع الوظيفة</span>
+        <span style="font-size: 12px; line-height: 18px; color: #6B7684;">مهاراتك وخبراتك تطابق 6 من 7 متطلبات، بناءً على ملفك المهني.</span>
+      </span>
+    </div>
+
+    <div style="display: flex; flex-direction: column; gap: 8px; padding: 16px; border-radius: 20px; background: #FFFFFF;">
+      <span style="font-size: 15px; font-weight: 700;">الوصف الوظيفي</span>
+      <span style="font-size: 13px; line-height: 22px; color: #3F4A57;">نبحث عن مصمم واجهات مستخدم ينضم لفريق المنتج، ويعمل على تصميم تجارب تطبيقات الجوال والويب من الفكرة حتى التسليم للمطورين.</span>
+      <span style="font-size: 15px; font-weight: 700; margin-top: 8px;">المهام والمسؤوليات</span>
+      <span style="display: flex; flex-direction: column; gap: 6px; font-size: 13px; line-height: 21px; color: #3F4A57;">
+        <span>• تصميم الواجهات والنماذج التفاعلية للمنتجات الجديدة.</span>
+        <span>• بناء وتحديث نظام التصميم الخاص بالشركة.</span>
+        <span>• التعاون مع مديري المنتجات والمطورين في كل مرحلة.</span>
+      </span>
+    </div>
+
+    <div style="display: flex; flex-direction: column; gap: 10px; padding: 16px; border-radius: 20px; background: #FFFFFF;">
+      <span style="font-size: 15px; font-weight: 700;">المتطلبات والمؤهلات</span>
+      <span style="display: flex; align-items: center; gap: 8px; font-size: 13px; color: #15202B;"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" data-iconsax="TickCircle" style="color: #1F6FEB; flex: none;"><path d="M12 22c5.5 0 10-4.5 10-10S17.5 2 12 2 2 6.5 2 12s4.5 10 10 10Z" stroke-width="1.5"></path><path d="m7.75 12 2.83 2.83 5.67-5.66" stroke-width="1.5"></path></svg>بكالوريوس في التصميم أو مجال مرتبط</span>
+      <span style="display: flex; align-items: center; gap: 8px; font-size: 13px; color: #15202B;"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" data-iconsax="TickCircle" style="color: #1F6FEB; flex: none;"><path d="M12 22c5.5 0 10-4.5 10-10S17.5 2 12 2 2 6.5 2 12s4.5 10 10 10Z" stroke-width="1.5"></path><path d="m7.75 12 2.83 2.83 5.67-5.66" stroke-width="1.5"></path></svg>خبرة 3 سنوات في تصميم المنتجات الرقمية</span>
+      <span style="display: flex; align-items: center; gap: 8px; font-size: 13px; color: #15202B;"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" data-iconsax="TickCircle" style="color: #1F6FEB; flex: none;"><path d="M12 22c5.5 0 10-4.5 10-10S17.5 2 12 2 2 6.5 2 12s4.5 10 10 10Z" stroke-width="1.5"></path><path d="m7.75 12 2.83 2.83 5.67-5.66" stroke-width="1.5"></path></svg>إتقان Figma وأدوات النماذج التفاعلية</span>
+      <span style="display: flex; align-items: center; gap: 8px; font-size: 13px; color: #6B7684;"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" data-iconsax="InfoCircle" style="color: #A0A8B3; flex: none;"><path d="M12 22c5.5 0 10-4.5 10-10S17.5 2 12 2 2 6.5 2 12s4.5 10 10 10ZM12 8v5" stroke-width="1.5"></path><path d="M11.995 16h.009" stroke-width="2"></path></svg><span style="flex-grow: 1;">خبرة في أبحاث المستخدمين</span><span style="font-size: 11px; color: #8A5A00; background: #FDF3DC; padding: 2px 8px; border-radius: 999px;">ليست في ملفك</span></span>
+    </div>
+
+    <a href="#" style="display: flex; align-items: center; gap: 12px; padding: 14px; border-radius: 20px; background: #FFFFFF; color: #15202B;">
+      <span style="width: 44px; height: 44px; flex: none; border-radius: 999px; background: #E6EEFF; color: #1F6FEB; display: flex; align-items: center; justify-content: center; font-size: 17px; font-weight: 700;">م</span>
+      <span style="display: flex; flex-direction: column; flex-grow: 1; min-width: 0;">
+        <span style="display: flex; align-items: center; gap: 4px; font-size: 14px; font-weight: 500;">مدار للتقنية <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" data-iconsax="ShieldTick" style="color: #1F6FEB;"><path d="M10.49 2.23 5.5 4.11c-1.15.43-2.09 1.79-2.09 3.01v7.43c0 1.18.78 2.73 1.73 3.44l4.3 3.21c1.41 1.06 3.73 1.06 5.14 0l4.3-3.21c.95-.71 1.73-2.26 1.73-3.44V7.12c0-1.23-.94-2.59-2.09-3.02l-4.99-1.87c-.85-.31-2.21-.31-3.04 0Z" stroke-width="1.5"></path><path d="m9.05 11.87 1.61 1.61 4.3-4.3" stroke-width="1.5"></path></svg></span>
+        <span style="font-size: 12px; color: #6B7684;">شركة معتمدة · 8 وظائف متاحة</span>
+      </span>
+      <span style="flex: none; width: 36px; height: 36px; border-radius: 999px; border: 1px solid #E8EBEF; display: flex; align-items: center; justify-content: center;"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" data-iconsax="ArrowLeft2"><path d="M15 19.92 8.48 13.4c-.77-.77-.77-2.03 0-2.8L15 4.08" stroke-width="1.5"></path></svg></span>
+    </a>
+
+  </div>
+
+  <div style="position: absolute; right: 0; left: 0; bottom: 0; display: flex; align-items: center; gap: 10px; padding: 14px 16px 26px; background: #FFFFFF; box-shadow: 0 -6px 18px rgba(21,32,43,0.08); border-radius: 26px 26px 0 0;">
+    <a href="#" aria-label="حفظ الوظيفة" style="flex: none; width: 54px; height: 54px; border-radius: 999px; border: 1px solid #E8EBEF; color: #15202B; display: flex; align-items: center; justify-content: center;"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" data-iconsax="Bookmark"><path d="M9 22h6c5 0 7-2 7-7V9c0-5-2-7-7-7H9C4 2 2 4 2 9v6c0 5 2 7 7 7Z" stroke-width="1.5"></path><path d="M17 2.44v9.98c0 1.97-1.41 2.74-3.14 1.7l-1.32-.79c-.3-.18-.78-.18-1.08 0l-1.32.79C8.41 15.15 7 14.39 7 12.42V2.44" stroke-width="1.5"></path></svg></a>
+    <a href="job-apply.html" style="flex-grow: 1; height: 54px; border-radius: 999px; background: #1F6FEB; color: #FFFFFF; font-size: 15px; font-weight: 700; display: flex; align-items: center; justify-content: space-between; padding: 0 22px 0 6px;">قدّم على الوظيفة <span style="width: 42px; height: 42px; border-radius: 999px; background: #FFFFFF; color: #1F6FEB; display: flex; align-items: center; justify-content: center;"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" data-iconsax="ArrowLeft2"><path d="M15 19.92 8.48 13.4c-.77-.77-.77-2.03 0-2.8L15 4.08" stroke-width="1.5"></path></svg></span></a>
+  </div>
+
+</div>
+</div>
+</main>
+<script src="app.js"></script>
+<script>
+if ('serviceWorker' in navigator && (location.protocol === 'https:' || location.hostname === 'localhost' || location.hostname === '127.0.0.1')) {
+  window.addEventListener('load', function () { navigator.serviceWorker.register('sw.js').catch(function () {}); });
+}
+</script></body>
+</html>

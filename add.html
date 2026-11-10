@@ -1,0 +1,106 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#F9FAFB">
+<title>Path Link · ماذا تريد أن تنشر</title>
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="apple-touch-icon" sizes="180x180" href="icons/apple-touch-icon.png">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="Path Link">
+<script>
+(function () {
+  // ?app=1 is the installed app's start_url; remember it for the session so later pages keep the app layout
+  var app = /[?&]app=1/.test(location.search);
+  try { if (app) sessionStorage.setItem('pl-app', '1'); else app = sessionStorage.getItem('pl-app') === '1'; } catch (e) {}
+  var standalone = (window.matchMedia && window.matchMedia('(display-mode: standalone)').matches) || window.navigator.standalone === true || app;
+  if (standalone) document.documentElement.classList.add('standalone');
+  // home goes through the splash once per session (before anything paints, so there is no flash)
+  var file = location.pathname.split('/').pop() || 'index.html';
+  var seen = false; try { seen = sessionStorage.getItem('pl-intro-seen') === 'true'; } catch (e) {}
+  if (file === 'index.html' && !seen && !/[?&]skip/.test(location.search)) {
+    try { sessionStorage.setItem('pl-intro-seen', 'true'); } catch (e) {}
+    location.replace('splash.html' + (standalone ? '?app=1' : ''));
+  }
+})();
+</script>
+<link rel="stylesheet" href="ds/pathlink/tokens.css">
+<link rel="stylesheet" href="styles.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700&amp;display=swap">
+<style>
+body{margin:0}
+a{color:#1F6FEB;text-decoration:none}a:hover{color:#0E2A47}
+</style>
+</head>
+<body>
+<main class="stage">
+<div class="device">
+<div class="screen" style="width: 390px; height: 844px; box-sizing: border-box; display: flex; flex-direction: column; justify-content: flex-end; background: rgba(14,42,71,0.45); color: var(--ink); font-family: var(--font-sans); direction: rtl;">
+
+  <div role="dialog" aria-label="ماذا تريد أن تنشر؟" style="display: flex; flex-direction: column; gap: 8px; padding: 10px 16px 28px; border-radius: 20px 20px 0 0; background: var(--surface); box-shadow: var(--shadow-sheet);">
+    <span style="align-self: center; width: 40px; height: 4px; border-radius: 999px; background: var(--border-strong);"></span>
+    <div style="display: flex; align-items: center; gap: 8px; padding: 6px 0 4px;">
+      <span style="font-size: 20px; line-height: 30px; font-weight: 700; flex-grow: 1;">ماذا تريد أن تنشر؟</span>
+      <a href="./?skip=1" aria-label="إغلاق" style="width: 40px; height: 40px; border-radius: 999px; background: var(--surface-alt); color: var(--ink); display: flex; align-items: center; justify-content: center;"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" data-iconsax="Close"><path d="M7.76 16.24l8.48-8.48M16.24 16.24 7.76 7.76" stroke-width="1.5"/></svg></a>
+    </div>
+
+    <a href="#" style="display: flex; align-items: center; gap: 12px; padding: 12px 0; border-bottom: 1px solid var(--border); color: var(--ink);">
+      <span style="width: 44px; height: 44px; flex: none; border-radius: 12px; background: var(--svc-jobs-bg); color: var(--svc-jobs); display: flex; align-items: center; justify-content: center;"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" data-iconsax="Briefcase"><path d="M8 22h8c4.02 0 4.74-1.61 4.95-3.57l.75-8C21.970 7.99 21.27 6 17 6H7c-4.27 0-4.97 1.99-4.7 4.43l.75 8C3.26 20.39 3.98 22 8 22ZM8 6v-.8C8 3.43 8 2 11.2 2h1.6C16 2 16 3.43 16 5.2V6" stroke-width="1.5"/><path d="M14 13v1.02c0 1.09-.01 1.98-2 1.98-1.98 0-2-.88-2-1.97V13c0-1 0-1 1-1h2c1 0 1 0 1 1ZM21.65 11A16.484 16.484 0 0 1 14 14.02M2.62 11.27c2.250 1.54 4.79 2.47 7.38 2.76" stroke-width="1.5"/></svg></span>
+      <span style="display: flex; flex-direction: column; gap: 4px; flex-grow: 1; min-width: 0;">
+        <span style="font-size: 16px; line-height: 24px; font-weight: 500;">وظيفة</span>
+        <span style="align-self: flex-start; display: flex; align-items: center; gap: 4px; padding: 0 8px; border-radius: 6px; background: var(--warning-bg); color: var(--warning); font-size: 12px; line-height: 20px; font-weight: 500;"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" data-iconsax="Warning2"><path d="M12 7.75V13M21.08 8.58v6.84c0 1.12-.6 2.16-1.57 2.73l-5.94 3.43c-.97.56-2.17.56-3.15 0l-5.94-3.43a3.15 3.15 0 0 1-1.57-2.73V8.58c0-1.12.6-2.16 1.57-2.73l5.94-3.43c.97-.56 2.17-.56 3.15 0l5.94 3.43c.97.57 1.57 1.6 1.57 2.73Z" stroke-width="1.5"/><path d="M12 16.2v.1" stroke-width="2"/></svg>يتطلب اشتراكًا فعّالًا</span>
+      </span>
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" data-iconsax="ArrowLeft2" style="color: var(--ink-muted); flex: none;"><path d="M15 19.92 8.48 13.4c-.77-.77-.77-2.03 0-2.8L15 4.08" stroke-width="1.5"/></svg>
+    </a>
+
+    <a href="#" style="display: flex; align-items: center; gap: 12px; padding: 12px 0; border-bottom: 1px solid var(--border); color: var(--ink);">
+      <span style="width: 44px; height: 44px; flex: none; border-radius: 12px; background: var(--svc-freelance-bg); color: var(--svc-freelance); display: flex; align-items: center; justify-content: center;"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" data-iconsax="Code"><path d="M9 13c-.66.33-1.21.82-1.62 1.43-.23.35-.23.79 0 1.14.41.61.96 1.1 1.62 1.43M15.21 13c.66.33 1.21.82 1.62 1.43.23.35.23.79 0 1.14-.41.61-.96 1.1-1.62 1.43" stroke-width="1.5"/><path d="M9 22h6c5 0 7-2 7-7V9c0-5-2-7-7-7H9C4 2 2 4 2 9v6c0 5 2 7 7 7ZM2.23 8.01 21.45 8" stroke-width="1.5"/></svg></span>
+      <span style="display: flex; flex-direction: column; gap: 4px; flex-grow: 1; min-width: 0;">
+        <span style="font-size: 16px; line-height: 24px; font-weight: 500;">خدمة عمل حر</span>
+        <span style="align-self: flex-start; display: flex; align-items: center; gap: 4px; padding: 0 8px; border-radius: 6px; background: var(--warning-bg); color: var(--warning); font-size: 12px; line-height: 20px; font-weight: 500;"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" data-iconsax="Warning2"><path d="M12 7.75V13M21.08 8.58v6.84c0 1.12-.6 2.16-1.57 2.73l-5.94 3.43c-.97.56-2.17.56-3.15 0l-5.94-3.43a3.15 3.15 0 0 1-1.57-2.73V8.58c0-1.12.6-2.16 1.57-2.73l5.94-3.43c.97-.56 2.17-.56 3.15 0l5.94 3.43c.97.57 1.57 1.6 1.57 2.73Z" stroke-width="1.5"/><path d="M12 16.2v.1" stroke-width="2"/></svg>أكمل ملفك المهني أولًا</span>
+      </span>
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" data-iconsax="ArrowLeft2" style="color: var(--ink-muted); flex: none;"><path d="M15 19.92 8.48 13.4c-.77-.77-.77-2.03 0-2.8L15 4.08" stroke-width="1.5"/></svg>
+    </a>
+
+    <a href="#" style="display: flex; align-items: center; gap: 12px; padding: 12px 0; border-bottom: 1px solid var(--border); color: var(--ink);">
+      <span style="width: 44px; height: 44px; flex: none; border-radius: 12px; background: var(--svc-freelance-bg); color: var(--svc-freelance); display: flex; align-items: center; justify-content: center;"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" data-iconsax="DocumentText"><path d="M21 7v10c0 3-1.5 5-5 5H8c-3.5 0-5-2-5-5V7c0-3 1.5-5 5-5h8c3.5 0 5 2 5 5Z" stroke-width="1.5"/><path d="M14.5 4.5v2c0 1.1.9 2 2 2h2M8 13h4M8 17h8" stroke-width="1.5"/></svg></span>
+      <span style="display: flex; flex-direction: column; gap: 4px; flex-grow: 1; min-width: 0;">
+        <span style="font-size: 16px; line-height: 24px; font-weight: 500;">مشروع</span>
+        <span style="font-size: 13px; line-height: 20px; color: var(--ink-muted);">انشر مشروعك واستقبل عروض المستقلين</span>
+      </span>
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" data-iconsax="ArrowLeft2" style="color: var(--ink-muted); flex: none;"><path d="M15 19.92 8.48 13.4c-.77-.77-.77-2.03 0-2.8L15 4.08" stroke-width="1.5"/></svg>
+    </a>
+
+    <a href="#" style="display: flex; align-items: center; gap: 12px; padding: 12px 0; border-bottom: 1px solid var(--border); color: var(--ink);">
+      <span style="width: 44px; height: 44px; flex: none; border-radius: 12px; background: var(--svc-consult-bg); color: var(--svc-consult); display: flex; align-items: center; justify-content: center;"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" data-iconsax="Headphone"><path d="M5.46 18.49v-2.92c0-.97.76-1.84 1.84-1.84.97 0 1.84.76 1.84 1.84v2.81c0 1.95-1.62 3.57-3.57 3.57-1.95 0-3.57-1.63-3.57-3.57v-6.16C1.89 6.6 6.33 2.05 11.95 2.05 17.57 2.05 22 6.6 22 12.11v6.16c0 1.95-1.62 3.57-3.57 3.57-1.95 0-3.57-1.620-3.57-3.57v-2.81c0-.97.76-1.84 1.84-1.84.97 0 1.84.76 1.84 1.84v3.03" stroke-width="1.5"/></svg></span>
+      <span style="display: flex; flex-direction: column; gap: 4px; flex-grow: 1; min-width: 0;">
+        <span style="font-size: 16px; line-height: 24px; font-weight: 500;">استشارة</span>
+        <span style="align-self: flex-start; display: flex; align-items: center; gap: 4px; padding: 0 8px; border-radius: 6px; background: var(--warning-bg); color: var(--warning); font-size: 12px; line-height: 20px; font-weight: 500;"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" data-iconsax="Clock"><path d="M22 12c0 5.52-4.48 10-10 10S2 17.52 2 12 6.48 2 12 2s10 4.48 10 10Z" stroke-width="1.5"/><path d="m15.71 15.18-3.1-1.85c-.54-.32-.98-1.09-.98-1.72v-4.1" stroke-width="1.5"/></svg>ملفك كمستشار قيد الاعتماد</span>
+      </span>
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" data-iconsax="ArrowLeft2" style="color: var(--ink-muted); flex: none;"><path d="M15 19.92 8.48 13.4c-.77-.77-.77-2.03 0-2.8L15 4.08" stroke-width="1.5"/></svg>
+    </a>
+
+    <a href="#" style="display: flex; align-items: center; gap: 12px; padding: 12px 0; color: var(--ink);">
+      <span style="width: 44px; height: 44px; flex: none; border-radius: 12px; background: var(--svc-courses-bg); color: var(--svc-courses); display: flex; align-items: center; justify-content: center;"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" data-iconsax="Teacher"><path d="M10.05 2.53 4.03 6.46c-1.93 1.26-1.93 4.08 0 5.34l6.02 3.93c1.08.71 2.86.71 3.94 0l5.99-3.93c1.92-1.26 1.92-4.07 0-5.33l-5.99-3.93c-1.08-.72-2.86-.72-3.94-.01Z" stroke-width="1.5"/><path d="m5.63 13.08-.01 4.69c0 1.27.98 2.63 2.18 3.03l3.19 1.06c.55.18 1.46.18 2.02 0l3.19-1.06c1.2-.4 2.18-1.76 2.18-3.03v-4.64M21.4 15V9" stroke-width="1.5"/></svg></span>
+      <span style="display: flex; flex-direction: column; gap: 4px; flex-grow: 1; min-width: 0;">
+        <span style="font-size: 16px; line-height: 24px; font-weight: 500;">كورس</span>
+        <span style="align-self: flex-start; display: flex; align-items: center; gap: 4px; padding: 0 8px; border-radius: 6px; background: var(--navy-50); color: var(--navy-900); font-size: 12px; line-height: 20px; font-weight: 500;"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" data-iconsax="InfoCircle"><path d="M12 22c5.5 0 10-4.5 10-10S17.5 2 12 2 2 6.5 2 12s4.5 10 10 10ZM12 8v5" stroke-width="1.5"/><path d="M11.995 16h.009" stroke-width="2"/></svg>احفظه كمسودة حتى اعتماد ملفك</span>
+      </span>
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" data-iconsax="ArrowLeft2" style="color: var(--ink-muted); flex: none;"><path d="M15 19.92 8.48 13.4c-.77-.77-.77-2.03 0-2.8L15 4.08" stroke-width="1.5"/></svg>
+    </a>
+  </div>
+
+</div>
+</div>
+</main>
+<script src="app.js"></script>
+<script>
+if ('serviceWorker' in navigator && (location.protocol === 'https:' || location.hostname === 'localhost' || location.hostname === '127.0.0.1')) {
+  window.addEventListener('load', function () { navigator.serviceWorker.register('sw.js').catch(function () {}); });
+}
+</script></body>
+</html>
