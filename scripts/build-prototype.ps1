@@ -45,7 +45,28 @@ $pages = @(
   @('ConsultantProfile.dc.html', 'consultant-profile.html','Path Link · ملف المستشار'),
   @('ConsultantDash.dc.html',    'consultant.html',      'Path Link · لوحة المستشار'),
   @('AddConsult.dc.html',        'add-consult.html',     'Path Link · إضافة استشارة'),
-  @('Availability.dc.html',      'availability.html',    'Path Link · جدول الإتاحة')
+  @('Availability.dc.html',      'availability.html',    'Path Link · جدول الإتاحة'),
+  @('FreelanceHome.dc.html',     'freelance.html',       'Path Link · العمل الحر'),
+  @('ServiceDetail.dc.html',     'service.html',         'Path Link · تفاصيل الخدمة'),
+  @('ServiceCheckout.dc.html',   'service-checkout.html','Path Link · ملخص الطلب'),
+  @('PostProject.dc.html',       'post-project.html',    'Path Link · نشر مشروع'),
+  @('MyProjects.dc.html',        'my-projects.html',     'Path Link · مشاريعي'),
+  @('ProjectOffers.dc.html',     'project-offers.html',  'Path Link · العروض المستلمة'),
+  @('AcceptOffer.dc.html',       'accept-offer.html',    'Path Link · قبول العرض'),
+  @('FreeOrders.dc.html',        'free-orders.html',     'Path Link · طلبات العمل الحر'),
+  @('FreeOrderDetail.dc.html',   'free-order.html',      'Path Link · تفاصيل الطلب'),
+  @('RequestRevision.dc.html',   'request-revision.html','Path Link · طلب تعديل'),
+  @('OrderChat.dc.html',         'order-chat.html',      'Path Link · محادثة الطلب'),
+  @('RateFreelancer.dc.html',    'rate-freelancer.html', 'Path Link · تقييم المستقل'),
+  @('FreelancerProfile.dc.html', 'freelancer-profile.html','Path Link · ملف المستقل'),
+  @('FreelancerDash.dc.html',    'freelancer.html',      'Path Link · لوحة المستقل'),
+  @('AddService.dc.html',        'add-service.html',     'Path Link · نشر خدمة'),
+  @('ProjectsBrowse.dc.html',    'projects.html',        'Path Link · المشاريع المفتوحة'),
+  @('ProjectDetail.dc.html',     'project.html',         'Path Link · تفاصيل المشروع'),
+  @('SubmitOffer.dc.html',       'submit-offer.html',    'Path Link · تقديم عرض'),
+  @('MyOffers.dc.html',          'my-offers.html',       'Path Link · عروضي'),
+  @('FreelancerOrder.dc.html',   'freelancer-order.html','Path Link · طلب للتنفيذ'),
+  @('DeliverWork.dc.html',       'deliver.html',         'Path Link · تسليم العمل')
 )
 # uploaded canvas fonts -> repo fonts/
 $blobs = @{

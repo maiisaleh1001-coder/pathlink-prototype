@@ -99,7 +99,7 @@
   initControls(document);
 
   // ---------- bottom sheets open over the current page (overlay + slide up), not as a new screen ----------
-  var SHEETS = { 'add.html': 1, 'job-filter.html': 1, 'job-apply.html': 1, 'freelance-filter.html': 1, 'consult-filter.html': 1, 'course-filter.html': 1, 'orders-filter.html': 1, 'reschedule.html': 1 };
+  var SHEETS = { 'add.html': 1, 'job-filter.html': 1, 'job-apply.html': 1, 'freelance-filter.html': 1, 'consult-filter.html': 1, 'course-filter.html': 1, 'orders-filter.html': 1, 'reschedule.html': 1, 'accept-offer.html': 1, 'request-revision.html': 1 };
   var SHEET_CSS = '.pl-wrap{position:absolute;inset:0;font-family:"Thmanyah Sans",Tajawal,sans-serif;direction:rtl}' +
     '.pl-backdrop{position:absolute;inset:0;background:rgba(14,26,43,.48);opacity:0;transition:opacity .25s ease}' +
     '.pl-sheet{position:absolute;left:0;right:0;bottom:0;max-height:92%;overflow-y:auto;scrollbar-width:none;transform:translateY(100%);transition:transform .32s cubic-bezier(.2,.8,.2,1)}' +
@@ -116,6 +116,8 @@
       var doc = new DOMParser().parseFromString(text, 'text/html');
       var dialog = doc.querySelector('[role="dialog"]');
       if (!dialog) { location.href = file; return; }
+      var closeBtn = dialog.querySelector('a[aria-label="إغلاق"]');
+      var parentOf = closeBtn ? fileOf(closeBtn.getAttribute('href')) : page;
       var host = document.createElement('div');
       host.className = 'proto-sheet-host';
       var root = host.attachShadow({ mode: 'open' });
@@ -138,7 +140,7 @@
           toast(label && label.length <= 24 ? '«' + label + '» قيد التصميم' : 'هذه الشاشة قيد التصميم');
           return;
         }
-        if (fileOf(h) === page) { // links back to the page underneath close the sheet
+        if (fileOf(h) === page || fileOf(h) === parentOf) { // links back to the page underneath (or the sheet's own parent) close the sheet
           e.preventDefault();
           close();
           if (a.hasAttribute('data-toast')) toast(a.getAttribute('data-toast'));

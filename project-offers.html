@@ -1,0 +1,191 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#F9FAFB">
+<title>Path Link · العروض المستلمة</title>
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="apple-touch-icon" sizes="180x180" href="icons/apple-touch-icon.png">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="Path Link">
+<script>
+(function () {
+  // ?app=1 is the installed app's start_url; remember it for the session so later pages keep the app layout
+  var app = /[?&]app=1/.test(location.search);
+  try { if (app) sessionStorage.setItem('pl-app', '1'); else app = sessionStorage.getItem('pl-app') === '1'; } catch (e) {}
+  var standalone = (window.matchMedia && window.matchMedia('(display-mode: standalone)').matches) || window.navigator.standalone === true || app;
+  if (standalone) document.documentElement.classList.add('standalone');
+  // home goes through the splash once per session (before anything paints, so there is no flash)
+  var file = location.pathname.split('/').pop() || 'index.html';
+  var seen = false; try { seen = sessionStorage.getItem('pl-intro-seen') === 'true'; } catch (e) {}
+  if (file === 'index.html' && !seen && !/[?&]skip/.test(location.search)) {
+    try { sessionStorage.setItem('pl-intro-seen', 'true'); } catch (e) {}
+    location.replace('splash.html' + (standalone ? '?app=1' : ''));
+  }
+})();
+</script>
+<link rel="stylesheet" href="ds/pathlink/tokens.css">
+<link rel="stylesheet" href="styles.css">
+<style>
+@font-face{font-family:"Thmanyah Sans";src:url("fonts/thmanyahsans-Regular.otf") format("opentype");font-weight:400;font-display:swap}
+@font-face{font-family:"Thmanyah Sans";src:url("fonts/thmanyahsans-Medium.otf") format("opentype");font-weight:500;font-display:swap}
+@font-face{font-family:"Thmanyah Sans";src:url("fonts/thmanyahsans-Bold.otf") format("opentype");font-weight:700;font-display:swap}
+body{margin:0}
+a{color:#1F6FEB;text-decoration:none}a:hover{color:#0E2A47}
+.scr{position:relative;width:390px;height:844px;overflow:hidden;background:#F9FAFB;color:#15202B;font-family:'Thmanyah Sans',Tajawal,sans-serif;direction:rtl}
+.scroll{height:100%;overflow-y:auto;box-sizing:border-box;padding:18px 16px 120px;display:flex;flex-direction:column;gap:14px;scrollbar-width:none}
+.scroll::-webkit-scrollbar{display:none}
+.scroll > *{flex-shrink:0}
+.bar{display:flex;align-items:center;gap:10px}
+.ib{width:42px;height:42px;flex:none;border-radius:999px;border:1px solid #E8EBEF;background:#FFFFFF;color:#15202B;display:flex;align-items:center;justify-content:center;box-sizing:border-box}
+.ttl{flex-grow:1;text-align:center;font-size:17px;font-weight:700}
+.card{background:#FFFFFF;border-radius:20px;padding:16px;display:flex;flex-direction:column;gap:10px;color:#15202B}
+.h{font-size:15px;font-weight:700}
+.sec{font-size:17px;font-weight:700}
+.sub{font-size:12px;color:#6B7684;line-height:18px}
+.txt{font-size:13px;line-height:22px;color:#3F4A57}
+.row{display:flex;align-items:center;gap:12px}
+.grow{flex-grow:1;min-width:0;display:flex;flex-direction:column}
+.av{width:44px;height:44px;flex:none;border-radius:999px;display:flex;align-items:center;justify-content:center;font-size:17px;font-weight:700}
+.pill{display:inline-flex;align-items:center;gap:4px;height:24px;padding:0 10px;border-radius:999px;font-size:12px;font-weight:500;white-space:nowrap;flex:none}
+.p-ok{background:#E6F4EC;color:#1E7F4F}.p-warn{background:#FDF3DC;color:#8A5A00}.p-bad{background:#FCEBEA;color:#C2362F}.p-info{background:#E6EEFF;color:#1F6FEB}.p-mute{background:#F2F4F7;color:#3F4A57}.p-auto{background:#EFEAFD;color:#5B3FA8}
+.chips{display:flex;flex-wrap:wrap;gap:8px}
+.chip{height:36px;padding:0 14px;border-radius:999px;border:1px solid #E8EBEF;background:#FFFFFF;color:#15202B;font-size:13px;display:inline-flex;align-items:center;gap:6px;box-sizing:border-box;cursor:pointer}
+.chip.on{background:#1F6FEB;border-color:#1F6FEB;color:#FFFFFF;font-weight:700}
+.tag{height:26px;padding:0 10px;border-radius:999px;background:#F2F4F7;font-size:12px;display:inline-flex;align-items:center;gap:4px}
+.lbl{font-size:13px;font-weight:700}
+.field{height:48px;border-radius:14px;border:1px solid #E8EBEF;background:#FFFFFF;display:flex;align-items:center;gap:8px;padding:0 14px;font-size:14px;color:#15202B;box-sizing:border-box}
+.field .ph{color:#8A94A0;flex-grow:1}
+.field .v{flex-grow:1}
+.area{min-height:92px;border-radius:14px;border:1px solid #E8EBEF;background:#FFFFFF;padding:12px 14px;font-size:14px;line-height:22px;color:#15202B;box-sizing:border-box}
+.fg{display:flex;flex-direction:column;gap:8px}
+.btn{height:54px;border-radius:999px;background:#1F6FEB;color:#FFFFFF;font-size:15px;font-weight:700;display:flex;align-items:center;justify-content:center;gap:8px;border:0;font-family:inherit;cursor:pointer}
+.btn2{height:54px;border-radius:999px;border:1px solid #E8EBEF;background:#FFFFFF;color:#15202B;font-size:15px;font-weight:700;display:flex;align-items:center;justify-content:center;gap:8px;box-sizing:border-box;font-family:inherit;cursor:pointer}
+.btn-s{height:36px;padding:0 14px;border-radius:999px;background:#1F6FEB;color:#FFFFFF;font-size:13px;font-weight:700;display:inline-flex;align-items:center;gap:6px;flex:none}
+.btn-s2{height:36px;padding:0 14px;border-radius:999px;border:1px solid #E8EBEF;background:#FFFFFF;color:#15202B;font-size:13px;font-weight:700;display:inline-flex;align-items:center;gap:6px;flex:none;box-sizing:border-box}
+.foot{position:absolute;right:0;left:0;bottom:0;display:flex;gap:10px;padding:14px 16px 26px;background:#FFFFFF;box-shadow:0 -6px 18px rgba(21,32,43,.08);border-radius:26px 26px 0 0}
+.foot > *{flex:1}
+.hero{position:relative;overflow:hidden;border-radius:26px;padding:18px;background:#1F6FEB;color:#FFFFFF;display:flex;flex-direction:column;gap:10px}
+.hero::before{content:"";position:absolute;top:-80px;left:-80px;width:230px;height:230px;border-radius:999px;border:1px solid rgba(255,255,255,.18);background:rgba(255,255,255,.05)}
+.hero::after{content:"";position:absolute;top:-34px;left:-34px;width:140px;height:140px;border-radius:999px;border:1px solid rgba(255,255,255,.18)}
+.hero > *{position:relative;z-index:1}
+.hero .sub{color:rgba(255,255,255,.85)}
+.ring{width:64px;height:64px;flex:none;border-radius:999px;display:flex;align-items:center;justify-content:center}
+.ring > span{width:52px;height:52px;border-radius:999px;background:#FFFFFF;display:flex;align-items:center;justify-content:center;font-size:15px;font-weight:700;color:#1F6FEB}
+.ring.sm{width:46px;height:46px}.ring.sm > span{width:36px;height:36px;font-size:12px}
+.seg{display:flex;padding:4px;border-radius:999px;background:#EEF0F3}
+.seg a{flex:1;height:36px;border-radius:999px;display:flex;align-items:center;justify-content:center;font-size:13px;color:#3F4A57}
+.seg a.on{background:#FFFFFF;color:#15202B;font-weight:700;box-shadow:0 1px 3px rgba(21,32,43,.12)}
+.tog{width:46px;height:28px;border-radius:999px;background:#1F6FEB;position:relative;flex:none;cursor:pointer;border:0;padding:0}
+.tog::after{content:"";position:absolute;top:3px;left:3px;width:22px;height:22px;border-radius:999px;background:#FFFFFF;transition:all .2s}
+.tog.off{background:#D5DAE1}.tog.off::after{left:21px}
+.dv{height:1px;background:#EEF0F3;flex:none}
+.ic{width:38px;height:38px;flex:none;border-radius:999px;display:flex;align-items:center;justify-content:center}
+.note{display:flex;align-items:flex-start;gap:8px;padding:10px 12px;border-radius:14px;font-size:12px;line-height:19px}
+.n-info{background:#E6EEFF;color:#1A4F9C}.n-warn{background:#FDF3DC;color:#8A5A00}.n-ok{background:#E6F4EC;color:#1E7F4F}
+.rail{display:flex;gap:8px;overflow-x:auto;margin:0 -16px;padding:0 16px;scrollbar-width:none;flex:none}
+.rail::-webkit-scrollbar{display:none}
+.rail > *{flex:none}
+.sheet{position:absolute;right:0;left:0;bottom:0;display:flex;flex-direction:column;gap:14px;padding:10px 16px 26px;border-radius:28px 28px 0 0;background:#FFFFFF;max-height:88%;box-sizing:border-box;overflow-y:auto;scrollbar-width:none}
+.handle{align-self:center;width:40px;height:4px;border-radius:999px;background:#DADDE2;flex:none}
+.dim{position:absolute;inset:0;background:rgba(14,26,43,.48)}
+.tl{display:flex;flex-direction:column;gap:0}
+.tl > div{display:flex;gap:12px;align-items:flex-start;padding-bottom:16px;position:relative}
+.tl > div:not(:last-child)::before{content:"";position:absolute;right:11px;top:24px;bottom:0;width:2px;background:#E8EBEF}
+.tl > div.done:not(:last-child)::before{background:#1F6FEB}
+.dot{width:24px;height:24px;flex:none;border-radius:999px;background:#E8EBEF;color:#FFFFFF;display:flex;align-items:center;justify-content:center;position:relative;z-index:1}
+.done .dot{background:#1F6FEB}
+.now .dot{background:#FFFFFF;border:2px solid #1F6FEB;box-sizing:border-box}
+.range{position:relative;height:28px;margin:0 11px}
+.range .tr{position:absolute;left:0;right:0;top:12px;height:4px;border-radius:999px;background:#E8EBEF}
+.range .sel{position:absolute;top:12px;height:4px;border-radius:999px;background:#1F6FEB}
+.range .kn{position:absolute;top:3px;width:22px;height:22px;margin-right:-11px;border-radius:999px;background:#FFFFFF;border:2px solid #1F6FEB;box-sizing:border-box;box-shadow:0 2px 6px rgba(21,32,43,.15)}
+.minmax{display:flex;gap:10px;align-items:center}.minmax .field{flex:1;height:44px}
+.search{height:48px;border-radius:999px;border:1.5px solid #1F6FEB;background:#FFFFFF;display:flex;align-items:center;gap:8px;padding:0 16px;box-sizing:border-box;flex-grow:1;color:#6B7684}
+.search input{flex:1;border:0;outline:0;background:transparent;font-family:inherit;font-size:14px;color:#15202B;min-width:0}
+.hist{display:flex;align-items:center;gap:10px;padding:12px 0;border-bottom:1px solid #EEF0F3;font-size:14px;color:#15202B}
+.hist:last-child{border-bottom:0}
+.shead{display:flex;align-items:center;gap:8px}
+.shead .sec{flex-grow:1;font-size:16px}
+.mini{display:flex;flex-direction:column;border-radius:20px;background:#FFFFFF;overflow:hidden;color:#15202B}
+.thumb{height:86px;display:flex;align-items:center;justify-content:center;font-size:12px}
+.days{display:flex;gap:8px;overflow-x:auto;margin:0 -16px;padding:0 16px;scrollbar-width:none;flex:none}
+.days::-webkit-scrollbar{display:none}
+.day{flex:none;width:58px;height:72px;border-radius:18px;border:1px solid #E8EBEF;background:#FFFFFF;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;font-size:12px;color:#6B7684;box-sizing:border-box;cursor:pointer}
+.day b{font-size:18px;color:#15202B}
+.day.on{background:#1F6FEB;border-color:#1F6FEB;color:rgba(255,255,255,.85)}.day.on b{color:#FFFFFF}
+.day.off{opacity:.45;cursor:default}
+.slots{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px}
+.slot{height:42px;border-radius:14px;border:1px solid #E8EBEF;background:#FFFFFF;display:flex;align-items:center;justify-content:center;font-size:13px;color:#15202B;cursor:pointer;box-sizing:border-box}
+.slot.on{background:#E6EEFF;border:1.5px solid #1F6FEB;color:#1F6FEB;font-weight:700}
+.slot.off{background:#F2F4F7;color:#A5ADB8;text-decoration:line-through;cursor:default}
+.kv{display:flex;align-items:center;justify-content:space-between;font-size:13px;color:#3F4A57;padding:6px 0}
+.kv b{color:#15202B;font-weight:700}
+.hero.cons{background:#7C5CE6}
+.hero.free{background:#0E8C7F}
+.bub{max-width:78%;padding:10px 14px;border-radius:20px;font-size:13px;line-height:21px;display:flex;flex-direction:column;gap:4px}
+.bub .t{font-size:10px;opacity:.7;align-self:flex-end}
+.bub.me{align-self:flex-end;background:#1F6FEB;color:#FFFFFF;border-bottom-left-radius:6px}
+.bub.them{align-self:flex-start;background:#FFFFFF;color:#15202B;border-bottom-right-radius:6px}
+.sysmsg{align-self:center;display:flex;align-items:center;gap:6px;padding:6px 12px;border-radius:999px;background:#EEF0F3;color:#3F4A57;font-size:11px}
+.composer{position:absolute;right:0;left:0;bottom:0;display:flex;align-items:center;gap:8px;padding:10px 12px 24px;background:#FFFFFF;box-shadow:0 -6px 18px rgba(21,32,43,.08)}
+.file{display:flex;align-items:center;gap:10px;padding:10px 12px;border-radius:14px;background:#F6F7F9;font-size:13px;color:#15202B}
+.drop{display:flex;flex-direction:column;align-items:center;gap:6px;padding:18px;border-radius:18px;border:1.5px dashed #C5CDD6;background:#FFFFFF;color:#6B7684;font-size:12px;text-align:center}
+</style>
+</head>
+<body>
+<main class="stage">
+<div class="device">
+<div class="scr screen">
+  <div class="scroll">
+    <div class="bar">
+      <a href="my-projects.html" aria-label="رجوع" class="ib"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" data-iconsax="ArrowRight2"><path d="M8.91 19.92l6.52-6.52c.77-.77.77-2.03 0-2.8L8.91 4.08" stroke-width="1.5"/></svg></a>
+      <span class="ttl">العروض المستلمة</span>
+      <a href="#" aria-label="المزيد" class="ib"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" data-iconsax="More"><path d="M5 10c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2ZM19 10c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2ZM12 10c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2Z" stroke-width="1.5"/></svg></a>
+    </div>
+
+    <div class="card">
+      <span class="row"><span class="grow"><span class="h" style="font-size: 14px;">تصميم تطبيق جوال لمتجر ورد</span><span class="sub">ميزانيتك 1,500 – 2,500 ر.س · 14 يومًا</span></span><span class="pill p-ok">يستقبل العروض</span></span>
+      <span class="row" style="gap: 8px;">
+        <a href="post-project.html" class="btn-s2" style="flex: 1; justify-content: center;"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" data-iconsax="Edit2"><path d="m13.26 3.6-8.21 8.69c-.31.33-.61.98-.67 1.43l-.37 3.24c-.13 1.17.71 1.97 1.87 1.77l3.22-.55c.45-.08 1.08-.41 1.39-.75l8.21-8.69c1.42-1.5 2.06-3.21-.15-5.3-2.2-2.07-3.87-1.34-5.29.16Z" stroke-width="1.5"/><path d="M11.89 5.05a6.126 6.126 0 0 0 5.45 5.15M3 22h18" stroke-width="1.5"/></svg>تعديل المشروع</a>
+        <a href="#" class="btn-s2" style="flex: 1; justify-content: center;" data-toast="تم إغلاق المشروع أمام العروض الجديدة"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" data-iconsax="Lock1"><path d="M6 10V8c0-3.31 1-6 6-6s6 2.69 6 6v2M12 18.5a2.5 2.5 0 1 0 0-5 2.5 2.5 0 0 0 0 5Z" stroke-width="1.5"/><path d="M17 22H7c-4 0-5-1-5-5v-2c0-4 1-5 5-5h10c4 0 5 1 5 5v2c0 4-1 5-5 5Z" stroke-width="1.5"/></svg>إيقاف العروض</a>
+      </span>
+      <span class="sub">التعديل متاح حتى قبول أحد العروض.</span>
+    </div>
+
+    <div class="row"><span class="sec grow">5 عروض</span><div class="seg" style="flex: none;"><a href="#" class="on" style="padding: 0 12px;">الأحدث</a><a href="#" style="padding: 0 12px;">الأقل سعرًا</a></div></div>
+
+    <div class="card">
+      <span class="row"><span class="av" style="background: #E2F5F2; color: #0E8C7F;">ن</span><span class="grow"><span class="lbl" style="display: flex; align-items: center; gap: 6px;">نورة القحطاني<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" data-iconsax="ShieldTick" style="color: #0E8C7F;"><path d="M10.49 2.23 5.5 4.11c-1.15.43-2.09 1.79-2.09 3.01v7.43c0 1.18.78 2.73 1.73 3.44l4.3 3.21c1.41 1.06 3.73 1.06 5.14 0l4.3-3.21c.95-.71 1.73-2.26 1.73-3.44V7.12c0-1.23-.94-2.59-2.09-3.02l-4.99-1.87c-.85-.31-2.21-.31-3.04 0Z" stroke-width="1.5"/><path d="m9.05 11.87 1.61 1.61 4.3-4.3" stroke-width="1.5"/></svg></span><span class="sub" style="display: flex; align-items: center; gap: 4px;"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" data-iconsax="Star1" style="color: #C98A00;"><path d="m13.73 3.51 1.76 3.52c.24.49.88.96 1.42 1.05l3.19.53c2.04.34 2.52 1.82 1.05 3.28l-2.48 2.48c-.42.42-.65 1.23-.52 1.81l.71 3.07c.56 2.43-.73 3.37-2.88 2.1l-2.99-1.77c-.54-.32-1.43-.32-1.98 0l-2.99 1.77c-2.14 1.27-3.44.32-2.88-2.1l.71-3.07c.13-.58-.1-1.39-.52-1.81l-2.48-2.48c-1.46-1.46-.99-2.94 1.05-3.28l3.19-.53c.53-.09 1.17-.56 1.41-1.05l1.76-3.52c.96-1.91 2.52-1.91 3.47 0Z" stroke-width="1.5"/></svg>4.9 · 87 مشروعًا مكتملًا</span></span></span>
+      <span class="row" style="gap: 8px;"><span class="tag" style="background: #E2F5F2; color: #0E8C7F; font-weight: 700;">2,200 ر.س</span><span class="tag"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" data-iconsax="Timer1"><path d="M20.75 13.25c0 4.83-3.92 8.75-8.75 8.75s-8.75-3.92-8.75-8.75S7.17 4.5 12 4.5s8.75 3.92 8.75 8.75ZM12 8v5" stroke-width="1.5"/><path d="M9 2h6" stroke-width="1.5"/></svg>12 يومًا</span></span>
+      <span class="txt">أبدأ بمخطط لرحلة الشراء ثم التصميم عالي الدقة لخمس شاشات رئيسية مع نظام مكونات في Figma، وأسلّم نموذجًا تفاعليًا.</span>
+      <span class="row" style="gap: 8px;"><a href="#" class="btn-s2" style="flex: 1; justify-content: center;">الملف المهني</a><a href="accept-offer.html" class="btn-s" style="flex: 1; justify-content: center;">قبول العرض</a></span>
+    </div>
+
+    <div class="card">
+      <span class="row"><span class="av" style="background: #E6EEFF; color: #1F6FEB;">م</span><span class="grow"><span class="lbl" style="display: flex; align-items: center; gap: 6px;">ماجد العتيبي<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" data-iconsax="ShieldTick" style="color: #0E8C7F;"><path d="M10.49 2.23 5.5 4.11c-1.15.43-2.09 1.79-2.09 3.01v7.43c0 1.18.78 2.73 1.73 3.44l4.3 3.21c1.41 1.06 3.73 1.06 5.14 0l4.3-3.21c.95-.71 1.73-2.26 1.73-3.44V7.12c0-1.23-.94-2.59-2.09-3.02l-4.99-1.87c-.85-.31-2.21-.31-3.04 0Z" stroke-width="1.5"/><path d="m9.05 11.87 1.61 1.61 4.3-4.3" stroke-width="1.5"/></svg></span><span class="sub" style="display: flex; align-items: center; gap: 4px;"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" data-iconsax="Star1" style="color: #C98A00;"><path d="m13.73 3.51 1.76 3.52c.24.49.88.96 1.42 1.05l3.19.53c2.04.34 2.52 1.82 1.05 3.28l-2.48 2.48c-.42.42-.65 1.23-.52 1.81l.71 3.07c.56 2.43-.73 3.37-2.88 2.1l-2.99-1.77c-.54-.32-1.43-.32-1.98 0l-2.99 1.77c-2.14 1.27-3.44.32-2.88-2.1l.71-3.07c.13-.58-.1-1.39-.52-1.81l-2.48-2.48c-1.46-1.46-.99-2.94 1.05-3.28l3.19-.53c.53-.09 1.17-.56 1.41-1.05l1.76-3.52c.96-1.91 2.52-1.91 3.47 0Z" stroke-width="1.5"/></svg>4.8 · 54 مشروعًا مكتملًا</span></span></span>
+      <span class="row" style="gap: 8px;"><span class="tag" style="background: #E2F5F2; color: #0E8C7F; font-weight: 700;">1,800 ر.س</span><span class="tag"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" data-iconsax="Timer1"><path d="M20.75 13.25c0 4.83-3.92 8.75-8.75 8.75s-8.75-3.92-8.75-8.75S7.17 4.5 12 4.5s8.75 3.92 8.75 8.75ZM12 8v5" stroke-width="1.5"/><path d="M9 2h6" stroke-width="1.5"/></svg>14 يومًا</span></span>
+      <span class="txt">خبرة في تطبيقات التجارة الإلكترونية، أقدّم التصميم مع دليل ألوان وخطوط وملفات جاهزة للمطوّر.</span>
+      <span class="row" style="gap: 8px;"><a href="#" class="btn-s2" style="flex: 1; justify-content: center;">الملف المهني</a><a href="accept-offer.html" class="btn-s" style="flex: 1; justify-content: center;">قبول العرض</a></span>
+    </div>
+
+    <div class="card">
+      <span class="row"><span class="av" style="background: #FCEFE3; color: #B4531C;">ه</span><span class="grow"><span class="lbl" style="display: flex; align-items: center; gap: 6px;">هند السبيعي<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" data-iconsax="ShieldTick" style="color: #0E8C7F;"><path d="M10.49 2.23 5.5 4.11c-1.15.43-2.09 1.79-2.09 3.01v7.43c0 1.18.78 2.73 1.73 3.44l4.3 3.21c1.41 1.06 3.73 1.06 5.14 0l4.3-3.21c.95-.71 1.73-2.26 1.73-3.44V7.12c0-1.23-.94-2.59-2.09-3.02l-4.99-1.87c-.85-.31-2.21-.31-3.04 0Z" stroke-width="1.5"/><path d="m9.05 11.87 1.61 1.61 4.3-4.3" stroke-width="1.5"/></svg></span><span class="sub" style="display: flex; align-items: center; gap: 4px;"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" data-iconsax="Star1" style="color: #C98A00;"><path d="m13.73 3.51 1.76 3.52c.24.49.88.96 1.42 1.05l3.19.53c2.04.34 2.52 1.82 1.05 3.28l-2.48 2.48c-.42.42-.65 1.23-.52 1.81l.71 3.07c.56 2.43-.73 3.37-2.88 2.1l-2.99-1.77c-.54-.32-1.43-.32-1.98 0l-2.99 1.77c-2.14 1.27-3.44.32-2.88-2.1l.71-3.07c.13-.58-.1-1.39-.52-1.81l-2.48-2.48c-1.46-1.46-.99-2.94 1.05-3.28l3.19-.53c.53-.09 1.17-.56 1.41-1.05l1.76-3.52c.96-1.91 2.52-1.91 3.47 0Z" stroke-width="1.5"/></svg>4.6 · 19 مشروعًا مكتملًا</span></span></span>
+      <span class="row" style="gap: 8px;"><span class="tag" style="background: #E2F5F2; color: #0E8C7F; font-weight: 700;">1,500 ر.س</span><span class="tag"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" data-iconsax="Timer1"><path d="M20.75 13.25c0 4.83-3.92 8.75-8.75 8.75s-8.75-3.92-8.75-8.75S7.17 4.5 12 4.5s8.75 3.92 8.75 8.75ZM12 8v5" stroke-width="1.5"/><path d="M9 2h6" stroke-width="1.5"/></svg>10 أيام</span></span>
+      <span class="row" style="gap: 8px;"><a href="#" class="btn-s2" style="flex: 1; justify-content: center;">الملف المهني</a><a href="accept-offer.html" class="btn-s" style="flex: 1; justify-content: center;">قبول العرض</a></span>
+    </div>
+  </div>
+</div>
+</div>
+</main>
+<script src="app.js"></script>
+<script>
+if ('serviceWorker' in navigator && (location.protocol === 'https:' || location.hostname === 'localhost' || location.hostname === '127.0.0.1')) {
+  window.addEventListener('load', function () { navigator.serviceWorker.register('sw.js').catch(function () {}); });
+}
+</script></body>
+</html>
