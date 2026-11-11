@@ -31,7 +31,21 @@ $pages = @(
   @('FreelanceFilter.dc.html',   'freelance-filter.html','Path Link · فلترة العمل الحر'),
   @('ConsultFilter.dc.html',     'consult-filter.html',  'Path Link · فلترة الاستشارات'),
   @('CourseFilter.dc.html',      'course-filter.html',   'Path Link · فلترة الكورسات'),
-  @('OrdersFilter.dc.html',      'orders-filter.html',   'Path Link · فلترة الطلبات')
+  @('OrdersFilter.dc.html',      'orders-filter.html',   'Path Link · فلترة الطلبات'),
+  @('ConsultList.dc.html',       'consult.html',         'Path Link · الاستشارات'),
+  @('ConsultDetail.dc.html',     'consult-detail.html',  'Path Link · تفاصيل الاستشارة'),
+  @('ConsultBook.dc.html',       'consult-book.html',    'Path Link · اختيار الموعد'),
+  @('ConsultPay.dc.html',        'consult-pay.html',     'Path Link · الدفع'),
+  @('ConsultBooked.dc.html',     'consult-booked.html',  'Path Link · تم تأكيد الحجز'),
+  @('MyBookings.dc.html',        'bookings.html',        'Path Link · حجوزات الاستشارات'),
+  @('BookingDetail.dc.html',     'booking.html',         'Path Link · تفاصيل الحجز'),
+  @('Reschedule.dc.html',        'reschedule.html',      'Path Link · طلب إعادة جدولة'),
+  @('SessionCall.dc.html',       'session.html',         'Path Link · الجلسة'),
+  @('RateSession.dc.html',       'rate-session.html',    'Path Link · تقييم الجلسة'),
+  @('ConsultantProfile.dc.html', 'consultant-profile.html','Path Link · ملف المستشار'),
+  @('ConsultantDash.dc.html',    'consultant.html',      'Path Link · لوحة المستشار'),
+  @('AddConsult.dc.html',        'add-consult.html',     'Path Link · إضافة استشارة'),
+  @('Availability.dc.html',      'availability.html',    'Path Link · جدول الإتاحة')
 )
 # uploaded canvas fonts -> repo fonts/
 $blobs = @{

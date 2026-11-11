@@ -33,6 +33,16 @@
     toastTimer = setTimeout(function () { toastEl.classList.remove('show'); }, 1800);
   }
 
+  // a toast handed over from the previous screen (links with data-toast that navigate)
+  var carried = read('pl-toast', '');
+  if (carried) { write('pl-toast', ''); setTimeout(function () { toast(carried); }, 250); }
+  document.addEventListener('click', function (e) {
+    var a = e.target.closest && e.target.closest('a[data-toast]');
+    if (!a || !screen || !screen.contains(a)) return;
+    if (a.getAttribute('href') === '#') { e.preventDefault(); e.stopImmediatePropagation(); toast(a.getAttribute('data-toast')); }
+    else write('pl-toast', a.getAttribute('data-toast'));
+  }, true);
+
   // links to screens that are not designed yet
   document.addEventListener('click', function (e) {
     var a = e.target.closest && e.target.closest('a[href="#"]');
@@ -47,7 +57,7 @@
   // segmented tabs and chip rails (single choice), chip groups (multiple choice), on/off toggles
   function initControls(root) {
   [].forEach.call(root.querySelectorAll('.seg, .rail'), function (group) {
-    var items = [].filter.call(group.children, function (c) { return c.matches('.seg > a, a.chip'); });
+    var items = [].filter.call(group.children, function (c) { return c.matches('.seg > a, a.chip') && c.getAttribute('href') === '#'; });
     if (!items.length) return;
     items.forEach(function (a) {
       a.setAttribute('data-chip', '');
@@ -68,14 +78,28 @@
       e.preventDefault(); e.stopPropagation();
       var off = t.classList.toggle('off');
       t.setAttribute('aria-pressed', off ? 'false' : 'true');
-      toast(off ? 'تم إيقاف التقديم التلقائي' : 'تم تفعيل التقديم التلقائي');
+      var label = t.getAttribute('aria-label');
+      if (!label) toast(off ? 'تم إيقاف التقديم التلقائي' : 'تم تفعيل التقديم التلقائي');
+      else toast(off ? 'تم إيقاف «' + label + '»' : 'تم تفعيل «' + label + '»');
+    });
+  });
+  // booking: one day and one time slot at a time (crossed-out ones are taken)
+  [].forEach.call(root.querySelectorAll('.days, .slots'), function (group) {
+    var items = [].filter.call(group.children, function (c) { return c.matches('.day, .slot'); });
+    items.forEach(function (c) {
+      if (c.classList.contains('off')) { c.setAttribute('aria-disabled', 'true'); return; }
+      c.setAttribute('role', 'button');
+      c.setAttribute('tabindex', '0');
+      c.addEventListener('click', function () {
+        items.forEach(function (o) { o.classList.toggle('on', o === c); });
+      });
     });
   });
   }
   initControls(document);
 
   // ---------- bottom sheets open over the current page (overlay + slide up), not as a new screen ----------
-  var SHEETS = { 'add.html': 1, 'job-filter.html': 1, 'job-apply.html': 1, 'freelance-filter.html': 1, 'consult-filter.html': 1, 'course-filter.html': 1, 'orders-filter.html': 1 };
+  var SHEETS = { 'add.html': 1, 'job-filter.html': 1, 'job-apply.html': 1, 'freelance-filter.html': 1, 'consult-filter.html': 1, 'course-filter.html': 1, 'orders-filter.html': 1, 'reschedule.html': 1 };
   var SHEET_CSS = '.pl-wrap{position:absolute;inset:0;font-family:"Thmanyah Sans",Tajawal,sans-serif;direction:rtl}' +
     '.pl-backdrop{position:absolute;inset:0;background:rgba(14,26,43,.48);opacity:0;transition:opacity .25s ease}' +
     '.pl-sheet{position:absolute;left:0;right:0;bottom:0;max-height:92%;overflow-y:auto;scrollbar-width:none;transform:translateY(100%);transition:transform .32s cubic-bezier(.2,.8,.2,1)}' +
@@ -109,6 +133,7 @@
         if (h === '#') {
           e.preventDefault();
           if (a.hasAttribute('data-chip')) return;
+          if (a.hasAttribute('data-toast')) return toast(a.getAttribute('data-toast'));
           var label = (a.getAttribute('aria-label') || a.textContent || '').replace(/\s+/g, ' ').trim();
           toast(label && label.length <= 24 ? '«' + label + '» قيد التصميم' : 'هذه الشاشة قيد التصميم');
           return;
@@ -116,8 +141,9 @@
         if (fileOf(h) === page) { // links back to the page underneath close the sheet
           e.preventDefault();
           close();
-          if (/^عرض \d+/.test(a.textContent.trim())) toast('تم تطبيق الفلاتر');
-        }
+          if (a.hasAttribute('data-toast')) toast(a.getAttribute('data-toast'));
+          else if (/^عرض \d+/.test(a.textContent.trim())) toast('تم تطبيق الفلاتر');
+        } else if (a.hasAttribute('data-toast')) write('pl-toast', a.getAttribute('data-toast'));
       });
       initControls(root);
       if (file === 'job-apply.html') initApply(root);
@@ -154,6 +180,7 @@
       el.classList.remove('dragging');
       var box = el.getBoundingClientRect(), best = null, bestDist = Infinity;
       [].forEach.call(el.children, function (c) {
+        if (c.getAttribute('aria-hidden') === 'true') return; // end spacer
         var d = Math.abs(c.getBoundingClientRect().right - (box.right - 16));
         if (d < bestDist) { bestDist = d; best = c; }
       });
@@ -180,6 +207,28 @@
     };
     chips.forEach(function (c) { c.addEventListener('click', function () { paint(c); if (c.textContent.trim() !== 'الكل') toast('الفلترة في النموذج للعرض فقط'); }); });
     if (chips.length) paint(chips[0]);
+  }
+
+  // ---------- consultation booking: the summary follows the chosen day and time ----------
+  if (page === 'consult-book.html') {
+    var kvs = document.querySelectorAll('.kv b');
+    var slotsLabel = [].filter.call(document.querySelectorAll('.lbl'), function (l) { return /^الأوقات المتاحة/.test(l.textContent); })[0];
+    var dayName = function (d) { var n = d.childNodes[0].textContent.trim(); return 'ال' + n + ' ' + d.querySelector('b').textContent + ' نوفمبر'; };
+    var plus45 = function (t) {
+      var m = t.match(/(\d+):(\d+)\s*([صم])/); if (!m) return t;
+      var h = +m[1] % 12 + (m[3] === 'م' ? 12 : 0), mins = h * 60 + +m[2] + 45;
+      var eh = Math.floor(mins / 60) % 24, em = mins % 60, ap = eh >= 12 ? 'م' : 'ص';
+      return (eh % 12 || 12) + ':' + (em < 10 ? '0' : '') + em + ' ' + ap;
+    };
+    [].forEach.call(document.querySelectorAll('.day:not(.off)'), function (d) {
+      d.addEventListener('click', function () {
+        if (kvs[1]) kvs[1].textContent = dayName(d);
+        if (slotsLabel) slotsLabel.textContent = 'الأوقات المتاحة · ' + dayName(d);
+      });
+    });
+    [].forEach.call(document.querySelectorAll('.slot:not(.off)'), function (s) {
+      s.addEventListener('click', function () { var t = s.textContent.trim(); if (kvs[2]) kvs[2].textContent = t.replace(/\s*[صم]$/, '') + ' – ' + plus45(t); });
+    });
   }
 
   // ---------- search: typing + Enter shows the results screen ----------
