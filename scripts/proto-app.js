@@ -200,7 +200,7 @@
       chips.forEach(function (c) {
         var on = c === active;
         c.setAttribute('data-chip', '');
-        c.style.background = on ? '#1F6FEB' : '#FFFFFF';
+        c.style.background = on ? '#6C5CE7' : '#FFFFFF';
         c.style.color = on ? '#FFFFFF' : '#15202B';
         c.style.border = on ? '0' : '1px solid #E8EBEF';
         c.style.fontWeight = on ? '700' : '400';
@@ -260,8 +260,8 @@
       [saved, upload].forEach(function (b) {
         if (!b) return;
         var on = b === which;
-        b.style.border = on ? '1.5px solid #1F6FEB' : '1px solid #E8EBEF';
-        var r = ring(b); if (r) r.style.border = on ? '6px solid #1F6FEB' : '1.5px solid #C5CDD6';
+        b.style.border = on ? '1.5px solid #6C5CE7' : '1px solid #E8EBEF';
+        var r = ring(b); if (r) r.style.border = on ? '6px solid #6C5CE7' : '1.5px solid #C5CDD6';
         b.setAttribute('aria-pressed', on ? 'true' : 'false');
       });
     };

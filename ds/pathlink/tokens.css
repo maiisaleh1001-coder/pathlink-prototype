@@ -3,6 +3,11 @@
   --navy-900: #0e2a47;
   --navy-50: #eef3f8;
   --blue-600: #1f6feb;
+  --primary: #6c5ce7;
+  --primary-soft: #efedfd;
+  --primary-ink: #4a3cb8;
+  --brand-pink: #f168ff;
+  --brand-lilac: #cbb9ff;
   --teal-500: #12b5a5;
   --teal-700: #0b7a70;
   --ink: #15202b;
@@ -19,12 +24,12 @@
   --warning-bg: #fdf3dc;
   --danger: #c2362f;
   --danger-bg: #fcebea;
-  --svc-jobs: #1a4f9c;
-  --svc-jobs-bg: #eaf1fb;
+  --svc-jobs: #4a3cb8;
+  --svc-jobs-bg: #efedfd;
   --svc-freelance: #0b6e64;
   --svc-freelance-bg: #e3f5f2;
-  --svc-consult: #5b3fa8;
-  --svc-consult-bg: #f1ecfb;
+  --svc-consult: #8e2368;
+  --svc-consult-bg: #fbe8f3;
   --svc-courses: #9a4a10;
   --svc-courses-bg: #fcefe3;
   --shadow-card: 0 1px 2px rgba(14,42,71,0.06);

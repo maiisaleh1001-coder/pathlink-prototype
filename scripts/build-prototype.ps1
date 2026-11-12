@@ -66,7 +66,11 @@ $pages = @(
   @('SubmitOffer.dc.html',       'submit-offer.html',    'Path Link · تقديم عرض'),
   @('MyOffers.dc.html',          'my-offers.html',       'Path Link · عروضي'),
   @('FreelancerOrder.dc.html',   'freelancer-order.html','Path Link · طلب للتنفيذ'),
-  @('DeliverWork.dc.html',       'deliver.html',         'Path Link · تسليم العمل')
+  @('DeliverWork.dc.html',       'deliver.html',         'Path Link · تسليم العمل'),
+  @('Account.dc.html',           'account.html',         'Path Link · حسابي'),
+  @('ChooseProfile.dc.html',     'new-profile.html',     'Path Link · ملف مهني جديد'),
+  @('CreateConsultant.dc.html',  'new-consultant.html',  'Path Link · ملف المستشار'),
+  @('CreateTrainer.dc.html',     'new-trainer.html',     'Path Link · ملف المدرب')
 )
 # uploaded canvas fonts -> repo fonts/
 $blobs = @{
@@ -76,8 +80,8 @@ $blobs = @{
 }
 # first-frame values for the canvas's live {{holes}}; proto-app.js drives the behaviour
 $tplDefaults = @{
-  savedBorder = '1.5px solid #1F6FEB'; uploadBorder = '1px solid #E8EBEF'
-  savedRing = '6px solid #1F6FEB'; uploadRing = '1.5px solid #C5CDD6'
+  savedBorder = '1.5px solid #6C5CE7'; uploadBorder = '1px solid #E8EBEF'
+  savedRing = '6px solid #6C5CE7'; uploadRing = '1.5px solid #C5CDD6'
 }
 
 foreach ($f in 'Regular', 'Medium', 'Bold') {
@@ -163,9 +167,9 @@ $splash = @'
 __HEAD__
 <style>
 body{margin:0}
-.splash{position:relative;width:390px;height:844px;overflow:hidden;background:#1F6FEB;color:#FFFFFF;font-family:'Thmanyah Sans',Tajawal,sans-serif;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:14px;direction:rtl;cursor:pointer}
+.splash{position:relative;width:390px;height:844px;overflow:hidden;background:#6C5CE7;color:#FFFFFF;font-family:'Thmanyah Sans',Tajawal,sans-serif;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:14px;direction:rtl;cursor:pointer}
 .splash .ring{position:absolute;border-radius:999px;border:1px solid rgba(255,255,255,0.16)}
-.splash .mark{width:88px;height:88px;border-radius:999px;background:#FFFFFF;color:#1F6FEB;display:flex;align-items:center;justify-content:center;animation:pl-pop .6s cubic-bezier(.34,1.56,.64,1) both}
+.splash .mark{width:88px;height:88px;border-radius:999px;background:#FFFFFF;color:#6C5CE7;display:flex;align-items:center;justify-content:center;animation:pl-pop .6s cubic-bezier(.34,1.56,.64,1) both}
 .splash .name{font-size:28px;font-weight:700;direction:ltr;animation:pl-up .5s .2s ease both}
 .splash .tag{font-size:14px;color:rgba(255,255,255,0.85);animation:pl-up .5s .35s ease both}
 @keyframes pl-pop{from{transform:scale(.6);opacity:0}to{transform:none;opacity:1}}
@@ -189,7 +193,7 @@ body{margin:0}
 __TAIL__</body>
 </html>
 '@
-$splash = $splash.Replace('__HEAD__', $head.Replace('__TITLE__', 'Path Link').Replace('<meta name="theme-color" content="#F9FAFB">', '<meta name="theme-color" content="#1F6FEB">')).Replace('__TAIL__', $tail)
+$splash = $splash.Replace('__HEAD__', $head.Replace('__TITLE__', 'Path Link').Replace('<meta name="theme-color" content="#F9FAFB">', '<meta name="theme-color" content="#6C5CE7">')).Replace('__TAIL__', $tail)
 $splash = $splash.Replace('<style>', "<style>`n@font-face{font-family:`"Thmanyah Sans`";src:url(`"fonts/thmanyahsans-Bold.otf`") format(`"opentype`");font-weight:700;font-display:swap}")
 [IO.File]::WriteAllText((Join-Path $Out 'splash.html'), $splash, $utf8)
 
@@ -242,7 +246,7 @@ $manifest = @'
   "scope": "./",
   "display": "standalone",
   "orientation": "portrait",
-  "background_color": "#1F6FEB",
+  "background_color": "#6C5CE7",
   "theme_color": "#F9FAFB",
   "icons": [
     { "src": "icons/icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any" },
@@ -259,7 +263,7 @@ function Save-Icon([int]$size, [float]$markRatio, [string]$file) {
   $bmp = New-Object System.Drawing.Bitmap $size, $size
   $g = [System.Drawing.Graphics]::FromImage($bmp)
   $g.SmoothingMode = [System.Drawing.Drawing2D.SmoothingMode]::AntiAlias
-  $g.Clear([System.Drawing.ColorTranslator]::FromHtml('#1F6FEB'))
+  $g.Clear([System.Drawing.ColorTranslator]::FromHtml('#6C5CE7'))
   # the mark spans x 1.97..21.97 and y 2..22 on its 24-unit grid: a 20-unit box
   $s = ($size * $markRatio) / 20.0
   $ox = ($size - 20.0 * $s) / 2 - 1.97 * $s
@@ -292,7 +296,7 @@ Save-Icon 192 0.56 'icon-192.png'
 Save-Icon 512 0.56 'icon-512.png'
 Save-Icon 512 0.40 'icon-512-maskable.png'  # mark inside the 80% safe zone
 
-$favicon = '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64"><rect width="64" height="64" rx="16" fill="#1F6FEB"/><g transform="translate(8 8) scale(2)" fill="none" stroke="#fff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M5.47 9a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7ZM16.97 15h3c1.1 0 2 .9 2 2v3c0 1.1-.9 2-2 2h-3c-1.1 0-2-.9-2-2v-3c0-1.1.9-2 2-2Z"/><path d="M12 5h2.68c1.85 0 2.71 2.29 1.32 3.51L8.01 15.5C6.62 16.71 7.48 19 9.32 19H12"/></g></svg>'
+$favicon = '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64"><rect width="64" height="64" rx="16" fill="#6C5CE7"/><g transform="translate(8 8) scale(2)" fill="none" stroke="#fff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M5.47 9a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7ZM16.97 15h3c1.1 0 2 .9 2 2v3c0 1.1-.9 2-2 2h-3c-1.1 0-2-.9-2-2v-3c0-1.1.9-2 2-2Z"/><path d="M12 5h2.68c1.85 0 2.71 2.29 1.32 3.51L8.01 15.5C6.62 16.71 7.48 19 9.32 19H12"/></g></svg>'
 
 # service worker: network first (every push shows on the next open), cache only as the offline fallback
 $files = @('./', './index.html') + ($pages | Where-Object { $_[1] -ne 'index.html' } | ForEach-Object { './' + $_[1] }) + @(
