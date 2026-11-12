@@ -24,6 +24,9 @@
     return;
   }
 
+  // iOS Safari only applies :active (the pressed look) when the page listens for touches
+  document.addEventListener('touchstart', function () {}, { passive: true });
+
   // ---------- toast ----------
   var toastEl, toastTimer;
   function toast(msg) {
@@ -150,6 +153,25 @@
   }
   initControls(document);
 
+  // ---------- demo status switcher: a dashed «للعرض» box lets the presenter flip a screen through all its statuses ----------
+  //   [data-demo-switch] holds chips with data-demo="key"; [data-demo-show="k1 k2"] shows only for those keys
+  function initDemo(root) {
+    [].forEach.call(root.querySelectorAll('[data-demo-switch]'), function (box) {
+      var show = function (k) {
+        [].forEach.call(root.querySelectorAll('[data-demo-show]'), function (el) {
+          var on = (' ' + el.getAttribute('data-demo-show') + ' ').indexOf(' ' + k + ' ') !== -1;
+          el.style.display = on ? (el.getAttribute('data-demo-display') || '') : 'none';
+        });
+      };
+      [].forEach.call(box.querySelectorAll('[data-demo]'), function (c) {
+        c.addEventListener('click', function () { show(c.getAttribute('data-demo')); });
+      });
+      var cur = box.querySelector('[data-demo].on');
+      if (cur) show(cur.getAttribute('data-demo'));
+    });
+  }
+  initDemo(document);
+
   // ---------- bottom sheets open over the current page (overlay + slide up), not as a new screen ----------
   var SHEETS = { 'add.html': 1, 'job-filter.html': 1, 'job-apply.html': 1, 'freelance-filter.html': 1, 'consult-filter.html': 1, 'course-filter.html': 1, 'orders-filter.html': 1, 'reschedule.html': 1, 'accept-offer.html': 1, 'request-revision.html': 1, 'need-approval.html': 1, 'coursera.html': 1 };
   var SHEET_CSS = '.pl-wrap{position:absolute;inset:0;font-family:"Thmanyah Sans",Tajawal,sans-serif;direction:rtl}' +
@@ -158,7 +180,10 @@
     '.pl-sheet::-webkit-scrollbar{display:none}.pl-sheet>.sheet{position:relative;max-height:none}' +
     '.pl-wrap.open .pl-backdrop{opacity:1}.pl-wrap.open .pl-sheet{transform:none}' +
     '.proto-hide{display:none!important}.proto-pop-in{animation:pl-in .35s ease both}@keyframes pl-in{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}' +
-    '@media (prefers-reduced-motion:reduce){.pl-backdrop,.pl-sheet{transition:none}.proto-pop-in{animation:none}}';
+    '@media (prefers-reduced-motion:reduce){.pl-backdrop,.pl-sheet{transition:none}.proto-pop-in{animation:none}}' +
+    '.pl-sheet a,.pl-sheet button,.pl-sheet [role="button"]{transition:transform .12s ease,opacity .12s ease,filter .15s ease}' +
+    '.pl-sheet a:active,.pl-sheet button:active,.pl-sheet [role="button"]:active{transform:scale(.97);opacity:.82}' +
+    '@media (hover:hover){.pl-sheet a:hover,.pl-sheet button:hover,.pl-sheet [role="button"]:hover{filter:brightness(.95)}}';
   var sheetCache = {};
   function fileOf(href) { var f = String(href || '').split('#')[0].split('?')[0].replace(/^\.\//, ''); return f || 'index.html'; }
   function openSheet(file) {

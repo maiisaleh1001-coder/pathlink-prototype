@@ -1,5 +1,5 @@
 // Network first, so every push shows up on the next open; the cache is only a fallback for offline.
-const CACHE = 'pathlink-proto-202611121006';
+const CACHE = 'pathlink-proto-202611121045';
 const CORE = [
   './',
   './index.html',
@@ -94,6 +94,32 @@ const CORE = [
   './fonts/thmanyahsans-Regular.otf',
   './fonts/thmanyahsans-Medium.otf',
   './fonts/thmanyahsans-Bold.otf',
+  './img/branding.jpg',
+  './img/coffee-brand.jpg',
+  './img/design-system.jpg',
+  './img/excel-data.jpg',
+  './img/figma.jpg',
+  './img/flower-app.jpg',
+  './img/interview.jpg',
+  './img/landing-page.jpg',
+  './img/lesson-video.jpg',
+  './img/logo.jpg',
+  './img/m1.jpg',
+  './img/m2.jpg',
+  './img/m3.jpg',
+  './img/m4.jpg',
+  './img/m5.jpg',
+  './img/m6.jpg',
+  './img/social-posts.jpg',
+  './img/ui-design.jpg',
+  './img/ux-research.jpg',
+  './img/w1.jpg',
+  './img/w2.jpg',
+  './img/w3.jpg',
+  './img/w4.jpg',
+  './img/w5.jpg',
+  './img/w6.jpg',
+  './img/writing.jpg',
 ];
 
 self.addEventListener('install', (event) => {

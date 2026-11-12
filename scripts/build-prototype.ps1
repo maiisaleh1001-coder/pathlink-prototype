@@ -1,5 +1,6 @@
 ﻿# Builds the static, installable (PWA) Path Link prototype from the design-canvas files.
-# Everything in the repo root except fonts/, brand/ and scripts/ is GENERATED: change this script (or proto-app.js), never the output.
+# Everything in the repo root except fonts/, brand/, img/ and scripts/ is GENERATED: change this script (or proto-app.js), never the output.
+# img/ holds the stock photos used on the canvas (scripts/canvas-images.json maps each canvas upload to its file).
 # brand/ holds the client's logo (from pathlink.com.sa): logo-mark.png (transparent, for UI) and logo-full.png (full-bleed, for app icons).
 #   -Src : folder holding the canvas files (project/ of the "Path Link — Home" canvas, as saved by an artifact read)
 #   -Out : the repo root (defaults to the folder above scripts/)
@@ -96,6 +97,14 @@ $blobs = @{
   'd38dc1bd5c239bc8523bcbace2a6da52' = 'fonts/thmanyahsans-Bold.otf'
   '4c8f4b27ec9b8de47115478eb5c392d8' = 'brand/logo-mark.png'
 }
+# stock photos uploaded to the canvas (Freepik free licence, attribution in README) -> repo img/
+$imgMap = Join-Path $PSScriptRoot 'canvas-images.json'
+if (Test-Path $imgMap) {
+  (Get-Content $imgMap -Raw -Encoding UTF8 | ConvertFrom-Json).PSObject.Properties | ForEach-Object {
+    $blobs[$_.Name] = $_.Value
+    if (-not (Test-Path (Join-Path $Out $_.Value))) { throw "$($_.Value) missing in $Out" }
+  }
+}
 # first-frame values for the canvas's live {{holes}}; proto-app.js drives the behaviour
 $tplDefaults = @{
   savedBorder = '1.5px solid #6C5CE7'; uploadBorder = '1px solid #E8EBEF'
@@ -155,6 +164,8 @@ foreach ($pg in $pages) {
   $doc = & $read (Join-Path $Src $pg[0])
   foreach ($k in $blobs.Keys) { $doc = $doc.Replace('/_blob/' + $k, $blobs[$k]) }
   if ($doc -match '/_blob/') { throw "unmapped upload left in $($pg[0])" }
+  # the canvas's generic link hover turns button text navy (and sticks after a tap on phones); styles.css has the hover/press feedback instead
+  $doc = $doc.Replace('a:hover{color:#0E2A47}', '')
   foreach ($p2 in $pages) {
     $doc = $doc.Replace('href="' + $p2[0] + '"', 'href="' + $(if ($p2[1] -eq 'index.html') { './?skip=1' } else { $p2[1] }) + '"')
     # profile stories (freelancer, trainer): where an approved provider goes
@@ -226,6 +237,15 @@ $splash = $splash.Replace('<style>', "<style>`n@font-face{font-family:`"Thmanyah
 
 $css = @'
 * { -webkit-tap-highlight-color: transparent; }
+/* touch feedback: phones have no hover, so anything tappable sinks and dims a little while pressed */
+.screen a, .screen button, .screen [role="button"], .screen label { transition: transform .12s ease, opacity .12s ease, filter .15s ease; }
+.screen a:active, .screen button:active, .screen [role="button"]:active { transform: scale(.97); opacity: .82; }
+.screen a.dim:active, .screen a[style*="inset: 0"]:active { transform: none; opacity: 1; }
+/* mouse and trackpad: a light hover so the desktop demo feels alive too */
+@media (hover: hover) {
+  .screen a:hover, .screen button:hover, .screen [role="button"]:hover { filter: brightness(.95); }
+  .screen a.dim:hover, .screen a[style*="inset: 0"]:hover { filter: none; }
+}
 html, body { margin: 0; background: #E4E8EE; }
 .stage { min-height: 100vh; min-height: 100dvh; display: flex; align-items: center; justify-content: center; padding: 32px 16px; box-sizing: border-box; }
 .device { position: relative; width: 390px; height: 844px; border-radius: 48px; overflow: hidden; background: #F9FAFB; box-shadow: 0 0 0 10px #15202B, 0 30px 80px rgba(21,32,43,0.30); }
@@ -317,7 +337,8 @@ if (Test-Path (Join-Path $Out 'favicon.svg')) { Remove-Item (Join-Path $Out 'fav
 $files = @('./', './index.html') + ($pages | Where-Object { $_[1] -ne 'index.html' } | ForEach-Object { './' + $_[1] }) + @(
   './splash.html', './app.js', './styles.css', './manifest.webmanifest', './favicon.png', './brand/logo-mark.png', './ds/pathlink/tokens.css',
   './icons/apple-touch-icon.png', './icons/icon-192.png', './icons/icon-512.png', './icons/icon-512-maskable.png',
-  './fonts/thmanyahsans-Regular.otf', './fonts/thmanyahsans-Medium.otf', './fonts/thmanyahsans-Bold.otf')
+  './fonts/thmanyahsans-Regular.otf', './fonts/thmanyahsans-Medium.otf', './fonts/thmanyahsans-Bold.otf') +
+  @(Get-ChildItem (Join-Path $Out 'img') -Filter *.jpg -ErrorAction SilentlyContinue | ForEach-Object { './img/' + $_.Name })
 $stamp = (Get-Date).ToUniversalTime().ToString('yyyyMMddHHmm')
 $sw = @"
 // Network first, so every push shows up on the next open; the cache is only a fallback for offline.
@@ -371,11 +392,13 @@ Static, clickable, installable (PWA) prototype of the Path Link app (Arabic, RTL
 
 Install: open the site on a phone, then "Add to Home Screen". The installed app starts at `./?app=1`, opens full screen and works offline (network first, cache as fallback).
 
-Everything except `fonts/`, `brand/` and `scripts/` is generated. To change it, edit `scripts/build-prototype.ps1` or `scripts/proto-app.js` and rebuild:
+Everything except `fonts/`, `brand/`, `img/` and `scripts/` is generated. To change it, edit `scripts/build-prototype.ps1` or `scripts/proto-app.js` and rebuild:
 
     powershell -File scripts/build-prototype.ps1 -Src <canvas project folder>
 
 No build step on the host: Vercel serves the folder as-is. Thmanyah Sans licence for client use still to be confirmed.
+
+Photos in `img/` are Freepik free-licence stock (attribution: Freepik), placeholders for the prototype only.
 '@
 
 [IO.File]::WriteAllText((Join-Path $Out 'styles.css'), $css, $utf8)
