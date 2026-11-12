@@ -1,5 +1,5 @@
 // Network first, so every push shows up on the next open; the cache is only a fallback for offline.
-const CACHE = 'pathlink-proto-202611121045';
+const CACHE = 'pathlink-proto-202611121048';
 const CORE = [
   './',
   './index.html',
@@ -86,6 +86,7 @@ const CORE = [
   './manifest.webmanifest',
   './favicon.png',
   './brand/logo-mark.png',
+  './brand/logo-app.png',
   './ds/pathlink/tokens.css',
   './icons/apple-touch-icon.png',
   './icons/icon-192.png',

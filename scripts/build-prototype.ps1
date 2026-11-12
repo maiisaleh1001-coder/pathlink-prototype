@@ -1,7 +1,7 @@
 ﻿# Builds the static, installable (PWA) Path Link prototype from the design-canvas files.
 # Everything in the repo root except fonts/, brand/, img/ and scripts/ is GENERATED: change this script (or proto-app.js), never the output.
 # img/ holds the stock photos used on the canvas (scripts/canvas-images.json maps each canvas upload to its file).
-# brand/ holds the client's logo (from pathlink.com.sa): logo-mark.png (transparent, for UI) and logo-full.png (full-bleed, for app icons).
+# brand/ holds the client's logo (from pathlink.com.sa): logo-mark.png (original, see-through symbol), logo-app.png (clean: gradient square, white symbol, transparent outside; splash + favicon) and logo-full.png (full-bleed, for app icons).
 #   -Src : folder holding the canvas files (project/ of the "Path Link — Home" canvas, as saved by an artifact read)
 #   -Out : the repo root (defaults to the folder above scripts/)
 param([Parameter(Mandatory = $true)][string]$Src, [string]$Out = (Split-Path -Parent $PSScriptRoot))
@@ -114,7 +114,7 @@ $tplDefaults = @{
 foreach ($f in 'Regular', 'Medium', 'Bold') {
   if (-not (Test-Path (Join-Path $Out "fonts\thmanyahsans-$f.otf"))) { throw "fonts\thmanyahsans-$f.otf missing in $Out" }
 }
-foreach ($f in 'logo-mark.png', 'logo-full.png') {
+foreach ($f in 'logo-mark.png', 'logo-full.png', 'logo-app.png') {
   if (-not (Test-Path (Join-Path $Out "brand\$f"))) { throw "brand\$f missing in $Out" }
 }
 New-Item -ItemType Directory -Force (Join-Path $Out 'ds\pathlink') | Out-Null
@@ -204,9 +204,9 @@ $splash = @'
 __HEAD__
 <style>
 body{margin:0}
-.splash{position:relative;width:390px;height:844px;overflow:hidden;background:#04070B radial-gradient(60% 40% at 50% 42%, rgba(108,92,231,0.45), rgba(241,104,255,0.12) 55%, rgba(4,7,11,0) 80%);color:#FFFFFF;font-family:'Thmanyah Sans',Tajawal,sans-serif;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:14px;direction:rtl;cursor:pointer}
+.splash{position:relative;width:390px;height:844px;overflow:hidden;background:#04070B radial-gradient(55% 32% at 50% 44%, rgba(88,53,195,0.38), rgba(246,135,255,0.10) 55%, rgba(4,7,11,0) 80%);color:#FFFFFF;font-family:'Thmanyah Sans',Tajawal,sans-serif;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:14px;direction:rtl;cursor:pointer}
 .splash .ring{position:absolute;border-radius:999px;border:1px solid rgba(255,255,255,0.08)}
-.splash .mark{width:104px;height:104px;display:block;filter:drop-shadow(0 12px 30px rgba(241,104,255,0.35));animation:pl-pop .6s cubic-bezier(.34,1.56,.64,1) both}
+.splash .mark{width:96px;height:96px;display:block;animation:pl-pop .6s cubic-bezier(.34,1.56,.64,1) both}
 .splash .name{font-size:30px;font-weight:700;direction:ltr;animation:pl-up .5s .2s ease both}
 .splash .name b{background:linear-gradient(100deg,#CBB9FF 0%,#6C5CE7 45%,#F168FF 100%);-webkit-background-clip:text;background-clip:text;color:transparent}
 .splash .tag{font-size:14px;color:rgba(248,250,252,0.65);animation:pl-up .5s .35s ease both}
@@ -222,7 +222,7 @@ body{margin:0}
 <span class="ring" aria-hidden="true" style="width:520px;height:520px;top:-180px;left:-200px"></span>
 <span class="ring" aria-hidden="true" style="width:300px;height:300px;top:-60px;left:-80px"></span>
 <span class="ring" aria-hidden="true" style="width:420px;height:420px;bottom:-200px;right:-180px"></span>
-<img class="mark" src="brand/logo-mark.png" alt="" width="104" height="104">
+<img class="mark" src="brand/logo-app.png" alt="" width="96" height="96">
 <span class="name">Path <b>Link</b></span>
 <span class="tag">كل خدماتك المهنية في مكان واحد</span>
 </div>
@@ -307,7 +307,7 @@ $manifest = @'
 Add-Type -AssemblyName System.Drawing
 New-Item -ItemType Directory -Force (Join-Path $Out 'icons') | Out-Null
 $logoFull = [System.Drawing.Image]::FromFile((Join-Path $Out 'brand\logo-full.png'))
-$logoMark = [System.Drawing.Image]::FromFile((Join-Path $Out 'brand\logo-mark.png'))
+$logoMark = [System.Drawing.Image]::FromFile((Join-Path $Out 'brand\logo-app.png'))
 function Save-Icon([int]$size, [float]$ratio, [string]$file) {
   # ratio 1 = the full-bleed logo; below 1 = logo inside the maskable safe zone on the same gradient
   $bmp = New-Object System.Drawing.Bitmap $size, $size
@@ -335,7 +335,7 @@ $logoFull.Dispose(); $logoMark.Dispose()
 if (Test-Path (Join-Path $Out 'favicon.svg')) { Remove-Item (Join-Path $Out 'favicon.svg') }
 # service worker: network first (every push shows on the next open), cache only as the offline fallback
 $files = @('./', './index.html') + ($pages | Where-Object { $_[1] -ne 'index.html' } | ForEach-Object { './' + $_[1] }) + @(
-  './splash.html', './app.js', './styles.css', './manifest.webmanifest', './favicon.png', './brand/logo-mark.png', './ds/pathlink/tokens.css',
+  './splash.html', './app.js', './styles.css', './manifest.webmanifest', './favicon.png', './brand/logo-mark.png', './brand/logo-app.png', './ds/pathlink/tokens.css',
   './icons/apple-touch-icon.png', './icons/icon-192.png', './icons/icon-512.png', './icons/icon-512-maskable.png',
   './fonts/thmanyahsans-Regular.otf', './fonts/thmanyahsans-Medium.otf', './fonts/thmanyahsans-Bold.otf') +
   @(Get-ChildItem (Join-Path $Out 'img') -Filter *.jpg -ErrorAction SilentlyContinue | ForEach-Object { './img/' + $_.Name })
