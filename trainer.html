@@ -128,6 +128,9 @@ a{color:#6C5CE7;text-decoration:none}
 .hero.cons{background:#C2368F}
 .hero.free{background:#0E8C7F}
 .hero.cour{background:#B4531C}
+.drop-pill{transform:rotate(var(--r,0deg));animation:pl-drop 1s cubic-bezier(.25,1.35,.45,1) both}
+@keyframes pl-drop{0%{transform:translateY(-460px) rotate(0deg);opacity:0}45%{opacity:1}100%{transform:translateY(0) rotate(var(--r,0deg));opacity:1}}
+@media (prefers-reduced-motion:reduce){.drop-pill{animation:none}}
 .prog{display:block;height:6px;border-radius:999px;background:#EEF0F3;overflow:hidden}
 .prog > span{display:block;height:100%;border-radius:999px;background:#B4531C}
 .bub{max-width:78%;padding:10px 14px;border-radius:20px;font-size:13px;line-height:21px;display:flex;flex-direction:column;gap:4px}
@@ -163,7 +166,7 @@ a{color:#6C5CE7;text-decoration:none}
 
     <div class="row" style="gap: 10px; align-items: stretch;">
       <a href="course-sales.html" class="card" style="flex: 1; gap: 6px; padding: 14px;"><span class="ic" style="background: #FCEFE3; color: #B4531C;"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" data-iconsax="Chart"><path d="M3 22h18M5.6 8.38H4c-.55 0-1 .45-1 1V18c0 .55.45 1 1 1h1.6c.55 0 1-.45 1-1V9.38c0-.55-.45-1-1-1ZM12.8 5.19h-1.6c-.55 0-1 .45-1 1V18c0 .55.45 1 1 1h1.6c.55 0 1-.45 1-1V6.19c0-.55-.45-1-1-1ZM20 2h-1.6c-.55 0-1 .45-1 1v15c0 .55.45 1 1 1H20c.55 0 1-.45 1-1V3c0-.55-.45-1-1-1Z" stroke-width="1.5"/></svg></span><span class="lbl">المبيعات</span><span class="sub">12 عملية شراء هذا الشهر</span></a>
-      <a href="#" class="card" style="flex: 1; gap: 6px; padding: 14px;" data-toast="موديول المستحقات والتسويات قيد التصميم"><span class="ic" style="background: #E6F4EC; color: #1E7F4F;"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" data-iconsax="EmptyWallet"><path d="M18.04 13.55c-.42.41-.66 1-.6 1.63.09 1.08 1.08 1.87 2.16 1.87h1.9v1.19c0 2.07-1.69 3.76-3.76 3.76H6.26c-2.07 0-3.76-1.69-3.76-3.76v-6.73c0-2.07 1.69-3.76 3.76-3.76h11.48c2.07 0 3.76 1.69 3.76 3.76v1.44h-2.02c-.56 0-1.07.22-1.44.6Z" stroke-width="1.5"/><path d="M2.5 12.41V7.84c0-1.19.73-2.25 1.84-2.67l7.94-3a1.9 1.9 0 0 1 2.57 1.78v3.8M22.559 13.97v2.06c0 .55-.44 1-1 1.02h-1.96c-1.08 0-2.07-.79-2.16-1.87-.06-.63.18-1.22.6-1.63.37-.38.88-.6 1.44-.6h2.08c.56.02 1 .47 1 1.02ZM7 12h7" stroke-width="1.5"/></svg></span><span class="lbl">المستحقات</span><span class="sub">التسوية القادمة 1 ديسمبر</span></a>
+      <a href="earnings.html" class="card" style="flex: 1; gap: 6px; padding: 14px;"><span class="ic" style="background: #E6F4EC; color: #1E7F4F;"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" data-iconsax="EmptyWallet"><path d="M18.04 13.55c-.42.41-.66 1-.6 1.63.09 1.08 1.08 1.87 2.16 1.87h1.9v1.19c0 2.07-1.69 3.76-3.76 3.76H6.26c-2.07 0-3.76-1.69-3.76-3.76v-6.73c0-2.07 1.69-3.76 3.76-3.76h11.48c2.07 0 3.76 1.69 3.76 3.76v1.44h-2.02c-.56 0-1.07.22-1.44.6Z" stroke-width="1.5"/><path d="M2.5 12.41V7.84c0-1.19.73-2.25 1.84-2.67l7.94-3a1.9 1.9 0 0 1 2.57 1.78v3.8M22.559 13.97v2.06c0 .55-.44 1-1 1.02h-1.96c-1.08 0-2.07-.79-2.16-1.87-.06-.63.18-1.22.6-1.63.37-.38.88-.6 1.44-.6h2.08c.56.02 1 .47 1 1.02ZM7 12h7" stroke-width="1.5"/></svg></span><span class="lbl">المستحقات</span><span class="sub">التسوية القادمة 1 ديسمبر</span></a>
     </div>
 
     <div class="shead"><span class="sec">كورساتي</span><a href="add-course.html" class="sub" style="color: #6C5CE7; font-weight: 700;">+ كورس جديد</a></div>

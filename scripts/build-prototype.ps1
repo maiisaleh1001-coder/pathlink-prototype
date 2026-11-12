@@ -98,7 +98,12 @@ $pages = @(
   @('VerifyOtp.dc.html',         'verify.html',          'Path Link · رمز التحقق'),
   @('ForgotPassword.dc.html',    'forgot-password.html', 'Path Link · نسيت كلمة المرور'),
   @('NewPassword.dc.html',       'new-password.html',    'Path Link · كلمة مرور جديدة'),
-  @('LoginGate.dc.html',         'login-gate.html',      'Path Link · سجّل للمتابعة')
+  @('LoginGate.dc.html',         'login-gate.html',      'Path Link · سجّل للمتابعة'),
+  @('Earnings.dc.html',          'earnings.html',        'Path Link · مستحقاتي'),
+  @('EarningDetail.dc.html',     'earning.html',         'Path Link · تفاصيل المستحق'),
+  @('Settlements.dc.html',       'settlements.html',     'Path Link · سجل التسويات'),
+  @('SettlementDetail.dc.html',  'settlement.html',      'Path Link · تفاصيل التسوية'),
+  @('PayoutDetails.dc.html',     'payout.html',          'Path Link · بيانات الاستلام')
 )
 # uploaded canvas fonts -> repo fonts/
 $blobs = @{

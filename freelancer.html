@@ -128,6 +128,9 @@ a{color:#6C5CE7;text-decoration:none}
 .hero.cons{background:#C2368F}
 .hero.free{background:#0E8C7F}
 .hero.cour{background:#B4531C}
+.drop-pill{transform:rotate(var(--r,0deg));animation:pl-drop 1s cubic-bezier(.25,1.35,.45,1) both}
+@keyframes pl-drop{0%{transform:translateY(-460px) rotate(0deg);opacity:0}45%{opacity:1}100%{transform:translateY(0) rotate(var(--r,0deg));opacity:1}}
+@media (prefers-reduced-motion:reduce){.drop-pill{animation:none}}
 .prog{display:block;height:6px;border-radius:999px;background:#EEF0F3;overflow:hidden}
 .prog > span{display:block;height:100%;border-radius:999px;background:#B4531C}
 .bub{max-width:78%;padding:10px 14px;border-radius:20px;font-size:13px;line-height:21px;display:flex;flex-direction:column;gap:4px}
@@ -159,7 +162,7 @@ a{color:#6C5CE7;text-decoration:none}
         <span style="flex: 1 1 auto; display: flex; flex-direction: column; gap: 2px; padding: 10px 8px; border-radius: 16px; background: rgba(255,255,255,.14); min-width: 0;"><span class="sub" style="white-space: nowrap; font-size: 11px;">عروض قيد المراجعة</span><b style="font-size: 17px;">4</b></span>
         <span style="flex: 1 1 auto; display: flex; flex-direction: column; gap: 2px; padding: 10px 8px; border-radius: 16px; background: rgba(255,255,255,.14); min-width: 0;"><span class="sub" style="white-space: nowrap; font-size: 11px;">صافي هذا الشهر</span><b style="font-size: 17px;">3,150</b></span>
       </span>
-      <span class="sub">صافي أرباحك بعد عمولة المنصة 25%.</span>
+      <a href="earnings.html" class="row" style="gap: 6px; color: #FFFFFF; font-size: 13px; font-weight: 700;"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" data-iconsax="EmptyWallet"><path d="M18.04 13.55c-.42.41-.66 1-.6 1.63.09 1.08 1.08 1.87 2.16 1.87h1.9v1.19c0 2.07-1.69 3.76-3.76 3.76H6.26c-2.07 0-3.76-1.69-3.76-3.76v-6.73c0-2.07 1.69-3.76 3.76-3.76h11.48c2.07 0 3.76 1.69 3.76 3.76v1.44h-2.02c-.56 0-1.07.22-1.44.6Z" stroke-width="1.5"/><path d="M2.5 12.41V7.84c0-1.19.73-2.25 1.84-2.67l7.94-3a1.9 1.9 0 0 1 2.57 1.78v3.8M22.559 13.97v2.06c0 .55-.44 1-1 1.02h-1.96c-1.08 0-2.07-.79-2.16-1.87-.06-.63.18-1.22.6-1.63.37-.38.88-.6 1.44-.6h2.08c.56.02 1 .47 1 1.02ZM7 12h7" stroke-width="1.5"/></svg><span class="grow" style="display: block;">صافي بعد عمولة 25% · عرض مستحقاتي</span><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" data-iconsax="ArrowLeft2"><path d="M15 19.92 8.48 13.4c-.77-.77-.77-2.03 0-2.8L15 4.08" stroke-width="1.5"/></svg></a>
     </div>
 
     <div class="row" style="gap: 10px;">

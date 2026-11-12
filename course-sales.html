@@ -128,6 +128,9 @@ a{color:#6C5CE7;text-decoration:none}
 .hero.cons{background:#C2368F}
 .hero.free{background:#0E8C7F}
 .hero.cour{background:#B4531C}
+.drop-pill{transform:rotate(var(--r,0deg));animation:pl-drop 1s cubic-bezier(.25,1.35,.45,1) both}
+@keyframes pl-drop{0%{transform:translateY(-460px) rotate(0deg);opacity:0}45%{opacity:1}100%{transform:translateY(0) rotate(var(--r,0deg));opacity:1}}
+@media (prefers-reduced-motion:reduce){.drop-pill{animation:none}}
 .prog{display:block;height:6px;border-radius:999px;background:#EEF0F3;overflow:hidden}
 .prog > span{display:block;height:100%;border-radius:999px;background:#B4531C}
 .bub{max-width:78%;padding:10px 14px;border-radius:20px;font-size:13px;line-height:21px;display:flex;flex-direction:column;gap:4px}
@@ -158,7 +161,7 @@ a{color:#6C5CE7;text-decoration:none}
       <span class="kv">عمولة المنصة 25%<b>1,047 ر.س</b></span>
       <span class="dv" style="margin: 6px 0;"></span>
       <span class="kv">صافي مستحقاتك 75%<b style="font-size: 16px; color: #1E7F4F;">3,141 ر.س</b></span>
-      <a href="#" class="sub" style="color: #6C5CE7; font-weight: 700; padding-top: 6px;" data-toast="موديول المستحقات والتسويات قيد التصميم">متابعة التسويات في «المستحقات والتسويات»</a>
+      <a href="earnings.html" class="sub" style="color: #6C5CE7; font-weight: 700; padding-top: 6px;">متابعة التسويات في «المستحقات والتسويات»</a>
     </div>
 
     <div class="shead"><span class="sec">حسب الكورس</span></div>
