@@ -90,7 +90,17 @@ $pages = @(
   @('CourseContent.dc.html',     'course-content.html',  'Path Link · محتوى الكورس'),
   @('CourseSales.dc.html',       'course-sales.html',    'Path Link · مبيعات الكورسات'),
   @('Messages.dc.html',          'messages.html',        'Path Link · الرسائل'),
-  @('InquiryChat.dc.html',       'inquiry.html',         'Path Link · استفسار قبل الطلب')
+  @('InquiryChat.dc.html',       'inquiry.html',         'Path Link · استفسار قبل الطلب'),
+  @('Onboarding1.dc.html',       'onboarding.html',      'Path Link · أهلًا بك'),
+  @('Onboarding2.dc.html',       'onboarding-2.html',    'Path Link · أهلًا بك'),
+  @('Onboarding3.dc.html',       'onboarding-3.html',    'Path Link · أهلًا بك'),
+  @('SignIn.dc.html',            'sign-in.html',         'Path Link · تسجيل الدخول'),
+  @('SignUp.dc.html',            'sign-up.html',         'Path Link · إنشاء حساب'),
+  @('CompleteProfile.dc.html',   'complete-profile.html','Path Link · أكمل بياناتك'),
+  @('VerifyOtp.dc.html',         'verify.html',          'Path Link · رمز التحقق'),
+  @('ForgotPassword.dc.html',    'forgot-password.html', 'Path Link · نسيت كلمة المرور'),
+  @('NewPassword.dc.html',       'new-password.html',    'Path Link · كلمة مرور جديدة'),
+  @('LoginGate.dc.html',         'login-gate.html',      'Path Link · سجّل للمتابعة')
 )
 # uploaded canvas fonts -> repo fonts/
 $blobs = @{
@@ -98,6 +108,7 @@ $blobs = @{
   'f159786dc815520d31546578e8670ffb' = 'fonts/thmanyahsans-Medium.otf'
   'd38dc1bd5c239bc8523bcbace2a6da52' = 'fonts/thmanyahsans-Bold.otf'
   '4c8f4b27ec9b8de47115478eb5c392d8' = 'brand/logo-mark.png'
+  'ffcc7a5133c629adb1dc4828cf42a761' = 'brand/logo-app.png'
 }
 # stock photos uploaded to the canvas (Freepik free licence, attribution in README) -> repo img/
 $imgMap = Join-Path $PSScriptRoot 'canvas-images.json'

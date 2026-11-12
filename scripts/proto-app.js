@@ -18,7 +18,9 @@
     write('pl-intro-seen', true);
     write('pl-fl', 'none'); // every presentation starts the profile stories from the beginning
     write('pl-tr', 'none');
-    var go = function () { location.replace('./?skip=1'); };
+    write('pl-au', 'user');
+    // a new session starts at the onboarding (skip → sign in → home); the home page itself skips the splash
+    var go = function () { location.replace('onboarding.html'); };
     var t = setTimeout(go, 1800); // passes on its own; a tap skips it
     if (screen) screen.addEventListener('click', function () { clearTimeout(t); go(); });
     return;
@@ -77,12 +79,14 @@
   // the trainer story uses the same attributes with data-tr…
   var STORIES = {
     fl: { route: { none: 'new-freelancer.html', pending: 'freelancer-pending.html', rejected: 'freelancer-profile.html', resubmitted: 'freelancer-resubmitted.html', approved: 'freelancer.html' }, gate: 'need-approval.html' },
-    tr: { route: { none: 'new-trainer.html', pending: 'trainer-pending.html', approved: 'trainer.html' }, gate: 'trainer-pending.html' }
+    tr: { route: { none: 'new-trainer.html', pending: 'trainer-pending.html', approved: 'trainer.html' }, gate: 'trainer-pending.html' },
+    // au = signed in or browsing as a guest: guests get the «سجّل للمتابعة» sheet on apply / order / book / buy
+    au: { route: { user: './?skip=1', guest: 'sign-in.html' }, gate: 'login-gate.html', ok: 'user', def: 'user' }
   };
   function applyStories(root) {
     Object.keys(STORIES).forEach(function (k) {
-      var story = STORIES[k], st = read('pl-' + k, 'none');
-      if (!story.route[st]) st = 'none';
+      var story = STORIES[k], def = story.def || 'none', st = read('pl-' + k, def);
+      if (!story.route[st]) st = def;
       [].forEach.call(root.querySelectorAll('[data-' + k + '-show]'), function (el) {
         var on = (' ' + el.getAttribute('data-' + k + '-show') + ' ').indexOf(' ' + st + ' ') !== -1;
         el.style.display = on ? (el.getAttribute('data-' + k + '-display') || '') : 'none';
@@ -90,7 +94,8 @@
       [].forEach.call(root.querySelectorAll('a[data-' + k + ']'), function (a) {
         if (!a.hasAttribute('data-own-href')) a.setAttribute('data-own-href', a.getAttribute('href'));
         var own = a.getAttribute('data-own-href'), ok = a.getAttribute('data-' + k + '-ok');
-        var to = a.getAttribute('data-' + k) === 'gate' ? (st === 'approved' ? own : story.gate) : (st === 'approved' && ok ? ok : story.route[st]);
+        var okState = story.ok || 'approved';
+        var to = a.getAttribute('data-' + k) === 'gate' ? (st === okState ? own : story.gate) : (st === okState && ok ? ok : story.route[st]);
         a.setAttribute('href', to);
       });
     });
@@ -204,7 +209,7 @@
   });
 
   // ---------- bottom sheets open over the current page (overlay + slide up), not as a new screen ----------
-  var SHEETS = { 'add.html': 1, 'job-filter.html': 1, 'job-apply.html': 1, 'freelance-filter.html': 1, 'consult-filter.html': 1, 'course-filter.html': 1, 'orders-filter.html': 1, 'reschedule.html': 1, 'accept-offer.html': 1, 'request-revision.html': 1, 'need-approval.html': 1, 'coursera.html': 1 };
+  var SHEETS = { 'add.html': 1, 'job-filter.html': 1, 'job-apply.html': 1, 'freelance-filter.html': 1, 'consult-filter.html': 1, 'course-filter.html': 1, 'orders-filter.html': 1, 'reschedule.html': 1, 'accept-offer.html': 1, 'request-revision.html': 1, 'need-approval.html': 1, 'coursera.html': 1, 'login-gate.html': 1 };
   var SHEET_CSS = '.pl-wrap{position:absolute;inset:0;font-family:"Thmanyah Sans",Tajawal,sans-serif;direction:rtl}' +
     '.pl-backdrop{position:absolute;inset:0;background:rgba(14,26,43,.48);opacity:0;transition:opacity .25s ease}' +
     '.pl-sheet{position:absolute;left:0;right:0;bottom:0;max-height:92%;overflow-y:auto;scrollbar-width:none;transform:translateY(100%);transition:transform .32s cubic-bezier(.2,.8,.2,1)}' +
