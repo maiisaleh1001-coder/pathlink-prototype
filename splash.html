@@ -3,9 +3,9 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<meta name="theme-color" content="#6C5CE7">
+<meta name="theme-color" content="#04070B">
 <title>Path Link</title>
-<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link rel="icon" href="favicon.png" type="image/png">
 <link rel="manifest" href="manifest.webmanifest">
 <link rel="apple-touch-icon" sizes="180x180" href="icons/apple-touch-icon.png">
 <meta name="apple-mobile-web-app-capable" content="yes">
@@ -33,11 +33,12 @@
 <style>
 @font-face{font-family:"Thmanyah Sans";src:url("fonts/thmanyahsans-Bold.otf") format("opentype");font-weight:700;font-display:swap}
 body{margin:0}
-.splash{position:relative;width:390px;height:844px;overflow:hidden;background:#6C5CE7;color:#FFFFFF;font-family:'Thmanyah Sans',Tajawal,sans-serif;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:14px;direction:rtl;cursor:pointer}
-.splash .ring{position:absolute;border-radius:999px;border:1px solid rgba(255,255,255,0.16)}
-.splash .mark{width:88px;height:88px;border-radius:999px;background:#FFFFFF;color:#6C5CE7;display:flex;align-items:center;justify-content:center;animation:pl-pop .6s cubic-bezier(.34,1.56,.64,1) both}
-.splash .name{font-size:28px;font-weight:700;direction:ltr;animation:pl-up .5s .2s ease both}
-.splash .tag{font-size:14px;color:rgba(255,255,255,0.85);animation:pl-up .5s .35s ease both}
+.splash{position:relative;width:390px;height:844px;overflow:hidden;background:#04070B radial-gradient(60% 40% at 50% 42%, rgba(108,92,231,0.45), rgba(241,104,255,0.12) 55%, rgba(4,7,11,0) 80%);color:#FFFFFF;font-family:'Thmanyah Sans',Tajawal,sans-serif;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:14px;direction:rtl;cursor:pointer}
+.splash .ring{position:absolute;border-radius:999px;border:1px solid rgba(255,255,255,0.08)}
+.splash .mark{width:104px;height:104px;display:block;filter:drop-shadow(0 12px 30px rgba(241,104,255,0.35));animation:pl-pop .6s cubic-bezier(.34,1.56,.64,1) both}
+.splash .name{font-size:30px;font-weight:700;direction:ltr;animation:pl-up .5s .2s ease both}
+.splash .name b{background:linear-gradient(100deg,#CBB9FF 0%,#6C5CE7 45%,#F168FF 100%);-webkit-background-clip:text;background-clip:text;color:transparent}
+.splash .tag{font-size:14px;color:rgba(248,250,252,0.65);animation:pl-up .5s .35s ease both}
 @keyframes pl-pop{from{transform:scale(.6);opacity:0}to{transform:none;opacity:1}}
 @keyframes pl-up{from{transform:translateY(10px);opacity:0}to{transform:none;opacity:1}}
 @media (prefers-reduced-motion:reduce){.splash *{animation:none!important}}
@@ -50,8 +51,8 @@ body{margin:0}
 <span class="ring" aria-hidden="true" style="width:520px;height:520px;top:-180px;left:-200px"></span>
 <span class="ring" aria-hidden="true" style="width:300px;height:300px;top:-60px;left:-80px"></span>
 <span class="ring" aria-hidden="true" style="width:420px;height:420px;bottom:-200px;right:-180px"></span>
-<span class="mark"><svg width="44" height="44" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5.47 9a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7ZM16.97 15h3c1.1 0 2 .9 2 2v3c0 1.1-.9 2-2 2h-3c-1.1 0-2-.9-2-2v-3c0-1.1.9-2 2-2Z" stroke-width="1.5"/><path d="M12 5h2.68c1.85 0 2.71 2.29 1.32 3.51L8.01 15.5C6.62 16.71 7.48 19 9.32 19H12" stroke-width="1.5"/></svg></span>
-<span class="name">Path Link</span>
+<img class="mark" src="brand/logo-mark.png" alt="" width="104" height="104">
+<span class="name">Path <b>Link</b></span>
 <span class="tag">كل خدماتك المهنية في مكان واحد</span>
 </div>
 </div>

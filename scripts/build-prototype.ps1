@@ -1,5 +1,6 @@
 ﻿# Builds the static, installable (PWA) Path Link prototype from the design-canvas files.
-# Everything in the repo root except fonts/ and scripts/ is GENERATED: change this script (or proto-app.js), never the output.
+# Everything in the repo root except fonts/, brand/ and scripts/ is GENERATED: change this script (or proto-app.js), never the output.
+# brand/ holds the client's logo (from pathlink.com.sa): logo-mark.png (transparent, for UI) and logo-full.png (full-bleed, for app icons).
 #   -Src : folder holding the canvas files (project/ of the "Path Link — Home" canvas, as saved by an artifact read)
 #   -Out : the repo root (defaults to the folder above scripts/)
 param([Parameter(Mandatory = $true)][string]$Src, [string]$Out = (Split-Path -Parent $PSScriptRoot))
@@ -77,6 +78,7 @@ $blobs = @{
   '22b0fac2bfa57f68c29fd0f0e3e8ea32' = 'fonts/thmanyahsans-Regular.otf'
   'f159786dc815520d31546578e8670ffb' = 'fonts/thmanyahsans-Medium.otf'
   'd38dc1bd5c239bc8523bcbace2a6da52' = 'fonts/thmanyahsans-Bold.otf'
+  '4c8f4b27ec9b8de47115478eb5c392d8' = 'brand/logo-mark.png'
 }
 # first-frame values for the canvas's live {{holes}}; proto-app.js drives the behaviour
 $tplDefaults = @{
@@ -87,6 +89,9 @@ $tplDefaults = @{
 foreach ($f in 'Regular', 'Medium', 'Bold') {
   if (-not (Test-Path (Join-Path $Out "fonts\thmanyahsans-$f.otf"))) { throw "fonts\thmanyahsans-$f.otf missing in $Out" }
 }
+foreach ($f in 'logo-mark.png', 'logo-full.png') {
+  if (-not (Test-Path (Join-Path $Out "brand\$f"))) { throw "brand\$f missing in $Out" }
+}
 New-Item -ItemType Directory -Force (Join-Path $Out 'ds\pathlink') | Out-Null
 Copy-Item (Join-Path $Src 'ds\pathlink\tokens.css') (Join-Path $Out 'ds\pathlink\tokens.css') -Force
 
@@ -95,7 +100,7 @@ $head = @'
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="theme-color" content="#F9FAFB">
 <title>__TITLE__</title>
-<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link rel="icon" href="favicon.png" type="image/png">
 <link rel="manifest" href="manifest.webmanifest">
 <link rel="apple-touch-icon" sizes="180x180" href="icons/apple-touch-icon.png">
 <meta name="apple-mobile-web-app-capable" content="yes">
@@ -167,11 +172,12 @@ $splash = @'
 __HEAD__
 <style>
 body{margin:0}
-.splash{position:relative;width:390px;height:844px;overflow:hidden;background:#6C5CE7;color:#FFFFFF;font-family:'Thmanyah Sans',Tajawal,sans-serif;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:14px;direction:rtl;cursor:pointer}
-.splash .ring{position:absolute;border-radius:999px;border:1px solid rgba(255,255,255,0.16)}
-.splash .mark{width:88px;height:88px;border-radius:999px;background:#FFFFFF;color:#6C5CE7;display:flex;align-items:center;justify-content:center;animation:pl-pop .6s cubic-bezier(.34,1.56,.64,1) both}
-.splash .name{font-size:28px;font-weight:700;direction:ltr;animation:pl-up .5s .2s ease both}
-.splash .tag{font-size:14px;color:rgba(255,255,255,0.85);animation:pl-up .5s .35s ease both}
+.splash{position:relative;width:390px;height:844px;overflow:hidden;background:#04070B radial-gradient(60% 40% at 50% 42%, rgba(108,92,231,0.45), rgba(241,104,255,0.12) 55%, rgba(4,7,11,0) 80%);color:#FFFFFF;font-family:'Thmanyah Sans',Tajawal,sans-serif;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:14px;direction:rtl;cursor:pointer}
+.splash .ring{position:absolute;border-radius:999px;border:1px solid rgba(255,255,255,0.08)}
+.splash .mark{width:104px;height:104px;display:block;filter:drop-shadow(0 12px 30px rgba(241,104,255,0.35));animation:pl-pop .6s cubic-bezier(.34,1.56,.64,1) both}
+.splash .name{font-size:30px;font-weight:700;direction:ltr;animation:pl-up .5s .2s ease both}
+.splash .name b{background:linear-gradient(100deg,#CBB9FF 0%,#6C5CE7 45%,#F168FF 100%);-webkit-background-clip:text;background-clip:text;color:transparent}
+.splash .tag{font-size:14px;color:rgba(248,250,252,0.65);animation:pl-up .5s .35s ease both}
 @keyframes pl-pop{from{transform:scale(.6);opacity:0}to{transform:none;opacity:1}}
 @keyframes pl-up{from{transform:translateY(10px);opacity:0}to{transform:none;opacity:1}}
 @media (prefers-reduced-motion:reduce){.splash *{animation:none!important}}
@@ -184,8 +190,8 @@ body{margin:0}
 <span class="ring" aria-hidden="true" style="width:520px;height:520px;top:-180px;left:-200px"></span>
 <span class="ring" aria-hidden="true" style="width:300px;height:300px;top:-60px;left:-80px"></span>
 <span class="ring" aria-hidden="true" style="width:420px;height:420px;bottom:-200px;right:-180px"></span>
-<span class="mark"><svg width="44" height="44" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5.47 9a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7ZM16.97 15h3c1.1 0 2 .9 2 2v3c0 1.1-.9 2-2 2h-3c-1.1 0-2-.9-2-2v-3c0-1.1.9-2 2-2Z" stroke-width="1.5"/><path d="M12 5h2.68c1.85 0 2.71 2.29 1.32 3.51L8.01 15.5C6.62 16.71 7.48 19 9.32 19H12" stroke-width="1.5"/></svg></span>
-<span class="name">Path Link</span>
+<img class="mark" src="brand/logo-mark.png" alt="" width="104" height="104">
+<span class="name">Path <b>Link</b></span>
 <span class="tag">كل خدماتك المهنية في مكان واحد</span>
 </div>
 </div>
@@ -193,7 +199,7 @@ body{margin:0}
 __TAIL__</body>
 </html>
 '@
-$splash = $splash.Replace('__HEAD__', $head.Replace('__TITLE__', 'Path Link').Replace('<meta name="theme-color" content="#F9FAFB">', '<meta name="theme-color" content="#6C5CE7">')).Replace('__TAIL__', $tail)
+$splash = $splash.Replace('__HEAD__', $head.Replace('__TITLE__', 'Path Link').Replace('<meta name="theme-color" content="#F9FAFB">', '<meta name="theme-color" content="#04070B">')).Replace('__TAIL__', $tail)
 $splash = $splash.Replace('<style>', "<style>`n@font-face{font-family:`"Thmanyah Sans`";src:url(`"fonts/thmanyahsans-Bold.otf`") format(`"opentype`");font-weight:700;font-display:swap}")
 [IO.File]::WriteAllText((Join-Path $Out 'splash.html'), $splash, $utf8)
 
@@ -246,7 +252,7 @@ $manifest = @'
   "scope": "./",
   "display": "standalone",
   "orientation": "portrait",
-  "background_color": "#6C5CE7",
+  "background_color": "#04070B",
   "theme_color": "#F9FAFB",
   "icons": [
     { "src": "icons/icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any" },
@@ -256,51 +262,39 @@ $manifest = @'
 }
 '@
 
-# PNG icons (iOS ignores SVG touch icons): blue square, white route mark (the placeholder logo)
+# PNG icons (iOS ignores SVG touch icons) from the client's logo; favicon from the transparent mark
 Add-Type -AssemblyName System.Drawing
 New-Item -ItemType Directory -Force (Join-Path $Out 'icons') | Out-Null
-function Save-Icon([int]$size, [float]$markRatio, [string]$file) {
+$logoFull = [System.Drawing.Image]::FromFile((Join-Path $Out 'brand\logo-full.png'))
+$logoMark = [System.Drawing.Image]::FromFile((Join-Path $Out 'brand\logo-mark.png'))
+function Save-Icon([int]$size, [float]$ratio, [string]$file) {
+  # ratio 1 = the full-bleed logo; below 1 = logo inside the maskable safe zone on the same gradient
   $bmp = New-Object System.Drawing.Bitmap $size, $size
   $g = [System.Drawing.Graphics]::FromImage($bmp)
-  $g.SmoothingMode = [System.Drawing.Drawing2D.SmoothingMode]::AntiAlias
-  $g.Clear([System.Drawing.ColorTranslator]::FromHtml('#6C5CE7'))
-  # the mark spans x 1.97..21.97 and y 2..22 on its 24-unit grid: a 20-unit box
-  $s = ($size * $markRatio) / 20.0
-  $ox = ($size - 20.0 * $s) / 2 - 1.97 * $s
-  $oy = ($size - 20.0 * $s) / 2 - 2.0 * $s
-  $pt = { param($x, $y) New-Object System.Drawing.PointF (($ox + $x * $s), ($oy + $y * $s)) }
-  $pen = New-Object System.Drawing.Pen ([System.Drawing.Color]::White), (1.9 * $s)
-  $pen.StartCap = [System.Drawing.Drawing2D.LineCap]::Round
-  $pen.EndCap = [System.Drawing.Drawing2D.LineCap]::Round
-  $pen.LineJoin = [System.Drawing.Drawing2D.LineJoin]::Round
-  $g.DrawEllipse($pen, ($ox + 1.97 * $s), ($oy + 2.0 * $s), (7.0 * $s), (7.0 * $s))
-  $rect = New-Object System.Drawing.Drawing2D.GraphicsPath
-  $r = 2.0 * $s; $x0 = $ox + 14.97 * $s; $y0 = $oy + 15.0 * $s; $w = 7.0 * $s
-  $rect.AddArc($x0, $y0, 2 * $r, 2 * $r, 180, 90); $rect.AddArc($x0 + $w - 2 * $r, $y0, 2 * $r, 2 * $r, 270, 90)
-  $rect.AddArc($x0 + $w - 2 * $r, $y0 + $w - 2 * $r, 2 * $r, 2 * $r, 0, 90); $rect.AddArc($x0, $y0 + $w - 2 * $r, 2 * $r, 2 * $r, 90, 90)
-  $rect.CloseFigure()
-  $g.DrawPath($pen, $rect)
-  $route = New-Object System.Drawing.Drawing2D.GraphicsPath
-  $route.AddLine((& $pt 12 5), (& $pt 14.68 5))
-  $route.AddBezier((& $pt 14.68 5), (& $pt 16.53 5), (& $pt 17.39 7.29), (& $pt 16 8.51))
-  $route.AddLine((& $pt 16 8.51), (& $pt 8.01 15.5))
-  $route.AddBezier((& $pt 8.01 15.5), (& $pt 6.62 16.71), (& $pt 7.48 19), (& $pt 9.32 19))
-  $route.AddLine((& $pt 9.32 19), (& $pt 12 19))
-  $g.DrawPath($pen, $route)
+  $g.InterpolationMode = [System.Drawing.Drawing2D.InterpolationMode]::HighQualityBicubic
+  $g.PixelOffsetMode = [System.Drawing.Drawing2D.PixelOffsetMode]::HighQuality
+  $bg = New-Object System.Drawing.Drawing2D.LinearGradientBrush (New-Object System.Drawing.Point 0, 0), (New-Object System.Drawing.Point 0, $size), ([System.Drawing.ColorTranslator]::FromHtml('#5836C4')), ([System.Drawing.ColorTranslator]::FromHtml('#F687FF'))
+  $g.FillRectangle($bg, 0, 0, $size, $size)
+  $d = [int][Math]::Round($size * $ratio); $o = [int](($size - $d) / 2)
+  $g.DrawImage($logoFull, $o, $o, $d, $d)
   $g.Dispose()
   $bmp.Save((Join-Path $Out "icons\$file"), [System.Drawing.Imaging.ImageFormat]::Png)
   $bmp.Dispose()
 }
-Save-Icon 180 0.56 'apple-touch-icon.png'   # full square, iOS rounds it itself
-Save-Icon 192 0.56 'icon-192.png'
-Save-Icon 512 0.56 'icon-512.png'
-Save-Icon 512 0.40 'icon-512-maskable.png'  # mark inside the 80% safe zone
-
-$favicon = '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64"><rect width="64" height="64" rx="16" fill="#6C5CE7"/><g transform="translate(8 8) scale(2)" fill="none" stroke="#fff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M5.47 9a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7ZM16.97 15h3c1.1 0 2 .9 2 2v3c0 1.1-.9 2-2 2h-3c-1.1 0-2-.9-2-2v-3c0-1.1.9-2 2-2Z"/><path d="M12 5h2.68c1.85 0 2.71 2.29 1.32 3.51L8.01 15.5C6.62 16.71 7.48 19 9.32 19H12"/></g></svg>'
-
+Save-Icon 180 1.0 'apple-touch-icon.png'   # full square, iOS rounds it itself
+Save-Icon 192 1.0 'icon-192.png'
+Save-Icon 512 1.0 'icon-512.png'
+Save-Icon 512 0.78 'icon-512-maskable.png'  # logo inside the 80% safe zone
+$fav = New-Object System.Drawing.Bitmap 64, 64
+$g = [System.Drawing.Graphics]::FromImage($fav)
+$g.InterpolationMode = [System.Drawing.Drawing2D.InterpolationMode]::HighQualityBicubic
+$g.DrawImage($logoMark, 0, 0, 64, 64); $g.Dispose()
+$fav.Save((Join-Path $Out 'favicon.png'), [System.Drawing.Imaging.ImageFormat]::Png); $fav.Dispose()
+$logoFull.Dispose(); $logoMark.Dispose()
+if (Test-Path (Join-Path $Out 'favicon.svg')) { Remove-Item (Join-Path $Out 'favicon.svg') }
 # service worker: network first (every push shows on the next open), cache only as the offline fallback
 $files = @('./', './index.html') + ($pages | Where-Object { $_[1] -ne 'index.html' } | ForEach-Object { './' + $_[1] }) + @(
-  './splash.html', './app.js', './styles.css', './manifest.webmanifest', './favicon.svg', './ds/pathlink/tokens.css',
+  './splash.html', './app.js', './styles.css', './manifest.webmanifest', './favicon.png', './brand/logo-mark.png', './ds/pathlink/tokens.css',
   './icons/apple-touch-icon.png', './icons/icon-192.png', './icons/icon-512.png', './icons/icon-512-maskable.png',
   './fonts/thmanyahsans-Regular.otf', './fonts/thmanyahsans-Medium.otf', './fonts/thmanyahsans-Bold.otf')
 $stamp = (Get-Date).ToUniversalTime().ToString('yyyyMMddHHmm')
@@ -356,7 +350,7 @@ Static, clickable, installable (PWA) prototype of the Path Link app (Arabic, RTL
 
 Install: open the site on a phone, then "Add to Home Screen". The installed app starts at `./?app=1`, opens full screen and works offline (network first, cache as fallback).
 
-Everything except `fonts/` and `scripts/` is generated. To change it, edit `scripts/build-prototype.ps1` or `scripts/proto-app.js` and rebuild:
+Everything except `fonts/`, `brand/` and `scripts/` is generated. To change it, edit `scripts/build-prototype.ps1` or `scripts/proto-app.js` and rebuild:
 
     powershell -File scripts/build-prototype.ps1 -Src <canvas project folder>
 
@@ -365,7 +359,6 @@ No build step on the host: Vercel serves the folder as-is. Thmanyah Sans licence
 
 [IO.File]::WriteAllText((Join-Path $Out 'styles.css'), $css, $utf8)
 Copy-Item (Join-Path $PSScriptRoot 'proto-app.js') (Join-Path $Out 'app.js') -Force
-[IO.File]::WriteAllText((Join-Path $Out 'favicon.svg'), $favicon, $utf8)
 [IO.File]::WriteAllText((Join-Path $Out 'manifest.webmanifest'), $manifest, $utf8)
 [IO.File]::WriteAllText((Join-Path $Out 'sw.js'), $sw, $utf8)
 [IO.File]::WriteAllText((Join-Path $Out 'README.md'), $readme, $utf8)
