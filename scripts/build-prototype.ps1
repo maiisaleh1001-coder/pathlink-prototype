@@ -75,7 +75,19 @@ $pages = @(
   @('CreateFreelancer.dc.html',  'new-freelancer.html',  'Path Link · ملف المستقل'),
   @('FreelancerPending.dc.html', 'freelancer-pending.html', 'Path Link · ملف المستقل قيد المراجعة'),
   @('FreelancerResubmitted.dc.html', 'freelancer-resubmitted.html', 'Path Link · أُعيد إرسال ملف المستقل'),
-  @('NeedApproval.dc.html',      'need-approval.html',   'Path Link · تحتاج ملفًا معتمدًا')
+  @('NeedApproval.dc.html',      'need-approval.html',   'Path Link · تحتاج ملفًا معتمدًا'),
+  @('CoursesHome.dc.html',       'courses.html',         'Path Link · الكورسات'),
+  @('CourseraSheet.dc.html',     'coursera.html',        'Path Link · كورس من Coursera'),
+  @('CourseDetail.dc.html',      'course.html',          'Path Link · تفاصيل الكورس'),
+  @('CourseCheckout.dc.html',    'course-checkout.html', 'Path Link · شراء الكورس'),
+  @('MyCourses.dc.html',         'my-courses.html',      'Path Link · كورساتي'),
+  @('CoursePlayer.dc.html',      'course-player.html',   'Path Link · مشاهدة الدرس'),
+  @('RateCourse.dc.html',        'rate-course.html',     'Path Link · تقييم الكورس'),
+  @('TrainerPending.dc.html',    'trainer-pending.html', 'Path Link · ملف المدرب قيد المراجعة'),
+  @('TrainerDash.dc.html',       'trainer.html',         'Path Link · لوحة المدرب'),
+  @('AddCourse.dc.html',         'add-course.html',      'Path Link · كورس جديد'),
+  @('CourseContent.dc.html',     'course-content.html',  'Path Link · محتوى الكورس'),
+  @('CourseSales.dc.html',       'course-sales.html',    'Path Link · مبيعات الكورسات')
 )
 # uploaded canvas fonts -> repo fonts/
 $blobs = @{
@@ -145,9 +157,10 @@ foreach ($pg in $pages) {
   if ($doc -match '/_blob/') { throw "unmapped upload left in $($pg[0])" }
   foreach ($p2 in $pages) {
     $doc = $doc.Replace('href="' + $p2[0] + '"', 'href="' + $(if ($p2[1] -eq 'index.html') { './?skip=1' } else { $p2[1] }) + '"')
-    $doc = $doc.Replace('data-fl-ok="' + $p2[0] + '"', 'data-fl-ok="' + $p2[1] + '"')  # freelancer story: where an approved freelancer goes
+    # profile stories (freelancer, trainer): where an approved provider goes
+    $doc = $doc.Replace('data-fl-ok="' + $p2[0] + '"', 'data-fl-ok="' + $p2[1] + '"').Replace('data-tr-ok="' + $p2[0] + '"', 'data-tr-ok="' + $p2[1] + '"')
   }
-  if ($doc -match 'data-fl-ok="[^"]+\.dc\.html"') { throw "data-fl-ok to an artboard that is not in the prototype: $($Matches[0]) in $($pg[0])" }
+  if ($doc -match 'data-(fl|tr)-ok="[^"]+\.dc\.html"') { throw "story link to an artboard that is not in the prototype: $($Matches[0]) in $($pg[0])" }
   if ($doc -match 'href="[^"]+\.dc\.html"') { throw "link to an artboard that is not in the prototype: $($Matches[0]) in $($pg[0])" }
   # sc-if branches become plain blocks the prototype script switches; the first one shows
   $doc = [regex]::Replace($doc, '<sc-if value="\{\{(\w+)\}\}"[^>]*>', { param($m) '<div data-step="' + $m.Groups[1].Value + '">' })
