@@ -54,6 +54,15 @@
     toast(label && label.length <= 24 ? '«' + label + '» قيد التصميم' : 'هذه الشاشة قيد التصميم');
   });
 
+  // ---------- back buttons return to the screen you came from (the link's own target is only the fallback, e.g. a page opened directly) ----------
+  document.addEventListener('click', function (e) {
+    var a = e.target.closest && e.target.closest('a[aria-label="رجوع"]');
+    if (!a || !screen || !screen.contains(a)) return;
+    var cameFromHere = false;
+    try { cameFromHere = !!document.referrer && new URL(document.referrer).origin === location.origin && history.length > 1; } catch (err) {}
+    if (cameFromHere) { e.preventDefault(); history.back(); }
+  });
+
   // ---------- freelancer story: the profile's review state lives in the session, so a demo walks every step in order ----------
   // none → (create) pending → (admin) rejected → (resubmit) resubmitted → (admin) approved
   //   data-fl="entry"   goes to the screen for the current state (data-fl-ok overrides it once approved)
