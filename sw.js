@@ -1,5 +1,5 @@
 // Network first, so every push shows up on the next open; the cache is only a fallback for offline.
-const CACHE = 'pathlink-proto-202611121048';
+const CACHE = 'pathlink-proto-202611121054';
 const CORE = [
   './',
   './index.html',
@@ -80,6 +80,8 @@ const CORE = [
   './add-course.html',
   './course-content.html',
   './course-sales.html',
+  './messages.html',
+  './inquiry.html',
   './splash.html',
   './app.js',
   './styles.css',

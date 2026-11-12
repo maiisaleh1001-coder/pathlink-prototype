@@ -172,6 +172,37 @@
   }
   initDemo(document);
 
+  // ---------- chat: typing (or a quick reply) adds your message; the other side "types" and answers once ----------
+  [].forEach.call(document.querySelectorAll('[data-chat-log]'), function (log) {
+    var input = document.querySelector('[data-chat-input]'), send = document.querySelector('[data-chat-send]');
+    var replied = false;
+    var now = function () { var d = new Date(), h = d.getHours(), m = d.getMinutes(); return (h % 12 || 12) + ':' + (m < 10 ? '0' : '') + m + (h < 12 ? ' ص' : ' م'); };
+    var down = function () { log.scrollTo({ top: log.scrollHeight, behavior: 'smooth' }); };
+    var add = function (who, text, tick) {
+      var b = document.createElement('div'); b.className = 'bub ' + who + ' proto-pop-in'; b.textContent = text;
+      var t = document.createElement('span'); t.className = 't'; t.textContent = now() + (tick ? ' ✓✓' : ''); b.appendChild(t);
+      log.appendChild(b); down();
+    };
+    var post = function (text) {
+      text = (text || '').trim();
+      if (!text) { toast('اكتب رسالة أولًا'); if (input) input.focus(); return; }
+      add('me', text, true);
+      if (input) input.value = '';
+      if (replied || !send) return;
+      replied = true;
+      setTimeout(function () {
+        var typing = document.createElement('span'); typing.className = 'sysmsg proto-pop-in'; typing.textContent = 'يكتب الآن…';
+        log.appendChild(typing); down();
+        setTimeout(function () { typing.remove(); add('them', send.getAttribute('data-reply') || 'تمام'); }, 1400);
+      }, 600);
+    };
+    if (send) send.addEventListener('click', function (e) { e.preventDefault(); e.stopImmediatePropagation(); post(input && input.value); });
+    if (input) input.addEventListener('keydown', function (e) { if (e.key === 'Enter') { e.preventDefault(); post(input.value); } });
+    [].forEach.call(document.querySelectorAll('[data-quick]'), function (q) {
+      q.addEventListener('click', function (e) { e.preventDefault(); e.stopImmediatePropagation(); post(q.getAttribute('data-quick')); });
+    });
+  });
+
   // ---------- bottom sheets open over the current page (overlay + slide up), not as a new screen ----------
   var SHEETS = { 'add.html': 1, 'job-filter.html': 1, 'job-apply.html': 1, 'freelance-filter.html': 1, 'consult-filter.html': 1, 'course-filter.html': 1, 'orders-filter.html': 1, 'reschedule.html': 1, 'accept-offer.html': 1, 'request-revision.html': 1, 'need-approval.html': 1, 'coursera.html': 1 };
   var SHEET_CSS = '.pl-wrap{position:absolute;inset:0;font-family:"Thmanyah Sans",Tajawal,sans-serif;direction:rtl}' +

@@ -88,7 +88,9 @@ $pages = @(
   @('TrainerDash.dc.html',       'trainer.html',         'Path Link · لوحة المدرب'),
   @('AddCourse.dc.html',         'add-course.html',      'Path Link · كورس جديد'),
   @('CourseContent.dc.html',     'course-content.html',  'Path Link · محتوى الكورس'),
-  @('CourseSales.dc.html',       'course-sales.html',    'Path Link · مبيعات الكورسات')
+  @('CourseSales.dc.html',       'course-sales.html',    'Path Link · مبيعات الكورسات'),
+  @('Messages.dc.html',          'messages.html',        'Path Link · الرسائل'),
+  @('InquiryChat.dc.html',       'inquiry.html',         'Path Link · استفسار قبل الطلب')
 )
 # uploaded canvas fonts -> repo fonts/
 $blobs = @{
