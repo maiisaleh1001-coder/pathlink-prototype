@@ -109,6 +109,7 @@ $blobs = @{
   'd38dc1bd5c239bc8523bcbace2a6da52' = 'fonts/thmanyahsans-Bold.otf'
   '4c8f4b27ec9b8de47115478eb5c392d8' = 'brand/logo-mark.png'
   'ffcc7a5133c629adb1dc4828cf42a761' = 'brand/logo-app.png'
+  'c50e23933df4c0582306b2e4d7fc174c' = 'brand/logo-symbol.png'
 }
 # stock photos uploaded to the canvas (Freepik free licence, attribution in README) -> repo img/
 $imgMap = Join-Path $PSScriptRoot 'canvas-images.json'
@@ -127,7 +128,7 @@ $tplDefaults = @{
 foreach ($f in 'Regular', 'Medium', 'Bold') {
   if (-not (Test-Path (Join-Path $Out "fonts\thmanyahsans-$f.otf"))) { throw "fonts\thmanyahsans-$f.otf missing in $Out" }
 }
-foreach ($f in 'logo-mark.png', 'logo-full.png', 'logo-app.png') {
+foreach ($f in 'logo-mark.png', 'logo-full.png', 'logo-app.png', 'logo-symbol.png') {
   if (-not (Test-Path (Join-Path $Out "brand\$f"))) { throw "brand\$f missing in $Out" }
 }
 New-Item -ItemType Directory -Force (Join-Path $Out 'ds\pathlink') | Out-Null
@@ -217,12 +218,12 @@ $splash = @'
 __HEAD__
 <style>
 body{margin:0}
-.splash{position:relative;width:390px;height:844px;overflow:hidden;background:#04070B radial-gradient(55% 32% at 50% 44%, rgba(88,53,195,0.38), rgba(246,135,255,0.10) 55%, rgba(4,7,11,0) 80%);color:#FFFFFF;font-family:'Thmanyah Sans',Tajawal,sans-serif;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:14px;direction:rtl;cursor:pointer}
-.splash .ring{position:absolute;border-radius:999px;border:1px solid rgba(255,255,255,0.08)}
-.splash .mark{width:96px;height:96px;display:block;animation:pl-pop .6s cubic-bezier(.34,1.56,.64,1) both}
+.splash{position:relative;width:390px;height:844px;overflow:hidden;background:#6C5CE7;color:#FFFFFF;font-family:'Thmanyah Sans',Tajawal,sans-serif;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:14px;direction:rtl;cursor:pointer}
+.splash .ring{position:absolute;border-radius:999px;border:1px solid rgba(255,255,255,0.16)}
+.splash .mark{width:104px;height:104px;display:block;animation:pl-pop .6s cubic-bezier(.34,1.56,.64,1) both}
 .splash .name{font-size:30px;font-weight:700;direction:ltr;animation:pl-up .5s .2s ease both}
-.splash .name b{background:linear-gradient(100deg,#CBB9FF 0%,#6C5CE7 45%,#F168FF 100%);-webkit-background-clip:text;background-clip:text;color:transparent}
-.splash .tag{font-size:14px;color:rgba(248,250,252,0.65);animation:pl-up .5s .35s ease both}
+.splash .name b{font-weight:700}
+.splash .tag{font-size:14px;color:rgba(255,255,255,0.85);animation:pl-up .5s .35s ease both}
 @keyframes pl-pop{from{transform:scale(.6);opacity:0}to{transform:none;opacity:1}}
 @keyframes pl-up{from{transform:translateY(10px);opacity:0}to{transform:none;opacity:1}}
 @media (prefers-reduced-motion:reduce){.splash *{animation:none!important}}
@@ -232,10 +233,10 @@ body{margin:0}
 <main class="stage">
 <div class="device">
 <div class="screen splash" role="button" aria-label="متابعة">
-<span class="ring" aria-hidden="true" style="width:520px;height:520px;top:-180px;left:-200px"></span>
-<span class="ring" aria-hidden="true" style="width:300px;height:300px;top:-60px;left:-80px"></span>
-<span class="ring" aria-hidden="true" style="width:420px;height:420px;bottom:-200px;right:-180px"></span>
-<img class="mark" src="brand/logo-app.png" alt="" width="96" height="96">
+<span class="ring" aria-hidden="true" style="width:520px;height:520px;top:-330px;left:-330px"></span>
+<span class="ring" aria-hidden="true" style="width:300px;height:300px;top:-190px;left:-190px"></span>
+<span class="ring" aria-hidden="true" style="width:420px;height:420px;bottom:-300px;right:-290px"></span>
+<img class="mark" src="brand/logo-symbol.png" alt="" width="104" height="104">
 <span class="name">Path <b>Link</b></span>
 <span class="tag">كل خدماتك المهنية في مكان واحد</span>
 </div>
@@ -244,7 +245,7 @@ body{margin:0}
 __TAIL__</body>
 </html>
 '@
-$splash = $splash.Replace('__HEAD__', $head.Replace('__TITLE__', 'Path Link').Replace('<meta name="theme-color" content="#F9FAFB">', '<meta name="theme-color" content="#04070B">')).Replace('__TAIL__', $tail)
+$splash = $splash.Replace('__HEAD__', $head.Replace('__TITLE__', 'Path Link').Replace('<meta name="theme-color" content="#F9FAFB">', '<meta name="theme-color" content="#6C5CE7">')).Replace('__TAIL__', $tail)
 $splash = $splash.Replace('<style>', "<style>`n@font-face{font-family:`"Thmanyah Sans`";src:url(`"fonts/thmanyahsans-Bold.otf`") format(`"opentype`");font-weight:700;font-display:swap}")
 [IO.File]::WriteAllText((Join-Path $Out 'splash.html'), $splash, $utf8)
 
@@ -306,7 +307,7 @@ $manifest = @'
   "scope": "./",
   "display": "standalone",
   "orientation": "portrait",
-  "background_color": "#04070B",
+  "background_color": "#6C5CE7",
   "theme_color": "#F9FAFB",
   "icons": [
     { "src": "icons/icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any" },
@@ -348,7 +349,7 @@ $logoFull.Dispose(); $logoMark.Dispose()
 if (Test-Path (Join-Path $Out 'favicon.svg')) { Remove-Item (Join-Path $Out 'favicon.svg') }
 # service worker: network first (every push shows on the next open), cache only as the offline fallback
 $files = @('./', './index.html') + ($pages | Where-Object { $_[1] -ne 'index.html' } | ForEach-Object { './' + $_[1] }) + @(
-  './splash.html', './app.js', './styles.css', './manifest.webmanifest', './favicon.png', './brand/logo-mark.png', './brand/logo-app.png', './ds/pathlink/tokens.css',
+  './splash.html', './app.js', './styles.css', './manifest.webmanifest', './favicon.png', './brand/logo-mark.png', './brand/logo-app.png', './brand/logo-symbol.png', './ds/pathlink/tokens.css',
   './icons/apple-touch-icon.png', './icons/icon-192.png', './icons/icon-512.png', './icons/icon-512-maskable.png',
   './fonts/thmanyahsans-Regular.otf', './fonts/thmanyahsans-Medium.otf', './fonts/thmanyahsans-Bold.otf') +
   @(Get-ChildItem (Join-Path $Out 'img') -Filter *.jpg -ErrorAction SilentlyContinue | ForEach-Object { './img/' + $_.Name })
