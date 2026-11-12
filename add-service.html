@@ -143,12 +143,13 @@ a{color:#6C5CE7;text-decoration:none}a:hover{color:#0E2A47}
 <div class="scr screen">
   <div class="scroll" style="padding-bottom: 130px;">
     <div class="bar">
-      <a href="freelancer.html" aria-label="رجوع" class="ib"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" data-iconsax="ArrowRight2"><path d="M8.91 19.92l6.52-6.52c.77-.77.77-2.03 0-2.8L8.91 4.08" stroke-width="1.5"/></svg></a>
+      <a href="freelancer.html" data-fl="entry" data-fl-ok="freelancer.html" aria-label="رجوع" class="ib"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" data-iconsax="ArrowRight2"><path d="M8.91 19.92l6.52-6.52c.77-.77.77-2.03 0-2.8L8.91 4.08" stroke-width="1.5"/></svg></a>
       <span class="ttl">نشر خدمة جديدة</span>
       <span style="width: 42px;"></span>
     </div>
 
-    <div class="note n-ok"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" data-iconsax="ShieldTick" style="flex: none;"><path d="M10.49 2.23 5.5 4.11c-1.15.43-2.09 1.79-2.09 3.01v7.43c0 1.18.78 2.73 1.73 3.44l4.3 3.21c1.41 1.06 3.73 1.06 5.14 0l4.3-3.21c.95-.71 1.73-2.26 1.73-3.44V7.12c0-1.23-.94-2.59-2.09-3.02l-4.99-1.87c-.85-.31-2.21-.31-3.04 0Z" stroke-width="1.5"/><path d="m9.05 11.87 1.61 1.61 4.3-4.3" stroke-width="1.5"/></svg><span>ملفك معتمد، تُنشر الخدمة مباشرة بعد إكمال بياناتها.</span></div>
+    <div class="note n-ok" data-fl-show="approved"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" data-iconsax="ShieldTick" style="flex: none;"><path d="M10.49 2.23 5.5 4.11c-1.15.43-2.09 1.79-2.09 3.01v7.43c0 1.18.78 2.73 1.73 3.44l4.3 3.21c1.41 1.06 3.73 1.06 5.14 0l4.3-3.21c.95-.71 1.73-2.26 1.73-3.44V7.12c0-1.23-.94-2.59-2.09-3.02l-4.99-1.87c-.85-.31-2.21-.31-3.04 0Z" stroke-width="1.5"/><path d="m9.05 11.87 1.61 1.61 4.3-4.3" stroke-width="1.5"/></svg><span>ملفك معتمد، تُنشر الخدمة مباشرة بعد إكمال بياناتها.</span></div>
+    <div class="note n-info" data-fl-show="none pending rejected resubmitted" style="display: none;"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" data-iconsax="ShieldTick" style="flex: none;"><path d="M10.49 2.23 5.5 4.11c-1.15.43-2.09 1.79-2.09 3.01v7.43c0 1.18.78 2.73 1.73 3.44l4.3 3.21c1.41 1.06 3.73 1.06 5.14 0l4.3-3.21c.95-.71 1.73-2.26 1.73-3.44V7.12c0-1.23-.94-2.59-2.09-3.02l-4.99-1.87c-.85-.31-2.21-.31-3.04 0Z" stroke-width="1.5"/><path d="m9.05 11.87 1.61 1.61 4.3-4.3" stroke-width="1.5"/></svg><span>ملفك لم يُعتمد بعد، تُحفظ الخدمة كمسودة وتُنشر بعد اعتماد ملفك.</span></div>
 
     <div class="fg">
       <span class="lbl">اسم الخدمة</span>
@@ -188,7 +189,7 @@ a{color:#6C5CE7;text-decoration:none}a:hover{color:#0E2A47}
     </div>
   </div>
 
-  <div class="foot"><a href="freelancer.html" class="btn" data-toast="تم نشر الخدمة وأصبحت متاحة للشراء">نشر الخدمة</a></div>
+  <div class="foot"><a href="freelancer.html" class="btn" data-fl-show="approved" data-toast="تم نشر الخدمة وأصبحت متاحة للشراء">نشر الخدمة</a><a href="freelancer-pending.html" data-fl="entry" class="btn" data-fl-show="none pending rejected resubmitted" style="display: none;" data-toast="تم حفظ الخدمة كمسودة">حفظ كمسودة</a></div>
 </div>
 </div>
 </main>

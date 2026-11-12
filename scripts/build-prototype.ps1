@@ -71,7 +71,11 @@ $pages = @(
   @('Account.dc.html',           'account.html',         'Path Link · حسابي'),
   @('ChooseProfile.dc.html',     'new-profile.html',     'Path Link · ملف مهني جديد'),
   @('CreateConsultant.dc.html',  'new-consultant.html',  'Path Link · ملف المستشار'),
-  @('CreateTrainer.dc.html',     'new-trainer.html',     'Path Link · ملف المدرب')
+  @('CreateTrainer.dc.html',     'new-trainer.html',     'Path Link · ملف المدرب'),
+  @('CreateFreelancer.dc.html',  'new-freelancer.html',  'Path Link · ملف المستقل'),
+  @('FreelancerPending.dc.html', 'freelancer-pending.html', 'Path Link · ملف المستقل قيد المراجعة'),
+  @('FreelancerResubmitted.dc.html', 'freelancer-resubmitted.html', 'Path Link · أُعيد إرسال ملف المستقل'),
+  @('NeedApproval.dc.html',      'need-approval.html',   'Path Link · تحتاج ملفًا معتمدًا')
 )
 # uploaded canvas fonts -> repo fonts/
 $blobs = @{
@@ -139,7 +143,11 @@ foreach ($pg in $pages) {
   $doc = & $read (Join-Path $Src $pg[0])
   foreach ($k in $blobs.Keys) { $doc = $doc.Replace('/_blob/' + $k, $blobs[$k]) }
   if ($doc -match '/_blob/') { throw "unmapped upload left in $($pg[0])" }
-  foreach ($p2 in $pages) { $doc = $doc.Replace('href="' + $p2[0] + '"', 'href="' + $(if ($p2[1] -eq 'index.html') { './?skip=1' } else { $p2[1] }) + '"') }
+  foreach ($p2 in $pages) {
+    $doc = $doc.Replace('href="' + $p2[0] + '"', 'href="' + $(if ($p2[1] -eq 'index.html') { './?skip=1' } else { $p2[1] }) + '"')
+    $doc = $doc.Replace('data-fl-ok="' + $p2[0] + '"', 'data-fl-ok="' + $p2[1] + '"')  # freelancer story: where an approved freelancer goes
+  }
+  if ($doc -match 'data-fl-ok="[^"]+\.dc\.html"') { throw "data-fl-ok to an artboard that is not in the prototype: $($Matches[0]) in $($pg[0])" }
   if ($doc -match 'href="[^"]+\.dc\.html"') { throw "link to an artboard that is not in the prototype: $($Matches[0]) in $($pg[0])" }
   # sc-if branches become plain blocks the prototype script switches; the first one shows
   $doc = [regex]::Replace($doc, '<sc-if value="\{\{(\w+)\}\}"[^>]*>', { param($m) '<div data-step="' + $m.Groups[1].Value + '">' })

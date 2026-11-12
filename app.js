@@ -16,6 +16,7 @@
   }
   if (page === 'splash.html') {
     write('pl-intro-seen', true);
+    write('pl-fl', 'none'); // every presentation starts the freelancer story from the beginning
     var go = function () { location.replace('./?skip=1'); };
     var t = setTimeout(go, 1800); // passes on its own; a tap skips it
     if (screen) screen.addEventListener('click', function () { clearTimeout(t); go(); });
@@ -52,6 +53,38 @@
     var label = (a.getAttribute('aria-label') || a.textContent || '').replace(/\s+/g, ' ').trim();
     toast(label && label.length <= 24 ? '«' + label + '» قيد التصميم' : 'هذه الشاشة قيد التصميم');
   });
+
+  // ---------- freelancer story: the profile's review state lives in the session, so a demo walks every step in order ----------
+  // none → (create) pending → (admin) rejected → (resubmit) resubmitted → (admin) approved
+  //   data-fl="entry"   goes to the screen for the current state (data-fl-ok overrides it once approved)
+  //   data-fl="gate"    keeps its own link once approved, otherwise opens the «تحتاج ملفًا معتمدًا» sheet
+  //   data-fl-set="x"   moves the story to state x when tapped
+  //   data-fl-show="…"  shown only in the listed states (data-fl-display restores a non-default display)
+  var FL_ROUTE = { none: 'new-freelancer.html', pending: 'freelancer-pending.html', rejected: 'freelancer-profile.html', resubmitted: 'freelancer-resubmitted.html', approved: 'freelancer.html' };
+  function applyFl(root) {
+    var st = read('pl-fl', 'none');
+    if (!FL_ROUTE[st]) st = 'none';
+    [].forEach.call(root.querySelectorAll('[data-fl-show]'), function (el) {
+      var on = (' ' + el.getAttribute('data-fl-show') + ' ').indexOf(' ' + st + ' ') !== -1;
+      el.style.display = on ? (el.getAttribute('data-fl-display') || '') : 'none';
+    });
+    [].forEach.call(root.querySelectorAll('a[data-fl]'), function (a) {
+      if (!a.hasAttribute('data-fl-href')) a.setAttribute('data-fl-href', a.getAttribute('href'));
+      var own = a.getAttribute('data-fl-href'), ok = a.getAttribute('data-fl-ok');
+      var to = a.getAttribute('data-fl') === 'gate' ? (st === 'approved' ? own : 'need-approval.html') : (st === 'approved' && ok ? ok : FL_ROUTE[st]);
+      a.setAttribute('href', to);
+    });
+  }
+  function flClicks(root) {
+    root.addEventListener('click', function (e) {
+      var a = e.target.closest && e.target.closest('a[data-fl-set]');
+      if (a) write('pl-fl', a.getAttribute('data-fl-set'));
+    }, true);
+  }
+  applyFl(document);
+  flClicks(document);
+  // back/forward from the cache keeps the old page: re-read the state when it shows again
+  window.addEventListener('pageshow', function (e) { if (e.persisted) applyFl(document); });
 
   // ---------- shared controls on the designed screens (also run inside a sheet opened over the page) ----------
   // segmented tabs and chip rails (single choice), chip groups (multiple choice), on/off toggles
@@ -99,7 +132,7 @@
   initControls(document);
 
   // ---------- bottom sheets open over the current page (overlay + slide up), not as a new screen ----------
-  var SHEETS = { 'add.html': 1, 'job-filter.html': 1, 'job-apply.html': 1, 'freelance-filter.html': 1, 'consult-filter.html': 1, 'course-filter.html': 1, 'orders-filter.html': 1, 'reschedule.html': 1, 'accept-offer.html': 1, 'request-revision.html': 1 };
+  var SHEETS = { 'add.html': 1, 'job-filter.html': 1, 'job-apply.html': 1, 'freelance-filter.html': 1, 'consult-filter.html': 1, 'course-filter.html': 1, 'orders-filter.html': 1, 'reschedule.html': 1, 'accept-offer.html': 1, 'request-revision.html': 1, 'need-approval.html': 1 };
   var SHEET_CSS = '.pl-wrap{position:absolute;inset:0;font-family:"Thmanyah Sans",Tajawal,sans-serif;direction:rtl}' +
     '.pl-backdrop{position:absolute;inset:0;background:rgba(14,26,43,.48);opacity:0;transition:opacity .25s ease}' +
     '.pl-sheet{position:absolute;left:0;right:0;bottom:0;max-height:92%;overflow-y:auto;scrollbar-width:none;transform:translateY(100%);transition:transform .32s cubic-bezier(.2,.8,.2,1)}' +
@@ -148,6 +181,8 @@
         } else if (a.hasAttribute('data-toast')) write('pl-toast', a.getAttribute('data-toast'));
       });
       initControls(root);
+      applyFl(root);
+      flClicks(root);
       if (file === 'job-apply.html') initApply(root);
       host.getBoundingClientRect(); // commit the closed position so the slide-up animates
       setTimeout(function () { wrap.classList.add('open'); }, 20);
