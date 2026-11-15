@@ -110,6 +110,7 @@ $pages = @(
   @('DarkHome.dc.html',          'dark-home.html',       'Path Link · الرئيسية'),
   @('DarkHome2.dc.html',         'dark-home2.html',      'Path Link · الرئيسية'),
   @('DarkHome4.dc.html',         'dark-home4.html',      'Path Link · الرئيسية'),
+  @('DarkHome4b.dc.html',        'dark-home4b.html',     'Path Link · الرئيسية'),
   @('DarkFreelance.dc.html',     'dark-freelance.html',  'Path Link · العمل الحر'),
   @('DarkConsult.dc.html',       'dark-consult.html',    'Path Link · الاستشارات'),
   @('DarkCourses.dc.html',       'dark-courses.html',    'Path Link · الكورسات'),

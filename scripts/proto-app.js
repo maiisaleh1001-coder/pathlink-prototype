@@ -384,9 +384,16 @@
       e.stopImmediatePropagation();
       var i = +a.getAttribute('data-i');
       if (i === +dnav.getAttribute('data-active')) return;
+      var href = a.getAttribute('href');
+      if (!href || href === '#') {
+        // tab whose dark screen is not designed yet: show it was tapped, then slide back
+        setTab(i);
+        toast('«' + (a.getAttribute('data-soon') || a.textContent.trim()) + '» في النسخة الداكنة لسه هتتصمم');
+        setTimeout(function () { setTab(curTab); }, 1100);
+        return;
+      }
       setTab(i);
       write('pl-dnav', i);
-      var href = a.getAttribute('href');
       setTimeout(function () { location.href = href; }, 520);
     }, true);
   }
@@ -397,6 +404,7 @@
     var svcCards = Array.prototype.slice.call(svcRail.querySelectorAll('.svc-card'));
     var svcDots = Array.prototype.slice.call(document.querySelectorAll('[data-svc-dots] .svc-dot'));
     var svcStrips = Array.prototype.slice.call(document.querySelectorAll('[data-svc-strips] .svc-strip'));
+    var svcActs = Array.prototype.slice.call(document.querySelectorAll('[data-svc-acts] .svc-act'));
     var svcFocus = function () {
       var mid = svcRail.getBoundingClientRect().left + svcRail.clientWidth / 2, best = 0, bestD = Infinity;
       svcCards.forEach(function (c, i) { var r = c.getBoundingClientRect(); var d = Math.abs(r.left + r.width / 2 - mid); if (d < bestD) { bestD = d; best = i; } });
@@ -404,6 +412,7 @@
       svcDots.forEach(function (d, i) { d.classList.toggle('on', i === best); });
       // the activity strip under the cards follows the service in the middle
       svcStrips.forEach(function (s, i) { s.classList.toggle('on', i === best); });
+      svcActs.forEach(function (s, i) { s.classList.toggle('on', i === best); });
     };
     svcRail.addEventListener('scroll', svcFocus, { passive: true });
     svcDots.forEach(function (d, i) { d.style.cursor = 'pointer'; d.addEventListener('click', function () { svcCards[i].scrollIntoView({ behavior: 'smooth', inline: 'center', block: 'nearest' }); }); });
