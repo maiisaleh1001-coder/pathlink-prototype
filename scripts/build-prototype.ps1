@@ -176,7 +176,20 @@ $pages = @(
   @('DarkJobs.dc.html',          'dark-jobs.html',       'Path Link · الوظائف'),
   @('DarkJob.dc.html',           'dark-job.html',        'Path Link · تفاصيل الوظيفة'),
   @('DarkAccount.dc.html',       'dark-account.html',    'Path Link · حسابي'),
-  @('DarkEarnings.dc.html',      'dark-earnings.html',   'Path Link · مستحقاتي')
+  @('DarkEarnings.dc.html',      'dark-earnings.html',   'Path Link · مستحقاتي'),
+  @('DarkCourseraSheet.dc.html', 'dark-coursera.html',   'Path Link · كورس من Coursera'),
+  @('DarkCourseDetail.dc.html',  'dark-course.html',     'Path Link · تفاصيل الكورس'),
+  @('DarkCourseCheckout.dc.html','dark-course-checkout.html','Path Link · شراء الكورس'),
+  @('DarkMyCourses.dc.html',     'dark-my-courses.html', 'Path Link · كورساتي'),
+  @('DarkCoursePlayer.dc.html',  'dark-course-player.html','Path Link · مشاهدة الدرس'),
+  @('DarkRateCourse.dc.html',    'dark-rate-course.html','Path Link · تقييم الكورس'),
+  @('DarkCourseFilter.dc.html',  'dark-course-filter.html','Path Link · فلترة الكورسات'),
+  @('DarkCreateTrainer.dc.html', 'dark-new-trainer.html','Path Link · ملف المدرب'),
+  @('DarkTrainerPending.dc.html','dark-trainer-pending.html','Path Link · ملف المدرب قيد المراجعة'),
+  @('DarkTrainerDash.dc.html',   'dark-trainer.html',    'Path Link · لوحة المدرب'),
+  @('DarkAddCourse.dc.html',     'dark-add-course.html', 'Path Link · كورس جديد'),
+  @('DarkCourseContent.dc.html', 'dark-course-content.html','Path Link · محتوى الكورس'),
+  @('DarkCourseSales.dc.html',   'dark-course-sales.html','Path Link · مبيعات الكورسات')
 )
 # uploaded canvas fonts -> repo fonts/
 $blobs = @{

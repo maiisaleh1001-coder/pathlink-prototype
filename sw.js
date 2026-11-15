@@ -1,5 +1,5 @@
 // Network first, so every push shows up on the next open; the cache is only a fallback for offline.
-const CACHE = 'pathlink-proto-202611151345';
+const CACHE = 'pathlink-proto-202611151356';
 const CORE = [
   './',
   './index.html',
@@ -167,6 +167,19 @@ const CORE = [
   './dark-job.html',
   './dark-account.html',
   './dark-earnings.html',
+  './dark-coursera.html',
+  './dark-course.html',
+  './dark-course-checkout.html',
+  './dark-my-courses.html',
+  './dark-course-player.html',
+  './dark-rate-course.html',
+  './dark-course-filter.html',
+  './dark-new-trainer.html',
+  './dark-trainer-pending.html',
+  './dark-trainer.html',
+  './dark-add-course.html',
+  './dark-course-content.html',
+  './dark-course-sales.html',
   './splash.html',
   './app.js',
   './styles.css',

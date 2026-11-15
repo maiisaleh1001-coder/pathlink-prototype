@@ -86,7 +86,8 @@
   var DARK_EQ = {
     'new-freelancer.html': 'dark-new-freelancer.html', 'freelancer-pending.html': 'dark-freelancer-pending.html',
     'freelancer-profile.html': 'dark-freelancer-profile.html', 'freelancer-resubmitted.html': 'dark-freelancer-resubmitted.html',
-    'freelancer.html': 'dark-freelancer.html', 'need-approval.html': 'dark-need-approval.html'
+    'freelancer.html': 'dark-freelancer.html', 'need-approval.html': 'dark-need-approval.html',
+    'new-trainer.html': 'dark-new-trainer.html', 'trainer-pending.html': 'dark-trainer-pending.html', 'trainer.html': 'dark-trainer.html'
   };
   function applyStories(root) {
     Object.keys(STORIES).forEach(function (k) {
@@ -216,7 +217,7 @@
   });
 
   // ---------- bottom sheets open over the current page (overlay + slide up), not as a new screen ----------
-  var SHEETS = { 'add.html': 1, 'job-filter.html': 1, 'job-apply.html': 1, 'freelance-filter.html': 1, 'consult-filter.html': 1, 'course-filter.html': 1, 'orders-filter.html': 1, 'reschedule.html': 1, 'accept-offer.html': 1, 'request-revision.html': 1, 'need-approval.html': 1, 'coursera.html': 1, 'login-gate.html': 1, 'dark-job-filter.html': 1, 'dark-job-apply.html': 1, 'dark-accept-offer.html': 1, 'dark-request-revision.html': 1, 'dark-need-approval.html': 1, 'dark-freelance-filter.html': 1, 'dark-reschedule.html': 1, 'dark-consult-filter.html': 1 };
+  var SHEETS = { 'add.html': 1, 'job-filter.html': 1, 'job-apply.html': 1, 'freelance-filter.html': 1, 'consult-filter.html': 1, 'course-filter.html': 1, 'orders-filter.html': 1, 'reschedule.html': 1, 'accept-offer.html': 1, 'request-revision.html': 1, 'need-approval.html': 1, 'coursera.html': 1, 'login-gate.html': 1, 'dark-job-filter.html': 1, 'dark-job-apply.html': 1, 'dark-accept-offer.html': 1, 'dark-request-revision.html': 1, 'dark-need-approval.html': 1, 'dark-freelance-filter.html': 1, 'dark-reschedule.html': 1, 'dark-consult-filter.html': 1, 'dark-course-filter.html': 1, 'dark-coursera.html': 1 };
   var SHEET_CSS = '.pl-wrap{position:absolute;inset:0;font-family:"Thmanyah Sans",Tajawal,sans-serif;direction:rtl}' +
     '.pl-backdrop{position:absolute;inset:0;background:rgba(14,26,43,.48);opacity:0;transition:opacity .25s ease}' +
     '.pl-sheet{position:absolute;left:0;right:0;bottom:0;max-height:92%;overflow-y:auto;scrollbar-width:none;transform:translateY(100%);transition:transform .32s cubic-bezier(.2,.8,.2,1)}' +
