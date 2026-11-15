@@ -109,13 +109,13 @@ a{color:#CBB9FF;text-decoration:none}
 .dnav[data-active="0"] a[data-i="0"] svg,.dnav[data-active="1"] a[data-i="1"] svg,.dnav[data-active="2"] a[data-i="2"] svg,.dnav[data-active="3"] a[data-i="3"] svg,.dnav[data-active="4"] a[data-i="4"] svg{opacity:0;transform:translateY(-18px)}
 @media (prefers-reduced-motion:reduce){.dnav,.dnav-bubble > span,.dnav a svg{transition:none}}
 .hero{position:relative;overflow:hidden;border-radius:26px;padding:18px;background:linear-gradient(135deg,#34289A 0%,#6C5CE7 55%,#A855F7 100%);color:#FFFFFF;display:flex;flex-direction:column;gap:10px;border:1px solid rgba(255,255,255,.12)}
-.hero::before{content:"";position:absolute;top:-80px;left:-80px;width:230px;height:230px;border-radius:999px;border:1px solid rgba(255,255,255,.14);background:rgba(255,255,255,.05)}
-.hero::after{content:"";position:absolute;top:-34px;left:-34px;width:140px;height:140px;border-radius:999px;border:1px solid rgba(255,255,255,.14)}
+.hero::before{content:"";position:absolute;top:-56px;left:-56px;width:140px;height:140px;border-radius:999px;border:1px solid rgba(255,255,255,.07);background:rgba(255,255,255,.02)}
+.hero::after{content:"";position:absolute;top:-24px;left:-24px;width:80px;height:80px;border-radius:999px;border:1px solid rgba(255,255,255,.06)}
 .hero > *{position:relative;z-index:1}
 .hero .sub{color:rgba(255,255,255,.8)}
-.hero.cons{background:linear-gradient(135deg,#3E2233 0%,#6E3C58 55%,#D58CAA 100%)}
-.hero.free{background:linear-gradient(135deg,#1A3940 0%,#2B5F6B 55%,#4E8796 100%)}
-.hero.cour{background:linear-gradient(135deg,#3D3320 0%,#6E5A33 55%,#9C8352 100%)}
+.hero.cons{background:linear-gradient(135deg,#2E2240 0%,#553C70 55%,#7E5C9A 100%)}
+.hero.free{background:linear-gradient(135deg,#16303E 0%,#23506A 55%,#3D7A96 100%)}
+.hero.cour{background:linear-gradient(135deg,#131A33 0%,#25335C 55%,#3A5089 100%)}
 .ring{width:64px;height:64px;flex:none;border-radius:999px;display:flex;align-items:center;justify-content:center}
 .ring > span{width:52px;height:52px;border-radius:999px;background:#0C0F17;display:flex;align-items:center;justify-content:center;font-size:15px;font-weight:700;color:#CBB9FF}
 .ring.sm{width:46px;height:46px}.ring.sm > span{width:36px;height:36px;font-size:12px}
@@ -161,7 +161,7 @@ a{color:#CBB9FF;text-decoration:none}
 .slot.on{background:rgba(139,124,246,.18);border:1.5px solid #A594FF;color:#CBB9FF;font-weight:700}
 .slot.off{background:rgba(255,255,255,.02);color:rgba(248,250,252,.3);text-decoration:line-through;cursor:default}
 .prog{display:block;height:6px;border-radius:999px;background:rgba(255,255,255,.1);overflow:hidden}
-.prog > span{display:block;height:100%;border-radius:999px;background:#DCC488}
+.prog > span{display:block;height:100%;border-radius:999px;background:#7A96E6}
 .bub{max-width:78%;padding:10px 14px;border-radius:20px;font-size:13px;line-height:21px;display:flex;flex-direction:column;gap:4px}
 .bub .t{font-size:10px;opacity:.7;align-self:flex-end}
 .bub.me{align-self:flex-end;background:linear-gradient(135deg,#6C5CE7,#A855F7);color:#FFFFFF;border-bottom-left-radius:6px}
@@ -170,6 +170,7 @@ a{color:#CBB9FF;text-decoration:none}
 .composer{position:absolute;z-index:3;right:0;left:0;bottom:0;display:flex;align-items:center;gap:8px;padding:10px 12px 24px;background:rgba(10,12,18,.9);-webkit-backdrop-filter:blur(20px);backdrop-filter:blur(20px);border-top:1px solid rgba(255,255,255,.07)}
 .file{display:flex;align-items:center;gap:10px;padding:10px 12px;border-radius:14px;background:rgba(255,255,255,.05);font-size:13px;color:#F8FAFC}
 .drop{display:flex;flex-direction:column;align-items:center;gap:6px;padding:18px;border-radius:18px;border:1.5px dashed rgba(255,255,255,.18);background:rgba(255,255,255,.03);color:rgba(248,250,252,.55);font-size:12px;text-align:center}
+img:not([data-logo]){filter:brightness(.74) saturate(.8) contrast(1.06)}.av img:not([data-logo]){filter:brightness(.9) saturate(.88)}
 </style>
 </head>
 <body>
@@ -190,14 +191,14 @@ a{color:#CBB9FF;text-decoration:none}
     </div>
     <span class="sub" style="margin-top: -6px;">الخطوة 2 من 3 · البيانات المهنية للمدرب</span>
 
-    <div class="card" style="flex-direction: row; align-items: center; gap: 12px; padding: 14px; background: rgba(214,190,130,0.14);">
-      <span class="ic" style="width: 44px; height: 44px; background: rgba(255,255,255,0.05); color: #DCC488;"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" data-iconsax="Teacher"><path d="M10.05 2.53 4.03 6.46c-1.93 1.26-1.93 4.08 0 5.34l6.02 3.93c1.08.71 2.86.71 3.94 0l5.99-3.93c1.92-1.26 1.92-4.07 0-5.33l-5.99-3.93c-1.08-.72-2.86-.72-3.94-.01Z" stroke-width="1.5"/><path d="m5.63 13.08-.01 4.69c0 1.27.98 2.63 2.18 3.03l3.19 1.06c.55.18 1.46.18 2.02 0l3.19-1.06c1.2-.4 2.18-1.76 2.18-3.03v-4.64M21.4 15V9" stroke-width="1.5"/></svg></span>
-      <span class="grow"><span class="lbl" style="color: #DCC488;">ملف مدرب</span><span class="sub" style="color: #DCC488;">بعد الاعتماد تنشر كورساتك وتبيعها</span></span>
-      <a href="dark-new-profile.html" class="sub" style="color: #DCC488; font-weight: 700;">تغيير</a>
+    <div class="card" style="flex-direction: row; align-items: center; gap: 12px; padding: 14px; background: rgba(122,150,230,0.14);">
+      <span class="ic" style="width: 44px; height: 44px; background: rgba(255,255,255,0.05); color: #7A96E6;"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" data-iconsax="Teacher"><path d="M10.05 2.53 4.03 6.46c-1.93 1.26-1.93 4.08 0 5.34l6.02 3.93c1.08.71 2.86.71 3.94 0l5.99-3.93c1.92-1.26 1.92-4.07 0-5.33l-5.99-3.93c-1.08-.72-2.86-.72-3.94-.01Z" stroke-width="1.5"/><path d="m5.63 13.08-.01 4.69c0 1.27.98 2.63 2.18 3.03l3.19 1.06c.55.18 1.46.18 2.02 0l3.19-1.06c1.2-.4 2.18-1.76 2.18-3.03v-4.64M21.4 15V9" stroke-width="1.5"/></svg></span>
+      <span class="grow"><span class="lbl" style="color: #7A96E6;">ملف مدرب</span><span class="sub" style="color: #7A96E6;">بعد الاعتماد تنشر كورساتك وتبيعها</span></span>
+      <a href="dark-new-profile.html" class="sub" style="color: #7A96E6; font-weight: 700;">تغيير</a>
     </div>
 
     <div class="row" style="gap: 12px;">
-      <span class="av" style="width: 64px; height: 64px; font-size: 22px; background: rgba(214,190,130,0.14); color: #DCC488; position: relative; overflow: hidden; padding: 0;"><img src="img/m1.jpg" alt="" style="position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; display: block;"></span>
+      <span class="av" style="width: 64px; height: 64px; font-size: 22px; background: rgba(122,150,230,0.14); color: #7A96E6; position: relative; overflow: hidden; padding: 0;"><img src="img/m1.jpg" alt="" style="position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; display: block;"></span>
       <span class="grow"><span class="lbl">صورة المدرب</span><span class="sub">تظهر على كورساتك</span></span>
       <a href="#" data-toast="هنا تختار صورة جديدة" class="btn-s2" style="height: 32px;">تغيير الصورة</a>
     </div>
@@ -221,7 +222,7 @@ a{color:#CBB9FF;text-decoration:none}
 
     <div class="card">
       <span class="row"><span class="h" style="flex-grow: 1;">المؤهلات والخبرات <span style="color: #E3A9A9;">*</span></span><a href="#" data-toast="هنا تضيف مؤهلًا أو خبرة" class="sub" style="color: #A594FF;">+ إضافة</a></span>
-      <span class="row"><span class="ic" style="background: rgba(214,190,130,0.14); color: #DCC488;"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" data-iconsax="Award"><path d="M4.26 11.02v4.97c0 1.82 0 1.82 1.72 2.98l4.73 2.730c.71.41 1.87.41 2.58 0l4.73-2.73c1.72-1.16 1.72-1.16 1.72-2.98v-4.97c0-1.82 0-1.82-1.72-2.98l-4.73-2.73c-.71-.41-1.87-.41-2.58 0L5.98 8.04C4.26 9.2 4.26 9.2 4.26 11.02Z" stroke-width="1.5"/><path d="M17.5 7.63V5c0-2-1-3-3-3h-5c-2 0-3 1-3 3v2.56" stroke-width="1.5"/></svg></span><span class="grow"><span class="lbl">بكالوريوس تصميم جرافيك</span><span class="sub">جامعة الملك عبدالعزيز · 2019</span></span><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" data-iconsax="Edit2" style="color: rgba(248,250,252,0.55);"><path d="m13.26 3.6-8.21 8.69c-.31.33-.61.98-.67 1.43l-.37 3.24c-.13 1.17.71 1.97 1.87 1.77l3.22-.55c.45-.08 1.08-.41 1.39-.75l8.21-8.69c1.42-1.5 2.06-3.21-.15-5.3-2.2-2.07-3.87-1.34-5.29.16Z" stroke-width="1.5"/><path d="M11.89 5.05a6.126 6.126 0 0 0 5.45 5.15M3 22h18" stroke-width="1.5"/></svg></span>
+      <span class="row"><span class="ic" style="background: rgba(122,150,230,0.14); color: #7A96E6;"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" data-iconsax="Award"><path d="M4.26 11.02v4.97c0 1.82 0 1.82 1.72 2.98l4.73 2.730c.71.41 1.87.41 2.58 0l4.73-2.73c1.72-1.16 1.72-1.16 1.72-2.98v-4.97c0-1.82 0-1.82-1.72-2.98l-4.73-2.73c-.71-.41-1.87-.41-2.58 0L5.98 8.04C4.26 9.2 4.26 9.2 4.26 11.02Z" stroke-width="1.5"/><path d="M17.5 7.63V5c0-2-1-3-3-3h-5c-2 0-3 1-3 3v2.56" stroke-width="1.5"/></svg></span><span class="grow"><span class="lbl">بكالوريوس تصميم جرافيك</span><span class="sub">جامعة الملك عبدالعزيز · 2019</span></span><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" data-iconsax="Edit2" style="color: rgba(248,250,252,0.55);"><path d="m13.26 3.6-8.21 8.69c-.31.33-.61.98-.67 1.43l-.37 3.24c-.13 1.17.71 1.97 1.87 1.77l3.22-.55c.45-.08 1.08-.41 1.39-.75l8.21-8.69c1.42-1.5 2.06-3.21-.15-5.3-2.2-2.07-3.87-1.34-5.29.16Z" stroke-width="1.5"/><path d="M11.89 5.05a6.126 6.126 0 0 0 5.45 5.15M3 22h18" stroke-width="1.5"/></svg></span>
       <span class="drop" style="padding: 12px;"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" data-iconsax="Add" style="color: #A594FF;"><path d="M6 12h12M12 18V6" stroke-width="1.5"/></svg>أضف خبرة تدريبية أو شهادة</span>
     </div>
 

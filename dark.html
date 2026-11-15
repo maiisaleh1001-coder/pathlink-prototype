@@ -96,6 +96,7 @@ a{color:#CBB9FF;text-decoration:none}
 .shine{background-size:200% 100%;animation:pl-shine 2.4s linear infinite}
 @keyframes pl-shine{0%{background-position:100% 0}100%{background-position:-100% 0}}
 @media (prefers-reduced-motion:reduce){.drop-pill,.float,.live,.shine{animation:none}}
+img:not([data-logo]){filter:brightness(.74) saturate(.8) contrast(1.06)}.av img:not([data-logo]){filter:brightness(.9) saturate(.88)}
 </style>
 </head>
 <body>
@@ -108,7 +109,7 @@ a{color:#CBB9FF;text-decoration:none}
     <span class="float" style="position: relative; width: 136px; height: 136px; display: flex; align-items: center; justify-content: center;">
       <span style="position: absolute; inset: 6px; border-radius: 40px; background: linear-gradient(140deg, #6C5CE7, #F168FF); filter: blur(26px); opacity: 0.34;"></span>
       <span style="position: relative; width: 112px; height: 112px; border-radius: 34px; background: linear-gradient(140deg, #6C5CE7 0%, #A55CF0 55%, #F168FF 100%); display: flex; align-items: center; justify-content: center; box-shadow: inset 0 1px 0 rgba(255,255,255,0.35);">
-        <img src="brand/logo-symbol.png" alt="" width="72" height="72" style="width: 72px; height: 72px; display: block;">
+        <img data-logo src="brand/logo-symbol.png" alt="" width="72" height="72" style="width: 72px; height: 72px; display: block;">
       </span>
     </span>
     <span style="font-size: 36px; font-weight: 700; direction: ltr; margin-top: 6px;">Path <span class="gt">Link</span></span>

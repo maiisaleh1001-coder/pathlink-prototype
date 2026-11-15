@@ -109,13 +109,13 @@ a{color:#CBB9FF;text-decoration:none}
 .dnav[data-active="0"] a[data-i="0"] svg,.dnav[data-active="1"] a[data-i="1"] svg,.dnav[data-active="2"] a[data-i="2"] svg,.dnav[data-active="3"] a[data-i="3"] svg,.dnav[data-active="4"] a[data-i="4"] svg{opacity:0;transform:translateY(-18px)}
 @media (prefers-reduced-motion:reduce){.dnav,.dnav-bubble > span,.dnav a svg{transition:none}}
 .hero{position:relative;overflow:hidden;border-radius:26px;padding:18px;background:linear-gradient(135deg,#34289A 0%,#6C5CE7 55%,#A855F7 100%);color:#FFFFFF;display:flex;flex-direction:column;gap:10px;border:1px solid rgba(255,255,255,.12)}
-.hero::before{content:"";position:absolute;top:-80px;left:-80px;width:230px;height:230px;border-radius:999px;border:1px solid rgba(255,255,255,.14);background:rgba(255,255,255,.05)}
-.hero::after{content:"";position:absolute;top:-34px;left:-34px;width:140px;height:140px;border-radius:999px;border:1px solid rgba(255,255,255,.14)}
+.hero::before{content:"";position:absolute;top:-56px;left:-56px;width:140px;height:140px;border-radius:999px;border:1px solid rgba(255,255,255,.07);background:rgba(255,255,255,.02)}
+.hero::after{content:"";position:absolute;top:-24px;left:-24px;width:80px;height:80px;border-radius:999px;border:1px solid rgba(255,255,255,.06)}
 .hero > *{position:relative;z-index:1}
 .hero .sub{color:rgba(255,255,255,.8)}
-.hero.cons{background:linear-gradient(135deg,#3E2233 0%,#6E3C58 55%,#D58CAA 100%)}
-.hero.free{background:linear-gradient(135deg,#1A3940 0%,#2B5F6B 55%,#4E8796 100%)}
-.hero.cour{background:linear-gradient(135deg,#3D3320 0%,#6E5A33 55%,#9C8352 100%)}
+.hero.cons{background:linear-gradient(135deg,#2E2240 0%,#553C70 55%,#7E5C9A 100%)}
+.hero.free{background:linear-gradient(135deg,#16303E 0%,#23506A 55%,#3D7A96 100%)}
+.hero.cour{background:linear-gradient(135deg,#131A33 0%,#25335C 55%,#3A5089 100%)}
 .ring{width:64px;height:64px;flex:none;border-radius:999px;display:flex;align-items:center;justify-content:center}
 .ring > span{width:52px;height:52px;border-radius:999px;background:#0C0F17;display:flex;align-items:center;justify-content:center;font-size:15px;font-weight:700;color:#CBB9FF}
 .ring.sm{width:46px;height:46px}.ring.sm > span{width:36px;height:36px;font-size:12px}
@@ -161,7 +161,7 @@ a{color:#CBB9FF;text-decoration:none}
 .slot.on{background:rgba(139,124,246,.18);border:1.5px solid #A594FF;color:#CBB9FF;font-weight:700}
 .slot.off{background:rgba(255,255,255,.02);color:rgba(248,250,252,.3);text-decoration:line-through;cursor:default}
 .prog{display:block;height:6px;border-radius:999px;background:rgba(255,255,255,.1);overflow:hidden}
-.prog > span{display:block;height:100%;border-radius:999px;background:#DCC488}
+.prog > span{display:block;height:100%;border-radius:999px;background:#7A96E6}
 .bub{max-width:78%;padding:10px 14px;border-radius:20px;font-size:13px;line-height:21px;display:flex;flex-direction:column;gap:4px}
 .bub .t{font-size:10px;opacity:.7;align-self:flex-end}
 .bub.me{align-self:flex-end;background:linear-gradient(135deg,#6C5CE7,#A855F7);color:#FFFFFF;border-bottom-left-radius:6px}
@@ -170,6 +170,7 @@ a{color:#CBB9FF;text-decoration:none}
 .composer{position:absolute;z-index:3;right:0;left:0;bottom:0;display:flex;align-items:center;gap:8px;padding:10px 12px 24px;background:rgba(10,12,18,.9);-webkit-backdrop-filter:blur(20px);backdrop-filter:blur(20px);border-top:1px solid rgba(255,255,255,.07)}
 .file{display:flex;align-items:center;gap:10px;padding:10px 12px;border-radius:14px;background:rgba(255,255,255,.05);font-size:13px;color:#F8FAFC}
 .drop{display:flex;flex-direction:column;align-items:center;gap:6px;padding:18px;border-radius:18px;border:1.5px dashed rgba(255,255,255,.18);background:rgba(255,255,255,.03);color:rgba(248,250,252,.55);font-size:12px;text-align:center}
+img:not([data-logo]){filter:brightness(.74) saturate(.8) contrast(1.06)}.av img:not([data-logo]){filter:brightness(.9) saturate(.88)}
 </style>
 </head>
 <body>
@@ -205,7 +206,7 @@ a{color:#CBB9FF;text-decoration:none}
     <div class="shead"><span class="sec">كورساتك</span><span class="pill p-mute">مسودات</span></div>
     <span class="sub" style="margin-top: -8px;">جهّز كورساتك ومحتواها الآن، وتنشرها بعد اعتماد ملفك.</span>
     <a href="dark-course-content.html" class="card" style="flex-direction: row; align-items: center; gap: 12px; padding: 14px;">
-      <span class="thumb" style="width: 56px; height: 48px; flex: none; border-radius: 12px; background: rgba(214,190,130,0.14); color: #DCC488; position: relative; overflow: hidden; padding: 0;"><img src="img/figma.jpg" alt="" style="position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; display: block;"></span>
+      <span class="thumb" style="width: 56px; height: 48px; flex: none; border-radius: 12px; background: rgba(122,150,230,0.14); color: #7A96E6; position: relative; overflow: hidden; padding: 0;"><img src="img/figma.jpg" alt="" style="position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; display: block;"></span>
       <span class="grow"><span class="lbl">أساسيات Figma للمبتدئين</span><span class="sub">قسمان · 5 دروس · 299 ر.س</span></span>
       <span class="pill p-mute">مسودة</span>
     </a>
@@ -215,7 +216,7 @@ a{color:#CBB9FF;text-decoration:none}
   </div>
 
   <a href="dark-trainer.html" data-tr-set="approved" data-toast="تم اعتماد ملفك كمدرب، وكورساتك المسودة جاهزة للنشر" aria-label="إشعار: تم اعتماد ملفك كمدرب" style="position: absolute; right: 12px; left: 12px; bottom: 20px; display: flex; align-items: center; gap: 12px; padding: 12px 14px; border-radius: 22px; background: rgba(255,255,255,0.05); color: #F8FAFC; border: 1px solid rgba(255,255,255,0.08);">
-    <img src="brand/logo-mark.png" alt="" width="36" height="36" style="width: 36px; height: 36px; flex: none; display: block;">
+    <img data-logo src="brand/logo-mark.png" alt="" width="36" height="36" style="width: 36px; height: 36px; flex: none; display: block;">
     <span class="grow" style="gap: 2px;"><span class="row" style="gap: 6px;"><span class="sub" style="font-weight: 700; color: #F8FAFC; flex-grow: 1;">Path Link</span><span class="sub">الآن</span></span><span class="lbl">تم اعتماد ملفك كمدرب</span><span class="sub">انشر كورساتك وأتحها للبيع</span></span>
   </a>
 </div>

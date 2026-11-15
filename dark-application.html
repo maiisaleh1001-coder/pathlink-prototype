@@ -109,13 +109,13 @@ a{color:#CBB9FF;text-decoration:none}
 .dnav[data-active="0"] a[data-i="0"] svg,.dnav[data-active="1"] a[data-i="1"] svg,.dnav[data-active="2"] a[data-i="2"] svg,.dnav[data-active="3"] a[data-i="3"] svg,.dnav[data-active="4"] a[data-i="4"] svg{opacity:0;transform:translateY(-18px)}
 @media (prefers-reduced-motion:reduce){.dnav,.dnav-bubble > span,.dnav a svg{transition:none}}
 .hero{position:relative;overflow:hidden;border-radius:26px;padding:18px;background:linear-gradient(135deg,#34289A 0%,#6C5CE7 55%,#A855F7 100%);color:#FFFFFF;display:flex;flex-direction:column;gap:10px;border:1px solid rgba(255,255,255,.12)}
-.hero::before{content:"";position:absolute;top:-80px;left:-80px;width:230px;height:230px;border-radius:999px;border:1px solid rgba(255,255,255,.14);background:rgba(255,255,255,.05)}
-.hero::after{content:"";position:absolute;top:-34px;left:-34px;width:140px;height:140px;border-radius:999px;border:1px solid rgba(255,255,255,.14)}
+.hero::before{content:"";position:absolute;top:-56px;left:-56px;width:140px;height:140px;border-radius:999px;border:1px solid rgba(255,255,255,.07);background:rgba(255,255,255,.02)}
+.hero::after{content:"";position:absolute;top:-24px;left:-24px;width:80px;height:80px;border-radius:999px;border:1px solid rgba(255,255,255,.06)}
 .hero > *{position:relative;z-index:1}
 .hero .sub{color:rgba(255,255,255,.8)}
-.hero.cons{background:linear-gradient(135deg,#3E2233 0%,#6E3C58 55%,#D58CAA 100%)}
-.hero.free{background:linear-gradient(135deg,#1A3940 0%,#2B5F6B 55%,#4E8796 100%)}
-.hero.cour{background:linear-gradient(135deg,#3D3320 0%,#6E5A33 55%,#9C8352 100%)}
+.hero.cons{background:linear-gradient(135deg,#2E2240 0%,#553C70 55%,#7E5C9A 100%)}
+.hero.free{background:linear-gradient(135deg,#16303E 0%,#23506A 55%,#3D7A96 100%)}
+.hero.cour{background:linear-gradient(135deg,#131A33 0%,#25335C 55%,#3A5089 100%)}
 .ring{width:64px;height:64px;flex:none;border-radius:999px;display:flex;align-items:center;justify-content:center}
 .ring > span{width:52px;height:52px;border-radius:999px;background:#0C0F17;display:flex;align-items:center;justify-content:center;font-size:15px;font-weight:700;color:#CBB9FF}
 .ring.sm{width:46px;height:46px}.ring.sm > span{width:36px;height:36px;font-size:12px}
@@ -161,7 +161,7 @@ a{color:#CBB9FF;text-decoration:none}
 .slot.on{background:rgba(139,124,246,.18);border:1.5px solid #A594FF;color:#CBB9FF;font-weight:700}
 .slot.off{background:rgba(255,255,255,.02);color:rgba(248,250,252,.3);text-decoration:line-through;cursor:default}
 .prog{display:block;height:6px;border-radius:999px;background:rgba(255,255,255,.1);overflow:hidden}
-.prog > span{display:block;height:100%;border-radius:999px;background:#DCC488}
+.prog > span{display:block;height:100%;border-radius:999px;background:#7A96E6}
 .bub{max-width:78%;padding:10px 14px;border-radius:20px;font-size:13px;line-height:21px;display:flex;flex-direction:column;gap:4px}
 .bub .t{font-size:10px;opacity:.7;align-self:flex-end}
 .bub.me{align-self:flex-end;background:linear-gradient(135deg,#6C5CE7,#A855F7);color:#FFFFFF;border-bottom-left-radius:6px}
@@ -170,6 +170,7 @@ a{color:#CBB9FF;text-decoration:none}
 .composer{position:absolute;z-index:3;right:0;left:0;bottom:0;display:flex;align-items:center;gap:8px;padding:10px 12px 24px;background:rgba(10,12,18,.9);-webkit-backdrop-filter:blur(20px);backdrop-filter:blur(20px);border-top:1px solid rgba(255,255,255,.07)}
 .file{display:flex;align-items:center;gap:10px;padding:10px 12px;border-radius:14px;background:rgba(255,255,255,.05);font-size:13px;color:#F8FAFC}
 .drop{display:flex;flex-direction:column;align-items:center;gap:6px;padding:18px;border-radius:18px;border:1.5px dashed rgba(255,255,255,.18);background:rgba(255,255,255,.03);color:rgba(248,250,252,.55);font-size:12px;text-align:center}
+img:not([data-logo]){filter:brightness(.74) saturate(.8) contrast(1.06)}.av img:not([data-logo]){filter:brightness(.9) saturate(.88)}
 </style>
 </head>
 <body>
@@ -217,12 +218,12 @@ a{color:#CBB9FF;text-decoration:none}
       <div class="tl" data-demo-show="accepted" style="display: none;">
         <div class="done"><span class="dot"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" data-iconsax="TickCircle"><path d="M12 22c5.5 0 10-4.5 10-10S17.5 2 12 2 2 6.5 2 12s4.5 10 10 10Z" stroke-width="1.5"/><path d="m7.75 12 2.83 2.83 5.67-5.66" stroke-width="1.5"/></svg></span><span class="grow"><span class="lbl">تم إرسال الطلب</span><span class="sub">8 نوفمبر</span></span></div>
         <div class="done"><span class="dot"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" data-iconsax="TickCircle"><path d="M12 22c5.5 0 10-4.5 10-10S17.5 2 12 2 2 6.5 2 12s4.5 10 10 10Z" stroke-width="1.5"/><path d="m7.75 12 2.83 2.83 5.67-5.66" stroke-width="1.5"/></svg></span><span class="grow"><span class="lbl">راجعت الشركة طلبك</span><span class="sub">10 نوفمبر</span></span></div>
-        <div class="done"><span class="dot" style="background: #A3D9B8;"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" data-iconsax="TickCircle"><path d="M12 22c5.5 0 10-4.5 10-10S17.5 2 12 2 2 6.5 2 12s4.5 10 10 10Z" stroke-width="1.5"/><path d="m7.75 12 2.83 2.83 5.67-5.66" stroke-width="1.5"/></svg></span><span class="grow"><span class="lbl" style="color: #A3D9B8;">مقبول مبدئيًا</span><span class="sub">اليوم · ستتواصل الشركة معك للخطوة التالية</span></span></div>
+        <div class="done"><span class="dot" style="background: #A3D9B8; color: #0C0F17;"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" data-iconsax="TickCircle"><path d="M12 22c5.5 0 10-4.5 10-10S17.5 2 12 2 2 6.5 2 12s4.5 10 10 10Z" stroke-width="1.5"/><path d="m7.75 12 2.83 2.83 5.67-5.66" stroke-width="1.5"/></svg></span><span class="grow"><span class="lbl" style="color: #A3D9B8;">مقبول مبدئيًا</span><span class="sub">اليوم · ستتواصل الشركة معك للخطوة التالية</span></span></div>
       </div>
       <div class="tl" data-demo-show="rejected" style="display: none;">
         <div class="done"><span class="dot"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" data-iconsax="TickCircle"><path d="M12 22c5.5 0 10-4.5 10-10S17.5 2 12 2 2 6.5 2 12s4.5 10 10 10Z" stroke-width="1.5"/><path d="m7.75 12 2.83 2.83 5.67-5.66" stroke-width="1.5"/></svg></span><span class="grow"><span class="lbl">تم إرسال الطلب</span><span class="sub">8 نوفمبر</span></span></div>
         <div class="done"><span class="dot"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" data-iconsax="TickCircle"><path d="M12 22c5.5 0 10-4.5 10-10S17.5 2 12 2 2 6.5 2 12s4.5 10 10 10Z" stroke-width="1.5"/><path d="m7.75 12 2.83 2.83 5.67-5.66" stroke-width="1.5"/></svg></span><span class="grow"><span class="lbl">راجعت الشركة طلبك</span><span class="sub">10 نوفمبر</span></span></div>
-        <div class="done"><span class="dot" style="background: #E3A9A9;"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" data-iconsax="Close"><path d="M7.76 16.24l8.48-8.48M16.24 16.24 7.76 7.76" stroke-width="1.5"/></svg></span><span class="grow"><span class="lbl" style="color: #E3A9A9;">مرفوض</span><span class="sub">اليوم · قرار الشركة</span></span></div>
+        <div class="done"><span class="dot" style="background: #E3A9A9; color: #0C0F17;"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" data-iconsax="Close"><path d="M7.76 16.24l8.48-8.48M16.24 16.24 7.76 7.76" stroke-width="1.5"/></svg></span><span class="grow"><span class="lbl" style="color: #E3A9A9;">مرفوض</span><span class="sub">اليوم · قرار الشركة</span></span></div>
       </div>
       <div class="tl" data-demo-show="closed" style="display: none;">
         <div class="done"><span class="dot"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" data-iconsax="TickCircle"><path d="M12 22c5.5 0 10-4.5 10-10S17.5 2 12 2 2 6.5 2 12s4.5 10 10 10Z" stroke-width="1.5"/><path d="m7.75 12 2.83 2.83 5.67-5.66" stroke-width="1.5"/></svg></span><span class="grow"><span class="lbl">تم إرسال الطلب</span><span class="sub">2 نوفمبر</span></span></div>
@@ -242,7 +243,7 @@ a{color:#CBB9FF;text-decoration:none}
       </span>
       <span class="dv"></span>
       <span class="row">
-        <span class="ic" style="background: rgba(200,120,155,0.16); color: #DDA0B9;"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" data-iconsax="Profile"><path d="M12.16 10.87c-.1-.01-.22-.01-.33 0a4.42 4.42 0 0 1-4.27-4.43C7.56 3.99 9.54 2 12 2a4.435 4.435 0 0 1 .16 8.87ZM7.16 14.56c-2.42 1.62-2.42 4.26 0 5.87 2.75 1.84 7.26 1.84 10.01 0 2.42-1.62 2.42-4.26 0-5.87-2.74-1.83-7.25-1.83-10.010 0Z" stroke-width="1.5"/></svg></span>
+        <span class="ic" style="background: rgba(196,142,214,0.16); color: #CFA3DE;"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" data-iconsax="Profile"><path d="M12.16 10.87c-.1-.01-.22-.01-.33 0a4.42 4.42 0 0 1-4.27-4.43C7.56 3.99 9.54 2 12 2a4.435 4.435 0 0 1 .16 8.87ZM7.16 14.56c-2.42 1.62-2.42 4.26 0 5.87 2.75 1.84 7.26 1.84 10.01 0 2.42-1.62 2.42-4.26 0-5.87-2.74-1.83-7.25-1.83-10.010 0Z" stroke-width="1.5"/></svg></span>
         <span class="grow"><span class="lbl">ملفك المهني</span><span class="sub">المهارات والخبرات والمؤهلات كما كانت وقت التقديم</span></span>
       </span>
     </div>

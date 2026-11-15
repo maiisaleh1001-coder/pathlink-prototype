@@ -109,13 +109,13 @@ a{color:#CBB9FF;text-decoration:none}
 .dnav[data-active="0"] a[data-i="0"] svg,.dnav[data-active="1"] a[data-i="1"] svg,.dnav[data-active="2"] a[data-i="2"] svg,.dnav[data-active="3"] a[data-i="3"] svg,.dnav[data-active="4"] a[data-i="4"] svg{opacity:0;transform:translateY(-18px)}
 @media (prefers-reduced-motion:reduce){.dnav,.dnav-bubble > span,.dnav a svg{transition:none}}
 .hero{position:relative;overflow:hidden;border-radius:26px;padding:18px;background:linear-gradient(135deg,#34289A 0%,#6C5CE7 55%,#A855F7 100%);color:#FFFFFF;display:flex;flex-direction:column;gap:10px;border:1px solid rgba(255,255,255,.12)}
-.hero::before{content:"";position:absolute;top:-80px;left:-80px;width:230px;height:230px;border-radius:999px;border:1px solid rgba(255,255,255,.14);background:rgba(255,255,255,.05)}
-.hero::after{content:"";position:absolute;top:-34px;left:-34px;width:140px;height:140px;border-radius:999px;border:1px solid rgba(255,255,255,.14)}
+.hero::before{content:"";position:absolute;top:-56px;left:-56px;width:140px;height:140px;border-radius:999px;border:1px solid rgba(255,255,255,.07);background:rgba(255,255,255,.02)}
+.hero::after{content:"";position:absolute;top:-24px;left:-24px;width:80px;height:80px;border-radius:999px;border:1px solid rgba(255,255,255,.06)}
 .hero > *{position:relative;z-index:1}
 .hero .sub{color:rgba(255,255,255,.8)}
-.hero.cons{background:linear-gradient(135deg,#3E2233 0%,#6E3C58 55%,#D58CAA 100%)}
-.hero.free{background:linear-gradient(135deg,#1A3940 0%,#2B5F6B 55%,#4E8796 100%)}
-.hero.cour{background:linear-gradient(135deg,#3D3320 0%,#6E5A33 55%,#9C8352 100%)}
+.hero.cons{background:linear-gradient(135deg,#2E2240 0%,#553C70 55%,#7E5C9A 100%)}
+.hero.free{background:linear-gradient(135deg,#16303E 0%,#23506A 55%,#3D7A96 100%)}
+.hero.cour{background:linear-gradient(135deg,#131A33 0%,#25335C 55%,#3A5089 100%)}
 .ring{width:64px;height:64px;flex:none;border-radius:999px;display:flex;align-items:center;justify-content:center}
 .ring > span{width:52px;height:52px;border-radius:999px;background:#0C0F17;display:flex;align-items:center;justify-content:center;font-size:15px;font-weight:700;color:#CBB9FF}
 .ring.sm{width:46px;height:46px}.ring.sm > span{width:36px;height:36px;font-size:12px}
@@ -161,7 +161,7 @@ a{color:#CBB9FF;text-decoration:none}
 .slot.on{background:rgba(139,124,246,.18);border:1.5px solid #A594FF;color:#CBB9FF;font-weight:700}
 .slot.off{background:rgba(255,255,255,.02);color:rgba(248,250,252,.3);text-decoration:line-through;cursor:default}
 .prog{display:block;height:6px;border-radius:999px;background:rgba(255,255,255,.1);overflow:hidden}
-.prog > span{display:block;height:100%;border-radius:999px;background:#DCC488}
+.prog > span{display:block;height:100%;border-radius:999px;background:#7A96E6}
 .bub{max-width:78%;padding:10px 14px;border-radius:20px;font-size:13px;line-height:21px;display:flex;flex-direction:column;gap:4px}
 .bub .t{font-size:10px;opacity:.7;align-self:flex-end}
 .bub.me{align-self:flex-end;background:linear-gradient(135deg,#6C5CE7,#A855F7);color:#FFFFFF;border-bottom-left-radius:6px}
@@ -170,6 +170,7 @@ a{color:#CBB9FF;text-decoration:none}
 .composer{position:absolute;z-index:3;right:0;left:0;bottom:0;display:flex;align-items:center;gap:8px;padding:10px 12px 24px;background:rgba(10,12,18,.9);-webkit-backdrop-filter:blur(20px);backdrop-filter:blur(20px);border-top:1px solid rgba(255,255,255,.07)}
 .file{display:flex;align-items:center;gap:10px;padding:10px 12px;border-radius:14px;background:rgba(255,255,255,.05);font-size:13px;color:#F8FAFC}
 .drop{display:flex;flex-direction:column;align-items:center;gap:6px;padding:18px;border-radius:18px;border:1.5px dashed rgba(255,255,255,.18);background:rgba(255,255,255,.03);color:rgba(248,250,252,.55);font-size:12px;text-align:center}
+img:not([data-logo]){filter:brightness(.74) saturate(.8) contrast(1.06)}.av img:not([data-logo]){filter:brightness(.9) saturate(.88)}
 </style>
 </head>
 <body>
@@ -189,7 +190,7 @@ a{color:#CBB9FF;text-decoration:none}
       <span class="row"><span class="grow"><span class="h" style="font-size: 14px;">تصميم تطبيق جوال لمتجر ورد</span><span class="sub">تصميم › واجهات · نُشر اليوم</span></span><span class="pill p-ok">يستقبل العروض</span></span>
       <span class="row" style="gap: 8px;"><span class="tag"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" data-iconsax="EmptyWallet"><path d="M18.04 13.55c-.42.41-.66 1-.6 1.63.09 1.08 1.08 1.87 2.16 1.87h1.9v1.19c0 2.07-1.69 3.76-3.76 3.76H6.26c-2.07 0-3.76-1.69-3.76-3.76v-6.73c0-2.07 1.69-3.76 3.76-3.76h11.48c2.07 0 3.76 1.69 3.76 3.76v1.44h-2.02c-.56 0-1.07.22-1.44.6Z" stroke-width="1.5"/><path d="M2.5 12.41V7.84c0-1.19.73-2.25 1.84-2.67l7.94-3a1.9 1.9 0 0 1 2.57 1.78v3.8M22.559 13.97v2.06c0 .55-.44 1-1 1.02h-1.96c-1.08 0-2.07-.79-2.16-1.87-.06-.63.18-1.22.6-1.63.37-.38.88-.6 1.44-.6h2.08c.56.02 1 .47 1 1.02ZM7 12h7" stroke-width="1.5"/></svg>1,500 – 2,500 ر.س</span><span class="tag"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" data-iconsax="Timer1"><path d="M20.75 13.25c0 4.83-3.92 8.75-8.75 8.75s-8.75-3.92-8.75-8.75S7.17 4.5 12 4.5s8.75 3.92 8.75 8.75ZM12 8v5" stroke-width="1.5"/><path d="M9 2h6" stroke-width="1.5"/></svg>14 يومًا</span></span>
       <span class="dv"></span>
-      <span class="row" style="gap: 8px;"><span class="row" style="gap: 0;"><span class="av" style="width: 28px; height: 28px; font-size: 11px; background: rgba(120,180,200,0.14); color: #86C3D3; border: 2px solid #FFFFFF; position: relative; overflow: hidden; padding: 0;"><img src="img/w1.jpg" alt="" style="position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; display: block;"></span><span class="av" style="width: 28px; height: 28px; font-size: 11px; background: rgba(139,124,246,0.16); color: #A594FF; border: 2px solid #FFFFFF; margin-right: -8px; position: relative; overflow: hidden; padding: 0;"><img src="img/m5.jpg" alt="" style="position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; display: block;"></span><span class="av" style="width: 28px; height: 28px; font-size: 11px; background: rgba(214,190,130,0.14); color: #DCC488; border: 2px solid #FFFFFF; margin-right: -8px; position: relative; overflow: hidden; padding: 0;"><img src="img/w5.jpg" alt="" style="position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; display: block;"></span></span><span class="lbl grow">5 عروض جديدة</span><span class="btn-s" style="height: 32px;">قارن العروض</span></span>
+      <span class="row" style="gap: 8px;"><span class="row" style="gap: 0;"><span class="av" style="width: 28px; height: 28px; font-size: 11px; background: rgba(110,176,200,0.14); color: #6EB0C8; border: 2px solid #FFFFFF; position: relative; overflow: hidden; padding: 0;"><img src="img/w1.jpg" alt="" style="position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; display: block;"></span><span class="av" style="width: 28px; height: 28px; font-size: 11px; background: rgba(139,124,246,0.16); color: #A594FF; border: 2px solid #FFFFFF; margin-right: -8px; position: relative; overflow: hidden; padding: 0;"><img src="img/m5.jpg" alt="" style="position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; display: block;"></span><span class="av" style="width: 28px; height: 28px; font-size: 11px; background: rgba(122,150,230,0.14); color: #7A96E6; border: 2px solid #FFFFFF; margin-right: -8px; position: relative; overflow: hidden; padding: 0;"><img src="img/w5.jpg" alt="" style="position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; display: block;"></span></span><span class="lbl grow">5 عروض جديدة</span><span class="btn-s" style="height: 32px;">قارن العروض</span></span>
     </a>
 
     <a href="dark-project-offers.html" class="card">
