@@ -103,7 +103,15 @@ $pages = @(
   @('EarningDetail.dc.html',     'earning.html',         'Path Link · تفاصيل المستحق'),
   @('Settlements.dc.html',       'settlements.html',     'Path Link · سجل التسويات'),
   @('SettlementDetail.dc.html',  'settlement.html',      'Path Link · تفاصيل التسوية'),
-  @('PayoutDetails.dc.html',     'payout.html',          'Path Link · بيانات الاستلام')
+  @('PayoutDetails.dc.html',     'payout.html',          'Path Link · بيانات الاستلام'),
+  # dark redesign (V2) — separate pages so the light version stays intact
+  @('DarkSplash.dc.html',        'dark.html',            'Path Link · الداكن'),
+  @('DarkWelcome.dc.html',       'dark-welcome.html',    'Path Link · أهلًا بك'),
+  @('DarkHome.dc.html',          'dark-home.html',       'Path Link · الرئيسية'),
+  @('DarkJobs.dc.html',          'dark-jobs.html',       'Path Link · الوظائف'),
+  @('DarkJob.dc.html',           'dark-job.html',        'Path Link · تفاصيل الوظيفة'),
+  @('DarkAccount.dc.html',       'dark-account.html',    'Path Link · حسابي'),
+  @('DarkEarnings.dc.html',      'dark-earnings.html',   'Path Link · مستحقاتي')
 )
 # uploaded canvas fonts -> repo fonts/
 $blobs = @{
@@ -209,7 +217,10 @@ foreach ($pg in $pages) {
   # every step after the first starts hidden
   $seen = 0
   $body = [regex]::Replace($body, '<div data-step="(\w+)">', { param($m) $script:seen++; if ($script:seen -gt 1) { '<div data-step="' + $m.Groups[1].Value + '" class="proto-hide">' } else { $m.Value } })
-  $html = "<!doctype html>`n<html lang=`"ar`" dir=`"rtl`">`n<head>`n" + $head.Replace('__TITLE__', $pg[2]) + "`n" + $helmet + "`n</head>`n<body>`n<main class=`"stage`">`n<div class=`"device`">`n" + $body + "`n</div>`n</main>`n" + $tail + "</body>`n</html>`n"
+  $pageHead = $head.Replace('__TITLE__', $pg[2])
+  # dark redesign pages: dark status bar and no light page edges around the screen
+  if ($pg[1] -like 'dark*') { $pageHead = $pageHead.Replace('<meta name="theme-color" content="#F9FAFB">', '<meta name="theme-color" content="#04070B">') + "`n<style>html,body,.stage,.device{background:#04070B}</style>" }
+  $html = "<!doctype html>`n<html lang=`"ar`" dir=`"rtl`">`n<head>`n" + $pageHead + "`n" + $helmet + "`n</head>`n<body>`n<main class=`"stage`">`n<div class=`"device`">`n" + $body + "`n</div>`n</main>`n" + $tail + "</body>`n</html>`n"
   [IO.File]::WriteAllText((Join-Path $Out $pg[1]), $html, $utf8)
 }
 
