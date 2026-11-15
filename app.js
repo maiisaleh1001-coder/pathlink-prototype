@@ -25,6 +25,14 @@
     if (screen) screen.addEventListener('click', function () { clearTimeout(t); go(); });
     return;
   }
+  if (page === 'dark.html') {
+    // the dark version's splash: same fresh start, then its own onboarding
+    write('pl-fl', 'none'); write('pl-tr', 'none'); write('pl-au', 'user');
+    var goDark = function () { location.replace('dark-onboarding.html'); };
+    var td = setTimeout(goDark, 1800);
+    if (screen) screen.addEventListener('click', function (e) { e.preventDefault(); clearTimeout(td); goDark(); }, true);
+    return;
+  }
 
   // iOS Safari only applies :active (the pressed look) when the page listens for touches
   document.addEventListener('touchstart', function () {}, { passive: true });
@@ -87,7 +95,8 @@
     'new-freelancer.html': 'dark-new-freelancer.html', 'freelancer-pending.html': 'dark-freelancer-pending.html',
     'freelancer-profile.html': 'dark-freelancer-profile.html', 'freelancer-resubmitted.html': 'dark-freelancer-resubmitted.html',
     'freelancer.html': 'dark-freelancer.html', 'need-approval.html': 'dark-need-approval.html',
-    'new-trainer.html': 'dark-new-trainer.html', 'trainer-pending.html': 'dark-trainer-pending.html', 'trainer.html': 'dark-trainer.html'
+    'new-trainer.html': 'dark-new-trainer.html', 'trainer-pending.html': 'dark-trainer-pending.html', 'trainer.html': 'dark-trainer.html',
+    'login-gate.html': 'dark-login-gate.html', 'sign-in.html': 'dark-sign-in.html', './?skip=1': 'dark-home.html'
   };
   function applyStories(root) {
     Object.keys(STORIES).forEach(function (k) {
@@ -217,7 +226,7 @@
   });
 
   // ---------- bottom sheets open over the current page (overlay + slide up), not as a new screen ----------
-  var SHEETS = { 'add.html': 1, 'job-filter.html': 1, 'job-apply.html': 1, 'freelance-filter.html': 1, 'consult-filter.html': 1, 'course-filter.html': 1, 'orders-filter.html': 1, 'reschedule.html': 1, 'accept-offer.html': 1, 'request-revision.html': 1, 'need-approval.html': 1, 'coursera.html': 1, 'login-gate.html': 1, 'dark-job-filter.html': 1, 'dark-job-apply.html': 1, 'dark-accept-offer.html': 1, 'dark-request-revision.html': 1, 'dark-need-approval.html': 1, 'dark-freelance-filter.html': 1, 'dark-reschedule.html': 1, 'dark-consult-filter.html': 1, 'dark-course-filter.html': 1, 'dark-coursera.html': 1, 'dark-orders-filter.html': 1, 'dark-add.html': 1 };
+  var SHEETS = { 'add.html': 1, 'job-filter.html': 1, 'job-apply.html': 1, 'freelance-filter.html': 1, 'consult-filter.html': 1, 'course-filter.html': 1, 'orders-filter.html': 1, 'reschedule.html': 1, 'accept-offer.html': 1, 'request-revision.html': 1, 'need-approval.html': 1, 'coursera.html': 1, 'login-gate.html': 1, 'dark-job-filter.html': 1, 'dark-job-apply.html': 1, 'dark-accept-offer.html': 1, 'dark-request-revision.html': 1, 'dark-need-approval.html': 1, 'dark-freelance-filter.html': 1, 'dark-reschedule.html': 1, 'dark-consult-filter.html': 1, 'dark-course-filter.html': 1, 'dark-coursera.html': 1, 'dark-orders-filter.html': 1, 'dark-add.html': 1, 'dark-login-gate.html': 1 };
   var SHEET_CSS = '.pl-wrap{position:absolute;inset:0;font-family:"Thmanyah Sans",Tajawal,sans-serif;direction:rtl}' +
     '.pl-backdrop{position:absolute;inset:0;background:rgba(14,26,43,.48);opacity:0;transition:opacity .25s ease}' +
     '.pl-sheet{position:absolute;left:0;right:0;bottom:0;max-height:92%;overflow-y:auto;scrollbar-width:none;transform:translateY(100%);transition:transform .32s cubic-bezier(.2,.8,.2,1)}' +
@@ -368,6 +377,38 @@
         location.href = (/^dark-/.test(page) ? 'dark-' : '') + 'search-results.html';
       });
     }
+  }
+
+  // ---------- dark onboarding: story slides — the bar fills, then the next slide; tap or swipe moves on ----------
+  var onb = document.querySelector('[data-onb]');
+  if (onb) {
+    var onbSlides = [].slice.call(onb.querySelectorAll('[data-onb-slide]'));
+    var onbBars = [].slice.call(onb.querySelectorAll('[data-onb-bars] > span > span'));
+    var onbCur = 0, onbTimer = null, ONB_MS = 4200;
+    var reduce = window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches;
+    var onbShow = function (i) {
+      onbCur = (i + onbSlides.length) % onbSlides.length;
+      onbSlides.forEach(function (s, k) {
+        s.style.display = k === onbCur ? '' : 'none';
+        if (k === onbCur) { s.classList.remove('onb-in'); void s.offsetWidth; s.classList.add('onb-in'); }
+      });
+      onbBars.forEach(function (b, k) { b.style.transition = 'none'; b.style.width = k < onbCur ? '100%' : '0%'; });
+      var bar = onbBars[onbCur];
+      if (bar) { void bar.offsetWidth; bar.style.transition = reduce ? 'none' : 'width ' + ONB_MS + 'ms linear'; bar.style.width = '100%'; }
+      clearTimeout(onbTimer);
+      onbTimer = setTimeout(function () { onbShow(onbCur + 1); }, ONB_MS);
+    };
+    var stage = onb.querySelector('[data-onb-stage]'), sx = null;
+    if (stage) {
+      stage.addEventListener('click', function () { onbShow(onbCur + 1); });
+      stage.addEventListener('touchstart', function (e) { sx = e.touches[0].clientX; }, { passive: true });
+      stage.addEventListener('touchend', function (e) {
+        if (sx === null) return;
+        var dx = e.changedTouches[0].clientX - sx; sx = null;
+        if (Math.abs(dx) > 40) { e.preventDefault(); onbShow(onbCur + (dx > 0 ? 1 : -1)); } // RTL: swipe right = next
+      });
+    }
+    onbShow(0);
   }
 
   // ---------- dark redesign: service nav — the notch and bubble slide to the tapped tab, then the page opens ----------

@@ -197,7 +197,15 @@ $pages = @(
   @('DarkEarningDetail.dc.html', 'dark-earning.html',    'Path Link · تفاصيل المستحق'),
   @('DarkSettlements.dc.html',   'dark-settlements.html','Path Link · سجل التسويات'),
   @('DarkSettlementDetail.dc.html','dark-settlement.html','Path Link · تفاصيل التسوية'),
-  @('DarkPayoutDetails.dc.html', 'dark-payout.html',     'Path Link · بيانات الاستلام')
+  @('DarkPayoutDetails.dc.html', 'dark-payout.html',     'Path Link · بيانات الاستلام'),
+  @('DarkOnboarding.dc.html',    'dark-onboarding.html', 'Path Link · أهلًا بك'),
+  @('DarkSignIn.dc.html',        'dark-sign-in.html',    'Path Link · تسجيل الدخول'),
+  @('DarkSignUp.dc.html',        'dark-sign-up.html',    'Path Link · إنشاء حساب'),
+  @('DarkCompleteProfile.dc.html','dark-complete-profile.html','Path Link · أكمل بياناتك'),
+  @('DarkVerifyOtp.dc.html',     'dark-verify.html',     'Path Link · رمز التحقق'),
+  @('DarkForgotPassword.dc.html','dark-forgot-password.html','Path Link · نسيت كلمة المرور'),
+  @('DarkNewPassword.dc.html',   'dark-new-password.html','Path Link · كلمة مرور جديدة'),
+  @('DarkLoginGate.dc.html',     'dark-login-gate.html', 'Path Link · سجّل للمتابعة')
 )
 # uploaded canvas fonts -> repo fonts/
 $blobs = @{
