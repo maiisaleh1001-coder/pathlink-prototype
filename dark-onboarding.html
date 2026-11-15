@@ -59,7 +59,7 @@ a{color:#CBB9FF;text-decoration:none}
 .av{width:44px;height:44px;flex:none;border-radius:999px;display:flex;align-items:center;justify-content:center;font-size:17px;font-weight:700;position:relative;overflow:hidden}
 .av img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
 .pill{display:inline-flex;align-items:center;gap:4px;height:24px;padding:0 10px;border-radius:999px;font-size:12px;font-weight:500;white-space:nowrap;flex:none}
-.p-ok{background:rgba(74,222,128,.12);color:#86EFAC}.p-warn{background:rgba(251,191,36,.12);color:#FCD34D}.p-bad{background:rgba(248,113,113,.13);color:#FCA5A5}.p-info{background:rgba(139,124,246,.18);color:#CBB9FF}.p-mute{background:rgba(255,255,255,.07);color:rgba(248,250,252,.72)}
+.p-ok{background:rgba(120,190,150,.12);color:#A3D9B8}.p-warn{background:rgba(214,180,110,.12);color:#E3C88A}.p-bad{background:rgba(214,130,130,.13);color:#E3A9A9}.p-info{background:rgba(139,124,246,.18);color:#CBB9FF}.p-mute{background:rgba(255,255,255,.07);color:rgba(248,250,252,.72)}
 .chip{height:36px;padding:0 14px;border-radius:999px;border:1px solid rgba(255,255,255,.09);background:rgba(255,255,255,.04);color:rgba(248,250,252,.8);font-size:13px;display:inline-flex;align-items:center;gap:6px;box-sizing:border-box;cursor:pointer;white-space:nowrap}
 .chip.on{background:linear-gradient(90deg,#6C5CE7,#F168FF);border-color:transparent;color:#FFFFFF;font-weight:700}
 .tag{height:26px;padding:0 10px;border-radius:999px;background:rgba(255,255,255,.06);color:rgba(248,250,252,.78);font-size:12px;display:inline-flex;align-items:center;gap:4px;white-space:nowrap}
@@ -75,7 +75,7 @@ a{color:#CBB9FF;text-decoration:none}
 .ic{width:40px;height:40px;flex:none;border-radius:14px;display:flex;align-items:center;justify-content:center}
 .dv{height:1px;background:rgba(255,255,255,.08);flex:none}
 .note{display:flex;align-items:flex-start;gap:8px;padding:11px 13px;border-radius:16px;font-size:12px;line-height:19px}
-.n-info{background:rgba(139,124,246,.12);color:#CBB9FF;border:1px solid rgba(139,124,246,.18)}.n-warn{background:rgba(251,191,36,.08);color:#FCD34D;border:1px solid rgba(251,191,36,.16)}
+.n-info{background:rgba(139,124,246,.12);color:#CBB9FF;border:1px solid rgba(139,124,246,.18)}.n-warn{background:rgba(214,180,110,.08);color:#E3C88A;border:1px solid rgba(214,180,110,.16)}
 .rail{display:flex;gap:8px;overflow-x:auto;margin:0 -16px;padding:0 16px;scrollbar-width:none;flex:none}
 .rail::-webkit-scrollbar{display:none}
 .rail > *{flex:none}
@@ -109,8 +109,8 @@ a{color:#CBB9FF;text-decoration:none}
 .onb-vis{position:relative;flex-grow:1;margin-top:6px}
 .fc{position:absolute;transform:rotate(var(--r,0deg))}
 .fc > .float{border-radius:24px;padding:16px;box-sizing:border-box;display:flex;flex-direction:column;gap:8px;color:#FFFFFF;border:1px solid rgba(255,255,255,.16);-webkit-backdrop-filter:blur(16px);backdrop-filter:blur(16px);box-shadow:inset 0 1px 0 rgba(255,255,255,.18)}
-.fc .k{font-size:11px;color:rgba(255,255,255,.7)}
-.fc .big{font-size:22px;font-weight:700;direction:ltr;text-align:right}
+.fc .k{font-size:12px;color:rgba(255,255,255,.7)}
+.fc .big{font-size:26px;font-weight:700;direction:ltr;text-align:right}
 .fc .bar2{display:block;height:6px;border-radius:999px;background:rgba(255,255,255,.18);overflow:hidden}
 .fc .bar2 > span{display:block;height:100%;border-radius:999px;background:#FFFFFF}
 .onb-foot{position:absolute;right:0;left:0;bottom:0;z-index:3;padding:0 20px 30px;display:flex;flex-direction:column;gap:16px}
@@ -138,11 +138,11 @@ a{color:#CBB9FF;text-decoration:none}
       <span class="onb-h">مسيرتك المهنية<br>تبدأ من <span class="gt">Path Link</span></span>
       <span class="onb-p">وظائف تناسب ملفك، ونسبة توافق تعرفها قبل أن تقدّم.</span>
       <div class="onb-vis">
-        <span class="fc" style="--r: -9deg; top: 14px; left: 18px;"><span class="float" style="width: 252px; height: 150px; background: linear-gradient(150deg, rgba(108,92,231,0.62), rgba(108,92,231,0.14));">
+        <span class="fc" style="--r: -9deg; top: 8px; left: 12px;"><span class="float" style="width: 280px; height: 172px; background: linear-gradient(150deg, rgba(108,92,231,0.34), rgba(108,92,231,0.06));">
           <span class="row" style="gap: 6px;"><span style="width: 24px; height: 24px; border-radius: 8px; background: linear-gradient(140deg,#6C5CE7,#F168FF); display: flex; align-items: center; justify-content: center;"><img src="brand/logo-symbol.png" alt="" width="15" height="15" style="width: 15px; height: 15px; display: block;"></span><span style="font-size: 12px; font-weight: 700;">Path Link <span style="opacity: .6; font-weight: 400;">| الوظائف</span></span></span>
-          <span class="row" style="margin-top: auto; align-items: flex-end;"><span class="grow"><span class="k">مقترحة لك</span><span style="font-size: 15px; font-weight: 700; white-space: nowrap;">مصمم واجهات مستخدم</span><span class="k">مدار للتقنية · الرياض</span></span><span class="match" style="--p: 86; width: 52px; height: 52px;"><span style="width: 42px; height: 42px; font-size: 13px;">86%</span></span></span>
+          <span class="row" style="margin-top: auto; align-items: flex-end;"><span class="grow"><span class="k">مقترحة لك</span><span style="font-size: 17px; font-weight: 700; white-space: nowrap;">مصمم واجهات مستخدم</span><span class="k">مدار للتقنية · الرياض</span></span><span class="match" style="--p: 86; width: 52px; height: 52px;"><span style="width: 42px; height: 42px; font-size: 13px;">86%</span></span></span>
         </span></span>
-        <span class="fc" style="--r: -6deg; top: 168px; right: 20px;"><span class="float" style="width: 196px; background: linear-gradient(150deg, rgba(241,104,255,0.58), rgba(108,92,231,0.22)); animation-delay: -2.5s;">
+        <span class="fc" style="--r: -6deg; top: 196px; right: 16px;"><span class="float" style="width: 232px; background: linear-gradient(150deg, rgba(241,104,255,0.34), rgba(108,92,231,0.22)); animation-delay: -2.5s;">
           <span class="k">اكتمال ملفك</span>
           <svg width="150" height="82" viewBox="0 0 150 82" aria-hidden="true" style="display: block; align-self: center;"><path d="M12 76 A63 63 0 0 1 138 76" pathLength="100" fill="none" stroke="rgba(255,255,255,0.2)" stroke-width="12" stroke-linecap="round"/><path d="M12 76 A63 63 0 0 1 138 76" pathLength="100" fill="none" stroke="#FFFFFF" stroke-width="12" stroke-linecap="round" stroke-dasharray="60 100"/></svg>
           <span style="text-align: center; font-size: 13px; font-weight: 700; margin-top: -26px;">60%</span>
@@ -154,13 +154,13 @@ a{color:#CBB9FF;text-decoration:none}
       <span class="onb-h">اعمل بحرية<br>واحجز <span class="gt">استشارتك</span></span>
       <span class="onb-p">خدمات ومشاريع ومستشارون معتمدون، كلها في مكان واحد.</span>
       <div class="onb-vis">
-        <span class="fc" style="--r: 8deg; top: 18px; right: 18px;"><span class="float" style="width: 252px; height: 150px; background: linear-gradient(150deg, rgba(61,214,245,0.5), rgba(61,214,245,0.1));">
+        <span class="fc" style="--r: 8deg; top: 8px; right: 12px;"><span class="float" style="width: 280px; height: 172px; background: linear-gradient(150deg, rgba(120,180,200,0.34), rgba(120,180,200,0.06));">
           <span class="row" style="gap: 6px;"><span style="width: 24px; height: 24px; border-radius: 8px; background: linear-gradient(140deg,#6C5CE7,#F168FF); display: flex; align-items: center; justify-content: center;"><img src="brand/logo-symbol.png" alt="" width="15" height="15" style="width: 15px; height: 15px; display: block;"></span><span style="font-size: 12px; font-weight: 700;">Path Link <span style="opacity: .6; font-weight: 400;">| العمل الحر</span></span></span>
-          <span style="margin-top: auto; font-size: 16px; font-weight: 700;">تطوير متجر إلكتروني</span>
+          <span style="margin-top: auto; font-size: 17px; font-weight: 700;">تطوير متجر إلكتروني</span>
           <span class="row" style="gap: 8px;"><span class="k grow">قيد التنفيذ · التسليم بعد 3 أيام</span><span class="k" style="direction: ltr;">#F-30988</span></span>
           <span class="bar2"><span style="width: 66%;"></span></span>
         </span></span>
-        <span class="fc" style="--r: -7deg; top: 176px; left: 22px;"><span class="float" style="width: 200px; background: linear-gradient(150deg, rgba(237,94,142,0.6), rgba(108,92,231,0.2)); animation-delay: -3s;">
+        <span class="fc" style="--r: -7deg; top: 200px; left: 16px;"><span class="float" style="width: 232px; background: linear-gradient(150deg, rgba(200,120,155,0.34), rgba(108,92,231,0.2)); animation-delay: -3s;">
           <span class="row" style="gap: 8px;"><span class="live"></span><span class="k">استشارة اليوم</span></span>
           <span class="big">7:00 م</span>
           <span class="row" style="gap: 8px;"><span class="av" style="width: 30px; height: 30px; font-size: 12px; background: rgba(255,255,255,0.22);">ف</span><span class="grow"><span style="font-size: 12px; font-weight: 700;">أ. فهد الدوسري</span><span class="k">مرئية · 45 دقيقة</span></span></span>
@@ -171,13 +171,13 @@ a{color:#CBB9FF;text-decoration:none}
       <span class="onb-h">تعلّم واكسب<br>من <span class="gt">خبرتك</span></span>
       <span class="onb-p">كورسات من مدربين معتمدين، ومستحقاتك أمامك أولًا بأول.</span>
       <div class="onb-vis">
-        <span class="fc" style="--r: -8deg; top: 14px; left: 18px;"><span class="float" style="width: 252px; height: 150px; background: linear-gradient(150deg, rgba(246,206,85,0.5), rgba(246,206,85,0.1));">
+        <span class="fc" style="--r: -8deg; top: 8px; left: 12px;"><span class="float" style="width: 280px; height: 172px; background: linear-gradient(150deg, rgba(214,190,130,0.34), rgba(214,190,130,0.06));">
           <span class="row" style="gap: 6px;"><span style="width: 24px; height: 24px; border-radius: 8px; background: linear-gradient(140deg,#6C5CE7,#F168FF); display: flex; align-items: center; justify-content: center;"><img src="brand/logo-symbol.png" alt="" width="15" height="15" style="width: 15px; height: 15px; display: block;"></span><span style="font-size: 12px; font-weight: 700;">Path Link <span style="opacity: .6; font-weight: 400;">| الكورسات</span></span></span>
-          <span style="margin-top: auto; font-size: 16px; font-weight: 700;">أساسيات تصميم الواجهات</span>
+          <span style="margin-top: auto; font-size: 17px; font-weight: 700;">أساسيات تصميم الواجهات</span>
           <span class="row" style="gap: 8px;"><span class="k grow">8 من 24 درسًا</span><span class="k">33%</span></span>
           <span class="bar2"><span style="width: 33%;"></span></span>
         </span></span>
-        <span class="fc" style="--r: 6deg; top: 176px; right: 22px;"><span class="float" style="width: 200px; background: linear-gradient(150deg, rgba(108,92,231,0.6), rgba(241,104,255,0.22)); animation-delay: -2s;">
+        <span class="fc" style="--r: 6deg; top: 200px; right: 16px;"><span class="float" style="width: 232px; background: linear-gradient(150deg, rgba(108,92,231,0.34), rgba(241,104,255,0.22)); animation-delay: -2s;">
           <span class="k">مستحقاتك</span>
           <span class="big">10,806 <span style="font-size: 13px; font-weight: 500;">ر.س</span></span>
           <span class="row" style="gap: 5px; align-items: flex-end; height: 34px;"><span style="flex: 1; height: 40%; border-radius: 4px; background: rgba(255,255,255,0.3);"></span><span style="flex: 1; height: 65%; border-radius: 4px; background: rgba(255,255,255,0.3);"></span><span style="flex: 1; height: 50%; border-radius: 4px; background: rgba(255,255,255,0.3);"></span><span style="flex: 1; height: 100%; border-radius: 4px; background: #FFFFFF;"></span></span>
