@@ -1,0 +1,150 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#04070B">
+<title>Path Link · تفاصيل الوظيفة</title>
+<link rel="icon" href="favicon.png" type="image/png">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="apple-touch-icon" sizes="180x180" href="icons/apple-touch-icon.png">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="Path Link">
+<script>
+(function () {
+  // ?app=1 is the installed app's start_url; remember it for the session so later pages keep the app layout
+  var app = /[?&]app=1/.test(location.search);
+  try { if (app) sessionStorage.setItem('pl-app', '1'); else app = sessionStorage.getItem('pl-app') === '1'; } catch (e) {}
+  var standalone = (window.matchMedia && window.matchMedia('(display-mode: standalone)').matches) || window.navigator.standalone === true || app;
+  if (standalone) document.documentElement.classList.add('standalone');
+  // home goes through the splash once per session (before anything paints, so there is no flash)
+  var file = location.pathname.split('/').pop() || 'index.html';
+  var seen = false; try { seen = sessionStorage.getItem('pl-intro-seen') === 'true'; } catch (e) {}
+  if (file === 'index.html' && !seen && !/[?&]skip/.test(location.search)) {
+    try { sessionStorage.setItem('pl-intro-seen', 'true'); } catch (e) {}
+    location.replace('splash.html' + (standalone ? '?app=1' : ''));
+  }
+})();
+</script>
+<link rel="stylesheet" href="ds/pathlink/tokens.css">
+<link rel="stylesheet" href="styles.css">
+<style>html,body,.stage,.device{background:#04070B}</style>
+<style>
+@font-face{font-family:"Thmanyah Sans";src:url("fonts/thmanyahsans-Regular.otf") format("opentype");font-weight:400;font-display:swap}
+@font-face{font-family:"Thmanyah Sans";src:url("fonts/thmanyahsans-Medium.otf") format("opentype");font-weight:500;font-display:swap}
+@font-face{font-family:"Thmanyah Sans";src:url("fonts/thmanyahsans-Bold.otf") format("opentype");font-weight:700;font-display:swap}
+body{margin:0;background:#04070B}
+a{color:#CBB9FF;text-decoration:none}
+.scr{position:relative;width:390px;height:844px;overflow:hidden;background:#04070B;color:#F8FAFC;font-family:'Thmanyah Sans',Tajawal,sans-serif;direction:rtl;isolation:isolate}
+.aura{position:absolute;border-radius:999px;filter:blur(70px);pointer-events:none;z-index:0}
+.stars{position:absolute;pointer-events:none;z-index:0}
+.scroll{position:relative;z-index:1;height:100%;overflow-y:auto;box-sizing:border-box;padding:18px 16px 120px;display:flex;flex-direction:column;gap:14px;scrollbar-width:none}
+.scroll::-webkit-scrollbar{display:none}
+.scroll > *{flex-shrink:0}
+.bar{display:flex;align-items:center;gap:10px}
+.ib{width:42px;height:42px;flex:none;border-radius:999px;border:1px solid rgba(255,255,255,.09);background:rgba(255,255,255,.05);color:#F8FAFC;display:flex;align-items:center;justify-content:center;box-sizing:border-box;position:relative}
+.ttl{flex-grow:1;text-align:center;font-size:17px;font-weight:700}
+.glass{background:linear-gradient(160deg,rgba(255,255,255,.07),rgba(255,255,255,.02));border:1px solid rgba(255,255,255,.08);-webkit-backdrop-filter:blur(18px);backdrop-filter:blur(18px)}
+.card{background:linear-gradient(160deg,rgba(255,255,255,.065),rgba(255,255,255,.018));border:1px solid rgba(255,255,255,.08);border-radius:22px;padding:16px;display:flex;flex-direction:column;gap:10px;color:#F8FAFC;box-sizing:border-box;position:relative;overflow:hidden}
+.gb{border:1px solid transparent;background:linear-gradient(#0C0F17,#0C0F17) padding-box,linear-gradient(120deg,#6C5CE7,#F168FF) border-box}
+.gt{background:linear-gradient(100deg,#CBB9FF 0%,#8B7CF6 45%,#F168FF 100%);-webkit-background-clip:text;background-clip:text;color:transparent}
+.h{font-size:15px;font-weight:700}
+.sec{font-size:17px;font-weight:700}
+.sub{font-size:12px;color:rgba(248,250,252,.55);line-height:18px}
+.txt{font-size:13px;line-height:22px;color:rgba(248,250,252,.72)}
+.row{display:flex;align-items:center;gap:12px}
+.grow{flex-grow:1;min-width:0;display:flex;flex-direction:column}
+.av{width:44px;height:44px;flex:none;border-radius:999px;display:flex;align-items:center;justify-content:center;font-size:17px;font-weight:700;position:relative;overflow:hidden}
+.av img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.pill{display:inline-flex;align-items:center;gap:4px;height:24px;padding:0 10px;border-radius:999px;font-size:12px;font-weight:500;white-space:nowrap;flex:none}
+.p-ok{background:rgba(74,222,128,.12);color:#86EFAC}.p-warn{background:rgba(251,191,36,.12);color:#FCD34D}.p-bad{background:rgba(248,113,113,.13);color:#FCA5A5}.p-info{background:rgba(139,124,246,.18);color:#CBB9FF}.p-mute{background:rgba(255,255,255,.07);color:rgba(248,250,252,.72)}
+.chip{height:36px;padding:0 14px;border-radius:999px;border:1px solid rgba(255,255,255,.09);background:rgba(255,255,255,.04);color:rgba(248,250,252,.8);font-size:13px;display:inline-flex;align-items:center;gap:6px;box-sizing:border-box;cursor:pointer;white-space:nowrap}
+.chip.on{background:linear-gradient(90deg,#6C5CE7,#F168FF);border-color:transparent;color:#FFFFFF;font-weight:700}
+.tag{height:26px;padding:0 10px;border-radius:999px;background:rgba(255,255,255,.06);color:rgba(248,250,252,.78);font-size:12px;display:inline-flex;align-items:center;gap:4px;white-space:nowrap}
+.lbl{font-size:13px;font-weight:700}
+.field{height:50px;border-radius:999px;border:1px solid rgba(255,255,255,.1);background:rgba(255,255,255,.04);display:flex;align-items:center;gap:10px;padding:0 16px;font-size:14px;color:#F8FAFC;box-sizing:border-box}
+.field .ph{color:rgba(248,250,252,.45);flex-grow:1}
+.btn{height:54px;border-radius:999px;background:linear-gradient(90deg,#6C5CE7,#F168FF);color:#FFFFFF;font-size:15px;font-weight:700;display:flex;align-items:center;justify-content:center;gap:8px;border:0;font-family:inherit;cursor:pointer}
+.btn2{height:54px;border-radius:999px;border:1px solid rgba(255,255,255,.1);background:rgba(255,255,255,.05);color:#F8FAFC;font-size:15px;font-weight:700;display:flex;align-items:center;justify-content:center;gap:8px;box-sizing:border-box;font-family:inherit;cursor:pointer}
+.btn-s{height:36px;padding:0 16px;border-radius:999px;background:linear-gradient(90deg,#6C5CE7,#F168FF);color:#FFFFFF;font-size:13px;font-weight:700;display:inline-flex;align-items:center;gap:6px;flex:none}
+.btn-s2{height:36px;padding:0 14px;border-radius:999px;border:1px solid rgba(255,255,255,.12);background:rgba(255,255,255,.05);color:#F8FAFC;font-size:13px;font-weight:700;display:inline-flex;align-items:center;gap:6px;flex:none;box-sizing:border-box}
+.foot{position:absolute;right:0;left:0;bottom:0;z-index:3;display:flex;gap:10px;padding:14px 16px 26px;background:rgba(8,10,16,.78);-webkit-backdrop-filter:blur(20px);backdrop-filter:blur(20px);border-top:1px solid rgba(255,255,255,.07)}
+.foot > *{flex:1}
+.ic{width:40px;height:40px;flex:none;border-radius:14px;display:flex;align-items:center;justify-content:center}
+.dv{height:1px;background:rgba(255,255,255,.08);flex:none}
+.note{display:flex;align-items:flex-start;gap:8px;padding:11px 13px;border-radius:16px;font-size:12px;line-height:19px}
+.n-info{background:rgba(139,124,246,.12);color:#CBB9FF;border:1px solid rgba(139,124,246,.18)}.n-warn{background:rgba(251,191,36,.08);color:#FCD34D;border:1px solid rgba(251,191,36,.16)}
+.rail{display:flex;gap:8px;overflow-x:auto;margin:0 -16px;padding:0 16px;scrollbar-width:none;flex:none}
+.rail::-webkit-scrollbar{display:none}
+.rail > *{flex:none}
+.shead{display:flex;align-items:center;gap:8px}
+.shead .sec{flex-grow:1;font-size:16px}
+.hist{display:flex;align-items:center;gap:12px;padding:13px 0;border-bottom:1px solid rgba(255,255,255,.06);font-size:14px;color:#F8FAFC}
+.hist:last-child{border-bottom:0}
+.kv{display:flex;align-items:center;justify-content:space-between;font-size:13px;color:rgba(248,250,252,.62);padding:6px 0}
+.kv b{color:#F8FAFC;font-weight:700}
+.match{--p:86;width:64px;height:64px;flex:none;border-radius:999px;background:conic-gradient(from 0deg,#6C5CE7,#F168FF calc(var(--p)*1%),rgba(255,255,255,.08) 0);display:flex;align-items:center;justify-content:center}
+.match > span{width:52px;height:52px;border-radius:999px;background:#0C0F17;display:flex;align-items:center;justify-content:center;font-size:15px;font-weight:700}
+.live{width:8px;height:8px;border-radius:999px;background:#F168FF;box-shadow:0 0 0 4px rgba(241,104,255,.18);flex:none;animation:pl-pulse 1.6s ease-in-out infinite}
+@keyframes pl-pulse{0%,100%{box-shadow:0 0 0 3px rgba(241,104,255,.25)}50%{box-shadow:0 0 0 7px rgba(241,104,255,0)}}
+.drop-pill{transform:rotate(var(--r,0deg));animation:pl-drop 1s cubic-bezier(.25,1.35,.45,1) both}
+@keyframes pl-drop{0%{transform:translateY(-460px) rotate(0deg);opacity:0}45%{opacity:1}100%{transform:translateY(0) rotate(var(--r,0deg));opacity:1}}
+.float{animation:pl-float 6s ease-in-out infinite}
+@keyframes pl-float{0%,100%{transform:translateY(0)}50%{transform:translateY(-10px)}}
+.shine{background-size:200% 100%;animation:pl-shine 2.4s linear infinite}
+@keyframes pl-shine{0%{background-position:100% 0}100%{background-position:-100% 0}}
+@media (prefers-reduced-motion:reduce){.drop-pill,.float,.live,.shine{animation:none}}
+</style>
+</head>
+<body>
+<main class="stage">
+<div class="device">
+<div class="scr screen" style="background: #121317;">
+  <div class="scroll" style="padding: 18px 20px 120px; gap: 18px;">
+    <div class="bar">
+      <a href="dark-jobs3.html" aria-label="رجوع" style="width: 42px; height: 42px; flex: none; color: #F8FAFC; display: flex; align-items: center; justify-content: center;"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" data-iconsax="ArrowRight2"><path d="M8.91 19.92l6.52-6.52c.77-.77.77-2.03 0-2.8L8.91 4.08" stroke-width="1.5"/></svg></a>
+      <span class="ttl" style="font-weight: 500; font-size: 18px;">تفاصيل الوظيفة</span>
+      <span class="av" style="width: 42px; height: 42px;"><img src="img/m1.jpg" alt=""></span>
+    </div>
+
+    <div style="display: flex; flex-direction: column; border-radius: 24px; overflow: hidden;">
+      <span style="display: flex; flex-direction: column; gap: 14px; padding: 18px; background: #7C6CF2; color: #FFFFFF;">
+        <span class="row" style="gap: 10px;"><span style="width: 48px; height: 48px; flex: none; border-radius: 12px; background: #FFFFFF; color: #6C5CE7; display: flex; align-items: center; justify-content: center; font-size: 22px; font-weight: 700;">م</span><span class="grow"><span style="font-size: 17px; font-weight: 700;">مصمم واجهات مستخدم</span><span style="font-size: 12px; opacity: 0.8;">مدار للتقنية · شركة معتمدة</span></span></span>
+        <span class="row" style="gap: 6px; flex-wrap: wrap;"><span style="height: 28px; padding: 0 10px; border-radius: 999px; border: 1px solid rgba(255,255,255,0.45); font-size: 11px; display: inline-flex; align-items: center; gap: 4px;"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" data-iconsax="Location"><path d="M12 13.43a3.12 3.12 0 1 0 0-6.24 3.12 3.12 0 0 0 0 6.24Z" stroke-width="1.5"/><path d="M3.62 8.49c1.97-8.66 14.8-8.65 16.76.01 1.15 5.08-2.01 9.38-4.78 12.04a5.193 5.193 0 0 1-7.21 0c-2.76-2.66-5.92-6.97-4.77-12.05Z" stroke-width="1.5"/></svg>الرياض</span><span style="height: 28px; padding: 0 10px; border-radius: 999px; border: 1px solid rgba(255,255,255,0.45); font-size: 11px; display: inline-flex; align-items: center; gap: 4px;"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" data-iconsax="Award"><path d="M4.26 11.02v4.97c0 1.82 0 1.82 1.72 2.98l4.73 2.730c.71.41 1.87.41 2.58 0l4.73-2.73c1.72-1.16 1.72-1.16 1.72-2.98v-4.97c0-1.82 0-1.82-1.72-2.98l-4.73-2.73c-.71-.41-1.87-.41-2.58 0L5.98 8.04C4.26 9.2 4.26 9.2 4.26 11.02Z" stroke-width="1.5"/><path d="M17.5 7.63V5c0-2-1-3-3-3h-5c-2 0-3 1-3 3v2.56" stroke-width="1.5"/></svg>+3 سنوات</span><span style="height: 28px; padding: 0 10px; border-radius: 999px; border: 1px solid rgba(255,255,255,0.45); font-size: 11px; display: inline-flex; align-items: center; gap: 4px;"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" data-iconsax="Clock"><path d="M22 12c0 5.52-4.48 10-10 10S2 17.52 2 12 6.48 2 12 2s10 4.48 10 10Z" stroke-width="1.5"/><path d="m15.71 15.18-3.1-1.85c-.54-.32-.98-1.09-.98-1.72v-4.1" stroke-width="1.5"/></svg>دوام كامل</span></span>
+      </span>
+      <span style="display: flex; align-items: center; justify-content: space-between; padding: 14px 18px; background: #FFFFFF; color: #121317; font-size: 12px;"><span class="row" style="gap: 6px;"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" data-iconsax="Clock"><path d="M22 12c0 5.52-4.48 10-10 10S2 17.52 2 12 6.48 2 12 2s10 4.48 10 10Z" stroke-width="1.5"/><path d="m15.71 15.18-3.1-1.85c-.54-.32-.98-1.09-.98-1.72v-4.1" stroke-width="1.5"/></svg>نُشرت منذ يومين</span><span><b style="font-size: 16px;">86%</b> توافق مع ملفك</span></span>
+    </div>
+
+    <div style="display: flex; flex-direction: column; gap: 8px;">
+      <span style="font-size: 19px; font-weight: 500;">الوصف الوظيفي</span>
+      <span style="font-size: 13px; line-height: 23px; color: rgba(248,250,252,0.75);">نبحث عن مصمم واجهات مستخدم ينضم لفريق المنتج، ويعمل على تصميم تجارب تطبيقات الجوال والويب من الفكرة حتى التسليم للمطورين.</span>
+    </div>
+
+    <div style="display: flex; flex-direction: column; gap: 8px;">
+      <span style="font-size: 19px; font-weight: 500;">المتطلبات</span>
+      <span style="font-size: 13px; line-height: 25px; color: rgba(248,250,252,0.75);">• بكالوريوس في التصميم أو مجال مرتبط<br>• خبرة 3 سنوات في تصميم المنتجات الرقمية<br>• إتقان Figma وأدوات النماذج التفاعلية<br>• تصميم الواجهات والنماذج التفاعلية للمنتجات الجديدة<br>• بناء وتحديث نظام التصميم الخاص بالشركة</span>
+    </div>
+
+    <div style="display: flex; flex-direction: column; gap: 8px;">
+      <span class="row" style="gap: 8px;"><span style="font-size: 19px; font-weight: 500; color: rgba(248,250,252,0.6);">يُفضّل</span><span class="pill p-warn" style="height: 22px; font-size: 11px;">ليست في ملفك</span></span>
+      <span style="font-size: 13px; line-height: 23px; color: rgba(248,250,252,0.5);">خبرة في أبحاث المستخدمين واختبارات الاستخدام.</span>
+    </div>
+  </div>
+
+  <span aria-hidden="true" style="position: absolute; z-index: 2; right: 0; left: 0; bottom: 0; height: 130px; background: linear-gradient(180deg, rgba(18,19,23,0) 0%, #121317 55%);"></span>
+  <div style="position: absolute; z-index: 3; right: 20px; left: 20px; bottom: 28px; display: flex; gap: 10px;">
+    <a href="#" data-toast="تم إرسال طلبك إلى مدار للتقنية" style="flex: 1; height: 54px; border-radius: 999px; background: #7C6CF2; color: #FFFFFF; font-size: 15px; font-weight: 700; display: flex; align-items: center; justify-content: center;">قدّم الآن</a>
+    <a href="#" data-toast="تم حفظ الوظيفة" style="width: 96px; height: 54px; border-radius: 999px; background: #FFFFFF; color: #121317; font-size: 15px; font-weight: 700; display: flex; align-items: center; justify-content: center;">حفظ</a>
+  </div>
+</div>
+</div>
+</main>
+<script src="app.js"></script>
+<script>
+if ('serviceWorker' in navigator && (location.protocol === 'https:' || location.hostname === 'localhost' || location.hostname === '127.0.0.1')) {
+  window.addEventListener('load', function () { navigator.serviceWorker.register('sw.js').catch(function () {}); });
+}
+</script></body>
+</html>

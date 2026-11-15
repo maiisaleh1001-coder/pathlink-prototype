@@ -362,6 +362,59 @@
     }
   }
 
+  // ---------- dark redesign: service nav — the notch and bubble slide to the tapped tab, then the page opens ----------
+  var dnav = document.querySelector('[data-dnav]');
+  if (dnav) {
+    var DPOS = ['90%', '70%', '50%', '30%', '10%'];
+    var setTab = function (i) { dnav.setAttribute('data-active', String(i)); dnav.style.setProperty('--x', DPOS[i]); };
+    var curTab = +dnav.getAttribute('data-active');
+    var prevTab = read('pl-dnav', null);
+    if (prevTab !== null && prevTab !== curTab && DPOS[prevTab]) {
+      // arrived from another tab by some other link: slide from where the bubble was
+      dnav.style.transition = 'none';
+      setTab(prevTab);
+      void dnav.offsetWidth;
+      setTimeout(function () { dnav.style.transition = ''; setTab(curTab); }, 40);
+    }
+    write('pl-dnav', curTab);
+    dnav.addEventListener('click', function (e) {
+      var a = e.target.closest('a[data-i]');
+      if (!a) return;
+      e.preventDefault();
+      e.stopImmediatePropagation();
+      var i = +a.getAttribute('data-i');
+      if (i === +dnav.getAttribute('data-active')) return;
+      setTab(i);
+      write('pl-dnav', i);
+      var href = a.getAttribute('href');
+      setTimeout(function () { location.href = href; }, 520);
+    }, true);
+  }
+
+  // ---------- dark home (try 4): service cards carousel — centred card grows, dots follow ----------
+  var svcRail = document.querySelector('[data-svc-rail]');
+  if (svcRail) {
+    var svcCards = Array.prototype.slice.call(svcRail.querySelectorAll('.svc-card'));
+    var svcDots = Array.prototype.slice.call(document.querySelectorAll('[data-svc-dots] .svc-dot'));
+    var svcFocus = function () {
+      var mid = svcRail.getBoundingClientRect().left + svcRail.clientWidth / 2, best = 0, bestD = Infinity;
+      svcCards.forEach(function (c, i) { var r = c.getBoundingClientRect(); var d = Math.abs(r.left + r.width / 2 - mid); if (d < bestD) { bestD = d; best = i; } });
+      svcCards.forEach(function (c, i) { c.classList.toggle('on', i === best); });
+      svcDots.forEach(function (d, i) { d.classList.toggle('on', i === best); });
+    };
+    svcRail.addEventListener('scroll', function () { window.requestAnimationFrame(svcFocus); }, { passive: true });
+    svcDots.forEach(function (d, i) { d.style.cursor = 'pointer'; d.addEventListener('click', function () { svcCards[i].scrollIntoView({ behavior: 'smooth', inline: 'center', block: 'nearest' }); }); });
+    // a side card is a step in the carousel, not a link: the first tap brings it to the middle
+    svcCards.forEach(function (c) {
+      c.addEventListener('click', function (e) {
+        if (c.classList.contains('on')) return;
+        e.preventDefault(); e.stopImmediatePropagation();
+        c.scrollIntoView({ behavior: 'smooth', inline: 'center', block: 'nearest' });
+      }, true);
+    });
+    svcFocus();
+  }
+
   // ---------- apply sheet: pick a CV, send, success ----------
   if (page === 'job-apply.html') initApply(document);
   function initApply(root) {
