@@ -396,13 +396,16 @@
   if (svcRail) {
     var svcCards = Array.prototype.slice.call(svcRail.querySelectorAll('.svc-card'));
     var svcDots = Array.prototype.slice.call(document.querySelectorAll('[data-svc-dots] .svc-dot'));
+    var svcStrips = Array.prototype.slice.call(document.querySelectorAll('[data-svc-strips] .svc-strip'));
     var svcFocus = function () {
       var mid = svcRail.getBoundingClientRect().left + svcRail.clientWidth / 2, best = 0, bestD = Infinity;
       svcCards.forEach(function (c, i) { var r = c.getBoundingClientRect(); var d = Math.abs(r.left + r.width / 2 - mid); if (d < bestD) { bestD = d; best = i; } });
       svcCards.forEach(function (c, i) { c.classList.toggle('on', i === best); });
       svcDots.forEach(function (d, i) { d.classList.toggle('on', i === best); });
+      // the activity strip under the cards follows the service in the middle
+      svcStrips.forEach(function (s, i) { s.classList.toggle('on', i === best); });
     };
-    svcRail.addEventListener('scroll', function () { window.requestAnimationFrame(svcFocus); }, { passive: true });
+    svcRail.addEventListener('scroll', svcFocus, { passive: true });
     svcDots.forEach(function (d, i) { d.style.cursor = 'pointer'; d.addEventListener('click', function () { svcCards[i].scrollIntoView({ behavior: 'smooth', inline: 'center', block: 'nearest' }); }); });
     // a side card is a step in the carousel, not a link: the first tap brings it to the middle
     svcCards.forEach(function (c) {
