@@ -189,7 +189,15 @@ $pages = @(
   @('DarkTrainerDash.dc.html',   'dark-trainer.html',    'Path Link · لوحة المدرب'),
   @('DarkAddCourse.dc.html',     'dark-add-course.html', 'Path Link · كورس جديد'),
   @('DarkCourseContent.dc.html', 'dark-course-content.html','Path Link · محتوى الكورس'),
-  @('DarkCourseSales.dc.html',   'dark-course-sales.html','Path Link · مبيعات الكورسات')
+  @('DarkCourseSales.dc.html',   'dark-course-sales.html','Path Link · مبيعات الكورسات'),
+  @('DarkSearch.dc.html',        'dark-search.html',     'Path Link · البحث'),
+  @('DarkSearchResults.dc.html', 'dark-search-results.html','Path Link · نتائج البحث'),
+  @('DarkOrdersFilter.dc.html',  'dark-orders-filter.html','Path Link · فلترة الطلبات'),
+  @('DarkAddSheet.dc.html',      'dark-add.html',        'Path Link · إضافة'),
+  @('DarkEarningDetail.dc.html', 'dark-earning.html',    'Path Link · تفاصيل المستحق'),
+  @('DarkSettlements.dc.html',   'dark-settlements.html','Path Link · سجل التسويات'),
+  @('DarkSettlementDetail.dc.html','dark-settlement.html','Path Link · تفاصيل التسوية'),
+  @('DarkPayoutDetails.dc.html', 'dark-payout.html',     'Path Link · بيانات الاستلام')
 )
 # uploaded canvas fonts -> repo fonts/
 $blobs = @{
