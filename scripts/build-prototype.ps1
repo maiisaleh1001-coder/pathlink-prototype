@@ -110,6 +110,19 @@ $pages = @(
   @('DarkHome.dc.html',          'dark-home.html',       'Path Link · الرئيسية'),
   @('DarkHome2.dc.html',         'dark-home2.html',      'Path Link · الرئيسية'),
   @('DarkHome4.dc.html',         'dark-home4.html',      'Path Link · الرئيسية'),
+  @('DarkJobApply.dc.html',      'dark-job-apply.html',  'Path Link · تأكيد التقديم'),
+  @('DarkJobFilter.dc.html',     'dark-job-filter.html', 'Path Link · فلترة الوظائف'),
+  @('DarkMyApplications.dc.html','dark-applications.html','Path Link · طلباتي'),
+  @('DarkApplicationDetail.dc.html','dark-application.html','Path Link · تفاصيل الطلب'),
+  @('DarkSeekerProfile.dc.html', 'dark-seeker-profile.html','Path Link · ملف الباحث عن عمل'),
+  @('DarkSeekerPlan.dc.html',    'dark-seeker-plan.html','Path Link · باقة الباحث عن عمل'),
+  @('DarkAutoApply.dc.html',     'dark-auto-apply.html', 'Path Link · التقديم التلقائي'),
+  @('DarkPostJob.dc.html',       'dark-post-job.html',   'Path Link · نشر وظيفة'),
+  @('DarkCompanyJobs.dc.html',   'dark-company.html',    'Path Link · لوحة الشركة'),
+  @('DarkApplicants.dc.html',    'dark-applicants.html', 'Path Link · المتقدمون'),
+  @('DarkApplicantDetail.dc.html','dark-applicant.html', 'Path Link · ملف المتقدم'),
+  @('DarkCompanyProfile.dc.html','dark-company-profile.html','Path Link · ملف الشركة'),
+  @('DarkCompanyPlans.dc.html',  'dark-company-plans.html','Path Link · باقات الشركات'),
   @('DarkHome4b.dc.html',        'dark-home4b.html',     'Path Link · الرئيسية'),
   @('DarkFreelance.dc.html',     'dark-freelance.html',  'Path Link · العمل الحر'),
   @('DarkConsult.dc.html',       'dark-consult.html',    'Path Link · الاستشارات'),
@@ -228,7 +241,7 @@ foreach ($pg in $pages) {
   $body = [regex]::Replace($body, '<div data-step="(\w+)">', { param($m) $script:seen++; if ($script:seen -gt 1) { '<div data-step="' + $m.Groups[1].Value + '" class="proto-hide">' } else { $m.Value } })
   $pageHead = $head.Replace('__TITLE__', $pg[2])
   # dark redesign pages: dark status bar and no light page edges around the screen
-  if ($pg[1] -like 'dark*') { $pageHead = $pageHead.Replace('<meta name="theme-color" content="#F9FAFB">', '<meta name="theme-color" content="#04070B">') + "`n<style>html,body,.stage,.device{background:#04070B}</style>" }
+  if ($pg[1] -like 'dark*') { $pageHead = $pageHead.Replace('<meta name="theme-color" content="#F9FAFB">', '<meta name="theme-color" content="#04070B">') + "`n<style>html,body,.stage,.device{background:#04070B}.scr{overflow:clip!important}</style>" }
   $html = "<!doctype html>`n<html lang=`"ar`" dir=`"rtl`">`n<head>`n" + $pageHead + "`n" + $helmet + "`n</head>`n<body>`n<main class=`"stage`">`n<div class=`"device`">`n" + $body + "`n</div>`n</main>`n" + $tail + "</body>`n</html>`n"
   [IO.File]::WriteAllText((Join-Path $Out $pg[1]), $html, $utf8)
 }
