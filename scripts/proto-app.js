@@ -531,73 +531,97 @@
     pick(saved);
   }
 
-  // ---------- presenter shortcut (prototype only, never on the canvas): a small floating button on every screen ----------
-  // tap → menu: home · start over · dark ↔ light (V2) · hide. Drag it up/down so it never covers content. Key "H" = home.
+  // ---------- presenter flows panel (prototype only, never inside the app design) ----------
+  // Wide screens: a panel beside the phone listing every flow + the version (original / V2 dark / V2 light) + start over.
+  // Phones / installed app: nothing shows on screen; three quick taps on the top strip open the same list as a side drawer.
+  // Key "H" = home of the current version.
   (function () {
     var host = document.querySelector('.device');
     if (!host || /^(splash|dark|lite)\.html$/.test(page)) return;
-    var v = (page.match(/^(dark|lite)-/) || [])[1];
+    var v = (page.match(/^(dark|lite)-/) || [])[1] || '';
+    var pre = v ? v + '-' : '';
     var home = v ? v + '-home.html' : 'index.html?skip=1';
     var start = v ? v + '.html' : 'splash.html';
-    var isHome = v ? page === v + '-home.html' : page === 'index.html';
     var typing = function (e) { var t = e.target; return t && (t.tagName === 'INPUT' || t.tagName === 'TEXTAREA' || t.isContentEditable); };
     document.addEventListener('keydown', function (e) { if ((e.key === 'h' || e.key === 'H') && !e.metaKey && !e.ctrlKey && !typing(e)) location.href = home; });
-    if (read('pl-presenter-off', false)) {
-      // hidden for this session: three quick taps on the top strip of the screen bring it back
-      var taps = [];
-      host.addEventListener('click', function (e) {
-        var r = host.getBoundingClientRect(); if (e.clientY - r.top > 56) return;
-        var now = Date.now(); taps = taps.filter(function (t) { return now - t < 800; }); taps.push(now);
-        if (taps.length >= 3) { write('pl-presenter-off', false); location.reload(); }
-      }, true);
-      return;
-    }
-    var ico = {
-      menu: '<path d="M5 10h2c2 0 3-1 3-3V5c0-2-1-3-3-3H5C3 2 2 3 2 5v2c0 2 1 3 3 3ZM17 10h2c2 0 3-1 3-3V5c0-2-1-3-3-3h-2c-2 0-3 1-3 3v2c0 2 1 3 3 3ZM17 22h2c2 0 3-1 3-3v-2c0-2-1-3-3-3h-2c-2 0-3 1-3 3v2c0 2 1 3 3 3ZM5 22h2c2 0 3-1 3-3v-2c0-2-1-3-3-3H5c-2 0-3 1-3 3v2c0 2 1 3 3 3Z"/>',
-      home: '<path d="m9.02 2.84-5.39 4.2C2.73 7.74 2 9.23 2 10.36v7.41c0 2.32 1.89 4.22 4.21 4.22h11.58c2.32 0 4.21-1.9 4.21-4.21V10.5c0-1.21-.81-2.76-1.8-3.45l-6.18-4.33c-1.4-.98-3.65-.93-5 .12ZM12 17.99v-3"/>',
-      start: '<path d="M14.55 21.67C18.84 20.54 22 16.64 22 12c0-5.52-4.44-10-10-10C5.33 2 2 7.56 2 7.56m0 0V3m0 4.56h4.44"/><path d="M2 12c0 5.52 4.48 10 10 10" stroke-dasharray="3 3"/>',
-      theme: '<path d="M2.03 12.42c.36 5.15 4.73 9.34 9.96 9.57 3.69.16 6.99-1.56 8.97-4.27.82-1.11.38-1.85-.99-1.6-.67.12-1.36.17-2.08.14C13 16.06 9 11.97 8.98 7.14c-.01-1.3.26-2.53.75-3.65.54-1.24-.11-1.83-1.36-1.3C4.41 3.86 1.7 7.85 2.03 12.42Z"/>',
-      hide: '<path d="M14.53 9.47 9.47 14.53a3.576 3.576 0 1 1 5.06-5.06Z"/><path d="M17.82 5.77C16.07 4.45 14.07 3.73 12 3.73c-3.53 0-6.82 2.08-9.11 5.68-.9 1.41-.9 3.78 0 5.19.79 1.24 1.71 2.31 2.71 3.17M8.42 19.53c1.14.48 2.35.74 3.58.74 3.53 0 6.82-2.08 9.11-5.68.9-1.41.9-3.78 0-5.19-.33-.52-.69-1.01-1.06-1.47M15.51 12.7a3.565 3.565 0 0 1-2.82 2.82M9.47 14.53 2 22M22 2l-7.47 7.47"/>'
-    };
-    var svg = function (k, s) { return '<svg width="' + s + '" height="' + s + '" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">' + ico[k] + '</svg>'; };
+    var flows = [
+      ['البداية والدخول', 'الإسبلاش ← الترحيب ← الدخول', start],
+      ['الرئيسية', 'الخدمات ونشاطك الحالي', home],
+      ['الوظائف · الباحث عن عمل', 'الوظائف ← التفاصيل ← التقديم', pre + 'jobs.html'],
+      ['الوظائف · الشركة', 'وظائف الشركة ← المتقدمون', pre + 'company.html'],
+      ['العمل الحر · العميل', 'الخدمات والمشاريع ← الطلب', pre + 'freelance.html'],
+      ['العمل الحر · المستقل', 'لوحة المستقل ← العروض والتسليم', pre + 'freelancer.html'],
+      ['الاستشارات · العميل', 'المستشارون ← الحجز ← الجلسة', pre + 'consult.html'],
+      ['الاستشارات · المستشار', 'لوحة المستشار ← المواعيد', pre + 'consultant.html'],
+      ['الكورسات · المتعلم', 'الكورسات ← الشراء ← المشاهدة', pre + 'courses.html'],
+      ['الكورسات · المدرب', 'لوحة المدرب ← المحتوى والمبيعات', pre + 'trainer.html'],
+      ['البحث', 'البحث ← النتائج ← الفلاتر', pre + 'search.html'],
+      ['طلباتي', 'الطلبات والحجوزات والكورسات', pre + 'applications.html'],
+      ['المستحقات والتسويات', 'المستحقات ← التفاصيل ← التسويات', pre + 'earnings.html'],
+      ['الملفات المهنية', 'اختيار ملف ← الإنشاء ← المراجعة', pre + 'new-profile.html'],
+      ['الحساب والإعدادات', 'حسابي ← الملف الشخصي ← الإعدادات', pre + 'account.html']
+    ];
+    var light = v !== 'dark';
+    var col = light
+      ? { bg: 'rgba(255,255,255,.86)', bd: 'rgba(21,32,43,.08)', ink: '#15202B', sub: 'rgba(21,32,43,.55)', hov: 'rgba(108,92,231,.08)', seg: 'rgba(21,32,43,.05)', on: '#FFFFFF', sh: '0 20px 50px rgba(21,32,43,.12)' }
+      : { bg: 'rgba(16,18,27,.86)', bd: 'rgba(255,255,255,.08)', ink: '#F8FAFC', sub: 'rgba(248,250,252,.5)', hov: 'rgba(255,255,255,.06)', seg: 'rgba(255,255,255,.05)', on: 'rgba(255,255,255,.12)', sh: '0 20px 50px rgba(0,0,0,.4)' };
     var st = document.createElement('style');
-    st.textContent = '.pl-pres{position:absolute;z-index:60;left:10px;width:42px;height:42px;border-radius:999px;border:1px solid rgba(255,255,255,.2);background:rgba(18,20,30,.72);-webkit-backdrop-filter:blur(14px);backdrop-filter:blur(14px);color:#fff;display:flex;align-items:center;justify-content:center;opacity:.5;cursor:pointer;touch-action:none;box-shadow:0 6px 18px rgba(0,0,0,.25);transition:opacity .2s}' +
-      '.pl-pres:hover,.pl-pres.on{opacity:1}' +
-      '.pl-pres-menu{position:absolute;z-index:61;left:60px;min-width:190px;padding:6px;border-radius:18px;background:rgba(18,20,30,.92);-webkit-backdrop-filter:blur(18px);backdrop-filter:blur(18px);border:1px solid rgba(255,255,255,.14);box-shadow:0 14px 34px rgba(0,0,0,.35);font-family:"Thmanyah Sans",Tajawal,sans-serif;direction:rtl;display:none;transform-origin:left center;animation:pl-pres-in .18s ease}' +
-      '.pl-pres-menu.open{display:block}@keyframes pl-pres-in{from{opacity:0;transform:scale(.92)}to{opacity:1;transform:none}}' +
-      '.pl-pres-menu button{all:unset;box-sizing:border-box;width:100%;display:flex;align-items:center;gap:10px;padding:10px 12px;border-radius:12px;color:#F8FAFC;font-size:14px;font-family:inherit;cursor:pointer}' +
-      '.pl-pres-menu button:hover{background:rgba(255,255,255,.08)}.pl-pres-menu .sep{height:1px;margin:4px 8px;background:rgba(255,255,255,.1)}' +
-      '.pl-pres-menu .k{margin-right:auto;font-size:11px;color:rgba(248,250,252,.45)}';
+    st.textContent =
+      '.pl-flows{position:fixed;z-index:80;top:50%;transform:translateY(-50%);right:max(20px,calc(50% - 195px - 330px));width:290px;max-height:calc(100vh - 48px);overflow-y:auto;scrollbar-width:none;padding:18px;box-sizing:border-box;border-radius:26px;background:' + col.bg + ';border:1px solid ' + col.bd + ';-webkit-backdrop-filter:blur(20px);backdrop-filter:blur(20px);box-shadow:' + col.sh + ';color:' + col.ink + ';font-family:"Thmanyah Sans",Tajawal,sans-serif;direction:rtl;display:flex;flex-direction:column;gap:12px}' +
+      '.pl-flows::-webkit-scrollbar{display:none}' +
+      '.pl-flows .t{font-size:17px;font-weight:700}.pl-flows .s{font-size:12px;color:' + col.sub + '}' +
+      '.pl-flows .seg{display:flex;padding:4px;border-radius:999px;background:' + col.seg + '}' +
+      '.pl-flows .seg a{flex:1;height:32px;border-radius:999px;display:flex;align-items:center;justify-content:center;font-size:12px;color:' + col.sub + ';text-decoration:none}' +
+      '.pl-flows .seg a.on{background:linear-gradient(90deg,#6C5CE7,#F168FF);color:#fff;font-weight:700}' +
+      '.pl-flows ol{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:2px}' +
+      '.pl-flows li a{display:flex;align-items:center;gap:10px;padding:8px 10px;border-radius:14px;color:' + col.ink + ';text-decoration:none}' +
+      '.pl-flows li a:hover{background:' + col.hov + '}.pl-flows li a.on{background:' + col.hov + ';box-shadow:inset 0 0 0 1px rgba(108,92,231,.35)}' +
+      '.pl-flows .n{width:24px;height:24px;flex:none;border-radius:8px;background:' + col.seg + ';display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;color:' + col.sub + '}' +
+      '.pl-flows li a.on .n{background:linear-gradient(135deg,#6C5CE7,#F168FF);color:#fff}' +
+      '.pl-flows .l{display:flex;flex-direction:column;min-width:0}.pl-flows .l b{font-size:13px;font-weight:700}.pl-flows .l span{font-size:11px;color:' + col.sub + '}' +
+      '.pl-flows .go{height:40px;border-radius:999px;border:1px solid ' + col.bd + ';display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:700;color:' + col.ink + ';text-decoration:none}' +
+      '.pl-flows .k{text-align:center;font-size:11px;color:' + col.sub + '}' +
+      '@media (max-width:1060px),(max-height:600px){.pl-flows:not(.drawer){display:none}}' +
+      'html.standalone .pl-flows:not(.drawer){display:none}' +
+      '.pl-flows.drawer{right:0;top:0;bottom:0;transform:translateX(105%);max-height:none;height:100%;border-radius:26px 0 0 26px;width:min(300px,86vw);transition:transform .3s cubic-bezier(.2,.8,.2,1)}' +
+      '.pl-flows.drawer.open{transform:none}' +
+      '.pl-flows-dim{position:fixed;inset:0;z-index:79;background:rgba(0,0,0,.35);opacity:0;pointer-events:none;transition:opacity .25s}.pl-flows-dim.open{opacity:1;pointer-events:auto}';
     document.head.appendChild(st);
-    var btn = document.createElement('button');
-    btn.type = 'button'; btn.className = 'pl-pres'; btn.setAttribute('aria-label', 'قائمة العرض'); btn.innerHTML = svg('menu', 20);
-    var menu = document.createElement('div');
-    menu.className = 'pl-pres-menu'; menu.setAttribute('role', 'menu');
-    var items = [['home', 'الرئيسية', 'H'], ['start', 'من البداية', '']];
-    if (v) items.push(['theme', v === 'dark' ? 'التبديل للفاتح' : 'التبديل للداكن', '']);
-    items.push(['sep'], ['hide', 'إخفاء الزر', '']);
-    menu.innerHTML = items.map(function (it) { return it[0] === 'sep' ? '<div class="sep"></div>' : '<button type="button" role="menuitem" data-act="' + it[0] + '">' + svg(it[0], 18) + '<span>' + it[1] + '</span>' + (it[2] ? '<span class="k">' + it[2] + '</span>' : '') + '</button>'; }).join('');
-    host.appendChild(btn); host.appendChild(menu);
-    var place = function (y) { y = Math.max(70, Math.min(host.clientHeight - 150, y)); btn.style.top = y + 'px'; menu.style.top = Math.max(12, Math.min(host.clientHeight - 230, y - 60)) + 'px'; write('pl-presenter-y', y); };
-    place(read('pl-presenter-y', Math.round(host.clientHeight * 0.58)));
-    var open = function (on) { menu.classList.toggle('open', on); btn.classList.toggle('on', on); };
-    // drag vertically; a tap (no drag) opens the menu
-    var startY = 0, baseY = 0, moved = false, down = false;
-    btn.addEventListener('pointerdown', function (e) { down = true; moved = false; startY = e.clientY; baseY = parseFloat(btn.style.top) || 0; btn.setPointerCapture(e.pointerId); });
-    btn.addEventListener('pointermove', function (e) { if (!down) return; var dy = e.clientY - startY; if (Math.abs(dy) > 5) { moved = true; open(false); } if (moved) place(baseY + dy); });
-    btn.addEventListener('pointerup', function () { down = false; if (!moved) open(!menu.classList.contains('open')); });
-    document.addEventListener('click', function (e) { if (!menu.contains(e.target) && e.target !== btn && !btn.contains(e.target)) open(false); }, true);
-    menu.addEventListener('click', function (e) {
-      var b = e.target.closest('button[data-act]'); if (!b) return;
-      var act = b.getAttribute('data-act'); open(false);
-      if (act === 'home') { if (isHome) toast('أنت في الرئيسية'); else location.href = home; }
-      else if (act === 'start') location.href = start;
-      else if (act === 'hide') { write('pl-presenter-off', true); btn.remove(); menu.remove(); toast('اتخفى الزر · ٣ نقرات سريعة أعلى الشاشة ترجّعه'); }
-      else if (act === 'theme') {
-        var other = v === 'dark' ? 'lite' : 'dark', to = page.replace(/^(dark|lite)/, other);
-        write('pl-theme', other);
-        fetch(to).then(function (r) { location.replace(r.ok ? to : other + '-home.html'); }).catch(function () { location.replace(other + '-home.html'); });
-      }
+    var cur = page + (location.search || '');
+    var versions = [['الأولى', 'index.html?skip=1', ''], ['V2 داكن', 'dark', 'dark'], ['V2 فاتح', 'lite', 'lite']];
+    var verLink = function (it) {
+      if (!it[2]) return it[1];
+      if (v) return page.replace(/^(dark|lite)/, it[2]); // same screen in the other mode
+      return it[2] + '-home.html';
+    };
+    var html = '<span class="t">Path Link · العرض</span><span class="s">اختر النسخة والفلو اللي هتعرضه</span>' +
+      '<div class="seg">' + versions.map(function (it) { return '<a href="' + verLink(it) + '" data-ver="' + it[2] + '"' + ((it[2] || '') === v ? ' class="on"' : '') + '>' + it[0] + '</a>'; }).join('') + '</div>' +
+      '<ol>' + flows.map(function (f, i) { var on = f[2] === page || f[2] === cur; return '<li><a href="' + f[2] + '"' + (on ? ' class="on"' : '') + '><span class="n">' + (i + 1) + '</span><span class="l"><b>' + f[0] + '</b><span>' + f[1] + '</span></span></a></li>'; }).join('') + '</ol>' +
+      '<a class="go" href="' + start + '">من البداية</a><span class="k">H للرئيسية · على الموبايل: 3 نقرات أعلى الشاشة</span>';
+    var make = function (drawer) { var el = document.createElement('nav'); el.className = 'pl-flows' + (drawer ? ' drawer' : ''); el.setAttribute('aria-label', 'فلوهات العرض'); el.innerHTML = html; document.body.appendChild(el); return el; };
+    var side = make(false);
+    var drawer = make(true);
+    var dim = document.createElement('div'); dim.className = 'pl-flows-dim'; document.body.appendChild(dim);
+    var openDrawer = function (on) { drawer.classList.toggle('open', on); dim.classList.toggle('open', on); };
+    dim.addEventListener('click', function () { openDrawer(false); });
+    // switching version to the other V2 mode: replace, so back stays inside one mode; a missing screen falls back to that mode's home
+    [side, drawer].forEach(function (el) {
+      el.addEventListener('click', function (e) {
+        var a = e.target.closest('a[data-ver]'); if (!a) return;
+        var to = a.getAttribute('href'), ver = a.getAttribute('data-ver');
+        if (ver === v) { e.preventDefault(); openDrawer(false); return; }
+        if (v && ver) {
+          e.preventDefault(); write('pl-theme', ver);
+          fetch(to).then(function (r) { location.replace(r.ok ? to : ver + '-home.html'); }).catch(function () { location.replace(ver + '-home.html'); });
+        }
+      });
     });
+    // phones: three quick taps on the top strip of the screen open the drawer
+    var taps = [];
+    host.addEventListener('click', function (e) {
+      var r = host.getBoundingClientRect(); if (e.clientY - r.top > 56) return;
+      var now = Date.now(); taps = taps.filter(function (t) { return now - t < 800; }); taps.push(now);
+      if (taps.length >= 3) { taps = []; openDrawer(true); }
+    }, true);
   })();
 })();
