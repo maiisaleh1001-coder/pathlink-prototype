@@ -205,7 +205,10 @@ $pages = @(
   @('DarkVerifyOtp.dc.html',     'dark-verify.html',     'Path Link · رمز التحقق'),
   @('DarkForgotPassword.dc.html','dark-forgot-password.html','Path Link · نسيت كلمة المرور'),
   @('DarkNewPassword.dc.html',   'dark-new-password.html','Path Link · كلمة مرور جديدة'),
-  @('DarkLoginGate.dc.html',     'dark-login-gate.html', 'Path Link · سجّل للمتابعة')
+  @('DarkLoginGate.dc.html',     'dark-login-gate.html', 'Path Link · سجّل للمتابعة'),
+  @('DarkProfile.dc.html',       'dark-profile.html',    'Path Link · الملف الشخصي'),
+  @('DarkEditProfile.dc.html',   'dark-edit-profile.html','Path Link · تعديل الملف الشخصي'),
+  @('DarkSettings.dc.html',      'dark-settings.html',   'Path Link · الإعدادات')
 )
 # light mode of V2: every dark page that has a LiteX board on the canvas gets a lite-* page (dark.html -> lite.html)
 $pages += @($pages | Where-Object { $_[0] -like 'Dark*' -and (Test-Path (Join-Path $Src ('Lite' + $_[0].Substring(4)))) } | ForEach-Object {

@@ -75,8 +75,22 @@
     if (!a || !screen || !screen.contains(a)) return;
     var cameFromHere = false;
     try { cameFromHere = !!document.referrer && new URL(document.referrer).origin === location.origin && history.length > 1; } catch (err) {}
+    // after switching dark <-> light the previous screen belongs to the other mode: follow the link (same mode) instead
+    var themeOf = function (f) { return (String(f).match(/^(dark|lite)/) || [''])[0]; };
+    try { if (cameFromHere && themeOf(fileOf(new URL(document.referrer).pathname.split('/').pop())) !== themeOf(page)) cameFromHere = false; } catch (err) {}
     if (cameFromHere) { e.preventDefault(); history.back(); }
   });
+  // the appearance tiles in settings swap the whole app to the other mode without leaving a trail back to the old one
+  document.addEventListener('click', function (e) {
+    var a = e.target.closest && e.target.closest('a[data-theme-tile]');
+    if (!a || !screen || !screen.contains(a)) return;
+    var to = fileOf(a.getAttribute('href'));
+    if (to === page) return;
+    e.preventDefault();
+    if (a.hasAttribute('data-toast')) write('pl-toast', a.getAttribute('data-toast'));
+    write('pl-theme', /^lite/.test(to) ? 'lite' : 'dark');
+    location.replace(to);
+  }, true);
 
   // ---------- profile stories: each provider profile's review state lives in the session, so a demo walks every step in order ----------
   // fl = freelancer: none → (create) pending → (admin) rejected → (resubmit) resubmitted → (admin) approved
