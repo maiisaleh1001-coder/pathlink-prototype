@@ -242,7 +242,7 @@
   });
 
   // ---------- bottom sheets open over the current page (overlay + slide up), not as a new screen ----------
-  var SHEETS = { 'add.html': 1, 'job-filter.html': 1, 'job-apply.html': 1, 'freelance-filter.html': 1, 'consult-filter.html': 1, 'course-filter.html': 1, 'orders-filter.html': 1, 'reschedule.html': 1, 'accept-offer.html': 1, 'request-revision.html': 1, 'need-approval.html': 1, 'coursera.html': 1, 'login-gate.html': 1, 'dark-job-filter.html': 1, 'dark-job-apply.html': 1, 'dark-accept-offer.html': 1, 'dark-request-revision.html': 1, 'dark-need-approval.html': 1, 'dark-freelance-filter.html': 1, 'dark-reschedule.html': 1, 'dark-consult-filter.html': 1, 'dark-course-filter.html': 1, 'dark-coursera.html': 1, 'dark-orders-filter.html': 1, 'dark-add.html': 1, 'dark-login-gate.html': 1 };
+  var SHEETS = { 'add.html': 1, 'job-filter.html': 1, 'job-apply.html': 1, 'freelance-filter.html': 1, 'consult-filter.html': 1, 'course-filter.html': 1, 'orders-filter.html': 1, 'reschedule.html': 1, 'accept-offer.html': 1, 'request-revision.html': 1, 'need-approval.html': 1, 'coursera.html': 1, 'login-gate.html': 1, 'dark-job-filter.html': 1, 'dark-job-apply.html': 1, 'dark-accept-offer.html': 1, 'dark-request-revision.html': 1, 'dark-need-approval.html': 1, 'dark-freelance-filter.html': 1, 'dark-reschedule.html': 1, 'dark-consult-filter.html': 1, 'dark-course-filter.html': 1, 'dark-coursera.html': 1, 'dark-orders-filter.html': 1, 'dark-add.html': 1, 'dark-login-gate.html': 1, 'dark-photo-sheet.html': 1, 'dark-city-sheet.html': 1, 'dark-date-sheet.html': 1, 'dark-payment-sheet.html': 1, 'dark-attach-sheet.html': 1, 'dark-language-sheet.html': 1, 'dark-add-section.html': 1, 'dark-project-menu.html': 1 };
   Object.keys(SHEETS).forEach(function (k) { if (/^dark-/.test(k)) SHEETS[k.replace(/^dark-/, 'lite-')] = 1; }); // light mode of V2
   var SHEET_CSS = '.pl-wrap{position:absolute;inset:0;font-family:"Thmanyah Sans",Tajawal,sans-serif;direction:rtl}' +
     '.pl-backdrop{position:absolute;inset:0;background:rgba(14,26,43,.48);opacity:0;transition:opacity .25s ease}' +
@@ -292,7 +292,8 @@
           close();
           if (a.hasAttribute('data-toast')) toast(a.getAttribute('data-toast'));
           else if (/^عرض \d+/.test(a.textContent.trim())) toast('تم تطبيق الفلاتر');
-        } else if (a.hasAttribute('data-toast')) write('pl-toast', a.getAttribute('data-toast'));
+        } else if (SHEETS[fileOf(h)]) { e.preventDefault(); openSheet(fileOf(h)); } // a sheet opened from a sheet stacks on top
+        else if (a.hasAttribute('data-toast')) write('pl-toast', a.getAttribute('data-toast'));
       });
       initControls(root);
       applyStories(root);

@@ -209,7 +209,32 @@ $pages = @(
   @('DarkProfile.dc.html',       'dark-profile.html',    'Path Link · الملف الشخصي'),
   @('DarkEditProfile.dc.html',   'dark-edit-profile.html','Path Link · تعديل الملف الشخصي'),
   @('DarkSettings.dc.html',      'dark-settings.html',   'Path Link · الإعدادات'),
-  @('DarkCompanyPage.dc.html',   'dark-company-page.html','Path Link · بروفايل الشركة')
+  @('DarkCompanyPage.dc.html',   'dark-company-page.html','Path Link · بروفايل الشركة'),
+  @('DarkNotifications.dc.html', 'dark-notifications.html', 'Path Link · الإشعارات'),
+  @('DarkSavedJobs.dc.html', 'dark-saved-jobs.html', 'Path Link · الوظائف المحفوظة'),
+  @('DarkTerms.dc.html', 'dark-terms.html', 'Path Link · الشروط والأحكام'),
+  @('DarkPrivacy.dc.html', 'dark-privacy.html', 'Path Link · سياسة الخصوصية'),
+  @('DarkHelpCenter.dc.html', 'dark-help.html', 'Path Link · مركز المساعدة'),
+  @('DarkContactSupport.dc.html', 'dark-contact.html', 'Path Link · تواصل معنا'),
+  @('DarkReportIssue.dc.html', 'dark-report.html', 'Path Link · الإبلاغ عن مشكلة'),
+  @('DarkComplaints.dc.html', 'dark-complaints.html', 'Path Link · البلاغات والشكاوى'),
+  @('DarkDevices.dc.html', 'dark-devices.html', 'Path Link · الأجهزة المسجّلة'),
+  @('DarkDeleteAccount.dc.html', 'dark-delete-account.html', 'Path Link · حذف الحساب'),
+  @('DarkFreelancerPublic.dc.html', 'dark-freelancer-public.html', 'Path Link · ملف المستقلة'),
+  @('DarkPortfolio.dc.html', 'dark-portfolio.html', 'Path Link · معرض الأعمال'),
+  @('DarkAddPortfolio.dc.html', 'dark-add-portfolio.html', 'Path Link · إضافة نموذج عمل'),
+  @('DarkAddExperience.dc.html', 'dark-add-experience.html', 'Path Link · إضافة خبرة أو مؤهل'),
+  @('DarkEditSkills.dc.html', 'dark-edit-skills.html', 'Path Link · التخصص والمهارات'),
+  @('DarkUploadCv.dc.html', 'dark-upload-cv.html', 'Path Link · السيرة الذاتية'),
+  @('DarkAddLesson.dc.html', 'dark-add-lesson.html', 'Path Link · إضافة درس'),
+  @('DarkPhotoSheet.dc.html', 'dark-photo-sheet.html', 'Path Link · الصورة الشخصية'),
+  @('DarkCitySheet.dc.html', 'dark-city-sheet.html', 'Path Link · المدينة'),
+  @('DarkDateSheet.dc.html', 'dark-date-sheet.html', 'Path Link · تاريخ الميلاد'),
+  @('DarkPaymentSheet.dc.html', 'dark-payment-sheet.html', 'Path Link · طريقة الدفع'),
+  @('DarkAttachSheet.dc.html', 'dark-attach-sheet.html', 'Path Link · إرفاق'),
+  @('DarkLanguageSheet.dc.html', 'dark-language-sheet.html', 'Path Link · اللغة'),
+  @('DarkAddSectionSheet.dc.html', 'dark-add-section.html', 'Path Link · إضافة قسم'),
+  @('DarkProjectMenu.dc.html', 'dark-project-menu.html', 'Path Link · خيارات المشروع')
 )
 # light mode of V2: every dark page that has a LiteX board on the canvas gets a lite-* page (dark.html -> lite.html)
 $pages += @($pages | Where-Object { $_[0] -like 'Dark*' -and (Test-Path (Join-Path $Src ('Lite' + $_[0].Substring(4)))) } | ForEach-Object {
