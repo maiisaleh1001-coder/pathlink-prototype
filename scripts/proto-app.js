@@ -530,4 +530,74 @@
     });
     pick(saved);
   }
+
+  // ---------- presenter shortcut (prototype only, never on the canvas): a small floating button on every screen ----------
+  // tap → menu: home · start over · dark ↔ light (V2) · hide. Drag it up/down so it never covers content. Key "H" = home.
+  (function () {
+    var host = document.querySelector('.device');
+    if (!host || /^(splash|dark|lite)\.html$/.test(page)) return;
+    var v = (page.match(/^(dark|lite)-/) || [])[1];
+    var home = v ? v + '-home.html' : 'index.html?skip=1';
+    var start = v ? v + '.html' : 'splash.html';
+    var isHome = v ? page === v + '-home.html' : page === 'index.html';
+    var typing = function (e) { var t = e.target; return t && (t.tagName === 'INPUT' || t.tagName === 'TEXTAREA' || t.isContentEditable); };
+    document.addEventListener('keydown', function (e) { if ((e.key === 'h' || e.key === 'H') && !e.metaKey && !e.ctrlKey && !typing(e)) location.href = home; });
+    if (read('pl-presenter-off', false)) {
+      // hidden for this session: three quick taps on the top strip of the screen bring it back
+      var taps = [];
+      host.addEventListener('click', function (e) {
+        var r = host.getBoundingClientRect(); if (e.clientY - r.top > 56) return;
+        var now = Date.now(); taps = taps.filter(function (t) { return now - t < 800; }); taps.push(now);
+        if (taps.length >= 3) { write('pl-presenter-off', false); location.reload(); }
+      }, true);
+      return;
+    }
+    var ico = {
+      menu: '<path d="M5 10h2c2 0 3-1 3-3V5c0-2-1-3-3-3H5C3 2 2 3 2 5v2c0 2 1 3 3 3ZM17 10h2c2 0 3-1 3-3V5c0-2-1-3-3-3h-2c-2 0-3 1-3 3v2c0 2 1 3 3 3ZM17 22h2c2 0 3-1 3-3v-2c0-2-1-3-3-3h-2c-2 0-3 1-3 3v2c0 2 1 3 3 3ZM5 22h2c2 0 3-1 3-3v-2c0-2-1-3-3-3H5c-2 0-3 1-3 3v2c0 2 1 3 3 3Z"/>',
+      home: '<path d="m9.02 2.84-5.39 4.2C2.73 7.74 2 9.23 2 10.36v7.41c0 2.32 1.89 4.22 4.21 4.22h11.58c2.32 0 4.21-1.9 4.21-4.21V10.5c0-1.21-.81-2.76-1.8-3.45l-6.18-4.33c-1.4-.98-3.65-.93-5 .12ZM12 17.99v-3"/>',
+      start: '<path d="M14.55 21.67C18.84 20.54 22 16.64 22 12c0-5.52-4.44-10-10-10C5.33 2 2 7.56 2 7.56m0 0V3m0 4.56h4.44"/><path d="M2 12c0 5.52 4.48 10 10 10" stroke-dasharray="3 3"/>',
+      theme: '<path d="M2.03 12.42c.36 5.15 4.73 9.34 9.96 9.57 3.69.16 6.99-1.56 8.97-4.27.82-1.11.38-1.85-.99-1.6-.67.12-1.36.17-2.08.14C13 16.06 9 11.97 8.98 7.14c-.01-1.3.26-2.53.75-3.65.54-1.24-.11-1.83-1.36-1.3C4.41 3.86 1.7 7.85 2.03 12.42Z"/>',
+      hide: '<path d="M14.53 9.47 9.47 14.53a3.576 3.576 0 1 1 5.06-5.06Z"/><path d="M17.82 5.77C16.07 4.45 14.07 3.73 12 3.73c-3.53 0-6.82 2.08-9.11 5.68-.9 1.41-.9 3.78 0 5.19.79 1.24 1.71 2.31 2.71 3.17M8.42 19.53c1.14.48 2.35.74 3.58.74 3.53 0 6.82-2.08 9.11-5.68.9-1.41.9-3.78 0-5.19-.33-.52-.69-1.01-1.06-1.47M15.51 12.7a3.565 3.565 0 0 1-2.82 2.82M9.47 14.53 2 22M22 2l-7.47 7.47"/>'
+    };
+    var svg = function (k, s) { return '<svg width="' + s + '" height="' + s + '" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">' + ico[k] + '</svg>'; };
+    var st = document.createElement('style');
+    st.textContent = '.pl-pres{position:absolute;z-index:60;left:10px;width:42px;height:42px;border-radius:999px;border:1px solid rgba(255,255,255,.2);background:rgba(18,20,30,.72);-webkit-backdrop-filter:blur(14px);backdrop-filter:blur(14px);color:#fff;display:flex;align-items:center;justify-content:center;opacity:.5;cursor:pointer;touch-action:none;box-shadow:0 6px 18px rgba(0,0,0,.25);transition:opacity .2s}' +
+      '.pl-pres:hover,.pl-pres.on{opacity:1}' +
+      '.pl-pres-menu{position:absolute;z-index:61;left:60px;min-width:190px;padding:6px;border-radius:18px;background:rgba(18,20,30,.92);-webkit-backdrop-filter:blur(18px);backdrop-filter:blur(18px);border:1px solid rgba(255,255,255,.14);box-shadow:0 14px 34px rgba(0,0,0,.35);font-family:"Thmanyah Sans",Tajawal,sans-serif;direction:rtl;display:none;transform-origin:left center;animation:pl-pres-in .18s ease}' +
+      '.pl-pres-menu.open{display:block}@keyframes pl-pres-in{from{opacity:0;transform:scale(.92)}to{opacity:1;transform:none}}' +
+      '.pl-pres-menu button{all:unset;box-sizing:border-box;width:100%;display:flex;align-items:center;gap:10px;padding:10px 12px;border-radius:12px;color:#F8FAFC;font-size:14px;font-family:inherit;cursor:pointer}' +
+      '.pl-pres-menu button:hover{background:rgba(255,255,255,.08)}.pl-pres-menu .sep{height:1px;margin:4px 8px;background:rgba(255,255,255,.1)}' +
+      '.pl-pres-menu .k{margin-right:auto;font-size:11px;color:rgba(248,250,252,.45)}';
+    document.head.appendChild(st);
+    var btn = document.createElement('button');
+    btn.type = 'button'; btn.className = 'pl-pres'; btn.setAttribute('aria-label', 'قائمة العرض'); btn.innerHTML = svg('menu', 20);
+    var menu = document.createElement('div');
+    menu.className = 'pl-pres-menu'; menu.setAttribute('role', 'menu');
+    var items = [['home', 'الرئيسية', 'H'], ['start', 'من البداية', '']];
+    if (v) items.push(['theme', v === 'dark' ? 'التبديل للفاتح' : 'التبديل للداكن', '']);
+    items.push(['sep'], ['hide', 'إخفاء الزر', '']);
+    menu.innerHTML = items.map(function (it) { return it[0] === 'sep' ? '<div class="sep"></div>' : '<button type="button" role="menuitem" data-act="' + it[0] + '">' + svg(it[0], 18) + '<span>' + it[1] + '</span>' + (it[2] ? '<span class="k">' + it[2] + '</span>' : '') + '</button>'; }).join('');
+    host.appendChild(btn); host.appendChild(menu);
+    var place = function (y) { y = Math.max(70, Math.min(host.clientHeight - 150, y)); btn.style.top = y + 'px'; menu.style.top = Math.max(12, Math.min(host.clientHeight - 230, y - 60)) + 'px'; write('pl-presenter-y', y); };
+    place(read('pl-presenter-y', Math.round(host.clientHeight * 0.58)));
+    var open = function (on) { menu.classList.toggle('open', on); btn.classList.toggle('on', on); };
+    // drag vertically; a tap (no drag) opens the menu
+    var startY = 0, baseY = 0, moved = false, down = false;
+    btn.addEventListener('pointerdown', function (e) { down = true; moved = false; startY = e.clientY; baseY = parseFloat(btn.style.top) || 0; btn.setPointerCapture(e.pointerId); });
+    btn.addEventListener('pointermove', function (e) { if (!down) return; var dy = e.clientY - startY; if (Math.abs(dy) > 5) { moved = true; open(false); } if (moved) place(baseY + dy); });
+    btn.addEventListener('pointerup', function () { down = false; if (!moved) open(!menu.classList.contains('open')); });
+    document.addEventListener('click', function (e) { if (!menu.contains(e.target) && e.target !== btn && !btn.contains(e.target)) open(false); }, true);
+    menu.addEventListener('click', function (e) {
+      var b = e.target.closest('button[data-act]'); if (!b) return;
+      var act = b.getAttribute('data-act'); open(false);
+      if (act === 'home') { if (isHome) toast('أنت في الرئيسية'); else location.href = home; }
+      else if (act === 'start') location.href = start;
+      else if (act === 'hide') { write('pl-presenter-off', true); btn.remove(); menu.remove(); toast('اتخفى الزر · ٣ نقرات سريعة أعلى الشاشة ترجّعه'); }
+      else if (act === 'theme') {
+        var other = v === 'dark' ? 'lite' : 'dark', to = page.replace(/^(dark|lite)/, other);
+        write('pl-theme', other);
+        fetch(to).then(function (r) { location.replace(r.ok ? to : other + '-home.html'); }).catch(function () { location.replace(other + '-home.html'); });
+      }
+    });
+  })();
 })();
