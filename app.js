@@ -25,10 +25,11 @@
     if (screen) screen.addEventListener('click', function () { clearTimeout(t); go(); });
     return;
   }
-  if (page === 'dark.html') {
-    // the dark version's splash: same fresh start, then its own onboarding
+  if (page === 'dark.html' || page === 'lite.html') {
+    // the V2 splash (dark or its light mode): same fresh start, then its own onboarding
     write('pl-fl', 'none'); write('pl-tr', 'none'); write('pl-au', 'user');
-    var goDark = function () { location.replace('dark-onboarding.html'); };
+    var v2 = page === 'lite.html' ? 'lite' : 'dark';
+    var goDark = function () { location.replace(v2 + '-onboarding.html'); };
     var td = setTimeout(goDark, 1800);
     if (screen) screen.addEventListener('click', function (e) { e.preventDefault(); clearTimeout(td); goDark(); }, true);
     return;
@@ -113,6 +114,7 @@
         var to = a.getAttribute('data-' + k) === 'gate' ? (st === okState ? own : story.gate) : (st === okState && ok ? ok : story.route[st]);
         // inside the dark version, story steps open their dark screens where they exist
         if (/^dark/.test(page) && DARK_EQ[to]) to = DARK_EQ[to];
+        else if (/^lite/.test(page) && DARK_EQ[to]) to = DARK_EQ[to].replace(/^dark/, 'lite');
         a.setAttribute('href', to);
       });
     });
@@ -227,6 +229,7 @@
 
   // ---------- bottom sheets open over the current page (overlay + slide up), not as a new screen ----------
   var SHEETS = { 'add.html': 1, 'job-filter.html': 1, 'job-apply.html': 1, 'freelance-filter.html': 1, 'consult-filter.html': 1, 'course-filter.html': 1, 'orders-filter.html': 1, 'reschedule.html': 1, 'accept-offer.html': 1, 'request-revision.html': 1, 'need-approval.html': 1, 'coursera.html': 1, 'login-gate.html': 1, 'dark-job-filter.html': 1, 'dark-job-apply.html': 1, 'dark-accept-offer.html': 1, 'dark-request-revision.html': 1, 'dark-need-approval.html': 1, 'dark-freelance-filter.html': 1, 'dark-reschedule.html': 1, 'dark-consult-filter.html': 1, 'dark-course-filter.html': 1, 'dark-coursera.html': 1, 'dark-orders-filter.html': 1, 'dark-add.html': 1, 'dark-login-gate.html': 1 };
+  Object.keys(SHEETS).forEach(function (k) { if (/^dark-/.test(k)) SHEETS[k.replace(/^dark-/, 'lite-')] = 1; }); // light mode of V2
   var SHEET_CSS = '.pl-wrap{position:absolute;inset:0;font-family:"Thmanyah Sans",Tajawal,sans-serif;direction:rtl}' +
     '.pl-backdrop{position:absolute;inset:0;background:rgba(14,26,43,.48);opacity:0;transition:opacity .25s ease}' +
     '.pl-sheet{position:absolute;left:0;right:0;bottom:0;max-height:92%;overflow-y:auto;scrollbar-width:none;transform:translateY(100%);transition:transform .32s cubic-bezier(.2,.8,.2,1)}' +
@@ -366,7 +369,7 @@
   }
 
   // ---------- search: typing + Enter shows the results screen ----------
-  if (/^(dark-)?search(-results)?\.html$/.test(page)) {
+  if (/^(dark-|lite-)?search(-results)?\.html$/.test(page)) {
     var q = document.querySelector('input[type="search"]');
     if (q) {
       if (/search\.html$/.test(page) && standalone === false) q.focus({ preventScroll: true });
@@ -374,7 +377,7 @@
         if (e.key !== 'Enter') return;
         e.preventDefault();
         if (!q.value.trim()) { toast('اكتب كلمة للبحث'); return; }
-        location.href = (/^dark-/.test(page) ? 'dark-' : '') + 'search-results.html';
+        location.href = ((page.match(/^(dark|lite)-/) || [''])[0]) + 'search-results.html';
       });
     }
   }

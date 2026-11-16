@@ -1,0 +1,139 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#F4F5FA">
+<title>Path Link · الداكن</title>
+<link rel="icon" href="favicon.png" type="image/png">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="apple-touch-icon" sizes="180x180" href="icons/apple-touch-icon.png">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="Path Link">
+<script>
+(function () {
+  // ?app=1 is the installed app's start_url; remember it for the session so later pages keep the app layout
+  var app = /[?&]app=1/.test(location.search);
+  try { if (app) sessionStorage.setItem('pl-app', '1'); else app = sessionStorage.getItem('pl-app') === '1'; } catch (e) {}
+  var standalone = (window.matchMedia && window.matchMedia('(display-mode: standalone)').matches) || window.navigator.standalone === true || app;
+  if (standalone) document.documentElement.classList.add('standalone');
+  // home goes through the splash once per session (before anything paints, so there is no flash)
+  var file = location.pathname.split('/').pop() || 'index.html';
+  var seen = false; try { seen = sessionStorage.getItem('pl-intro-seen') === 'true'; } catch (e) {}
+  if (file === 'index.html' && !seen && !/[?&]skip/.test(location.search)) {
+    try { sessionStorage.setItem('pl-intro-seen', 'true'); } catch (e) {}
+    location.replace('splash.html' + (standalone ? '?app=1' : ''));
+  }
+})();
+</script>
+<link rel="stylesheet" href="ds/pathlink/tokens.css">
+<link rel="stylesheet" href="styles.css">
+<style>html,body,.stage,.device{background:#F4F5FA}.scr{overflow:clip!important}</style>
+<style>
+@font-face{font-family:"Thmanyah Sans";src:url("fonts/thmanyahsans-Regular.otf") format("opentype");font-weight:400;font-display:swap}
+@font-face{font-family:"Thmanyah Sans";src:url("fonts/thmanyahsans-Medium.otf") format("opentype");font-weight:500;font-display:swap}
+@font-face{font-family:"Thmanyah Sans";src:url("fonts/thmanyahsans-Bold.otf") format("opentype");font-weight:700;font-display:swap}
+body{margin:0;background:#F4F5FA}
+a{color:#5A4BD1;text-decoration:none}
+.scr{position:relative;width:390px;height:844px;overflow:hidden;background:#F4F5FA;color:#15202B;font-family:'Thmanyah Sans',Tajawal,sans-serif;direction:rtl;isolation:isolate}
+.aura{position:absolute;border-radius:999px;filter:blur(70px);pointer-events:none;z-index:0}
+.stars{position:absolute;pointer-events:none;z-index:0}
+.scroll{position:relative;z-index:1;height:100%;overflow-y:auto;box-sizing:border-box;padding:18px 16px 120px;display:flex;flex-direction:column;gap:14px;scrollbar-width:none}
+.scroll::-webkit-scrollbar{display:none}
+.scroll > *{flex-shrink:0}
+.bar{display:flex;align-items:center;gap:10px}
+.ib{width:42px;height:42px;flex:none;border-radius:999px;border:1px solid rgba(21,32,43,0.081);background:rgba(21,32,43,0.045);color:#15202B;display:flex;align-items:center;justify-content:center;box-sizing:border-box;position:relative}
+.ttl{flex-grow:1;text-align:center;font-size:17px;font-weight:700}
+.glass{background:linear-gradient(160deg,rgba(21,32,43,0.063),rgba(21,32,43,0.018));border:1px solid rgba(21,32,43,0.072);-webkit-backdrop-filter:blur(18px);backdrop-filter:blur(18px)}
+.card{background:linear-gradient(160deg,rgba(21,32,43,0.058),rgba(21,32,43,0.016));border:1px solid rgba(21,32,43,0.072);border-radius:22px;padding:16px;display:flex;flex-direction:column;gap:10px;color:#15202B;box-sizing:border-box;position:relative;overflow:hidden}
+.gb{border:1px solid transparent;background:linear-gradient(#FFFFFF,#FFFFFF) padding-box,linear-gradient(120deg,#6C5CE7,#F168FF) border-box}
+.gt{background:linear-gradient(100deg,#5A4BD1 0%,#8B7CF6 45%,#F168FF 100%);-webkit-background-clip:text;background-clip:text;color:transparent}
+.h{font-size:15px;font-weight:700}
+.sec{font-size:17px;font-weight:700}
+.sub{font-size:12px;color:rgba(21,32,43,0.61);line-height:18px}
+.txt{font-size:13px;line-height:22px;color:rgba(21,32,43,0.78)}
+.row{display:flex;align-items:center;gap:12px}
+.grow{flex-grow:1;min-width:0;display:flex;flex-direction:column}
+.av{width:44px;height:44px;flex:none;border-radius:999px;display:flex;align-items:center;justify-content:center;font-size:17px;font-weight:700;position:relative;overflow:hidden}
+.av img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.pill{display:inline-flex;align-items:center;gap:4px;height:24px;padding:0 10px;border-radius:999px;font-size:12px;font-weight:500;white-space:nowrap;flex:none}
+.p-ok{background:rgba(120,190,150,.12);color:#1E7F4F}.p-warn{background:rgba(214,180,110,.12);color:#8A5A00}.p-bad{background:rgba(214,130,130,.13);color:#C2362F}.p-info{background:rgba(139,124,246,.18);color:#5A4BD1}.p-mute{background:rgba(21,32,43,0.063);color:rgba(21,32,43,0.78)}
+.chip{height:36px;padding:0 14px;border-radius:999px;border:1px solid rgba(21,32,43,0.081);background:rgba(21,32,43,0.036);color:rgba(21,32,43,0.86);font-size:13px;display:inline-flex;align-items:center;gap:6px;box-sizing:border-box;cursor:pointer;white-space:nowrap}
+.chip.on{background:linear-gradient(90deg,#6C5CE7,#F168FF);border-color:transparent;color:#FFFFFF;font-weight:700}
+.tag{height:26px;padding:0 10px;border-radius:999px;background:rgba(21,32,43,0.054);color:rgba(21,32,43,0.84);font-size:12px;display:inline-flex;align-items:center;gap:4px;white-space:nowrap}
+.lbl{font-size:13px;font-weight:700}
+.field{height:50px;border-radius:999px;border:1px solid rgba(21,32,43,0.09);background:rgba(21,32,43,0.036);display:flex;align-items:center;gap:10px;padding:0 16px;font-size:14px;color:#15202B;box-sizing:border-box}
+.field .ph{color:rgba(21,32,43,0.51);flex-grow:1}
+.btn{height:54px;border-radius:999px;background:linear-gradient(90deg,#6C5CE7,#F168FF);color:#FFFFFF;font-size:15px;font-weight:700;display:flex;align-items:center;justify-content:center;gap:8px;border:0;font-family:inherit;cursor:pointer}
+.btn2{height:54px;border-radius:999px;border:1px solid rgba(21,32,43,0.09);background:rgba(21,32,43,0.045);color:#15202B;font-size:15px;font-weight:700;display:flex;align-items:center;justify-content:center;gap:8px;box-sizing:border-box;font-family:inherit;cursor:pointer}
+.btn-s{height:36px;padding:0 16px;border-radius:999px;background:linear-gradient(90deg,#6C5CE7,#F168FF);color:#FFFFFF;font-size:13px;font-weight:700;display:inline-flex;align-items:center;gap:6px;flex:none}
+.btn-s2{height:36px;padding:0 14px;border-radius:999px;border:1px solid rgba(255,255,255,.12);background:rgba(255,255,255,.05);color:#15202B;font-size:13px;font-weight:700;display:inline-flex;align-items:center;gap:6px;flex:none;box-sizing:border-box}
+.foot{position:absolute;right:0;left:0;bottom:0;z-index:3;display:flex;gap:10px;padding:14px 16px 26px;background:rgba(255,255,255,.78);-webkit-backdrop-filter:blur(20px);backdrop-filter:blur(20px);border-top:1px solid rgba(21,32,43,0.063)}
+.foot > *{flex:1}
+.ic{width:40px;height:40px;flex:none;border-radius:14px;display:flex;align-items:center;justify-content:center}
+.dv{height:1px;background:rgba(21,32,43,0.072);flex:none}
+.note{display:flex;align-items:flex-start;gap:8px;padding:11px 13px;border-radius:16px;font-size:12px;line-height:19px}
+.n-info{background:rgba(139,124,246,.12);color:#5A4BD1;border:1px solid rgba(139,124,246,.18)}.n-warn{background:rgba(214,180,110,.08);color:#8A5A00;border:1px solid rgba(214,180,110,.16)}
+.rail{display:flex;gap:8px;overflow-x:auto;margin:0 -16px;padding:0 16px;scrollbar-width:none;flex:none}
+.rail::-webkit-scrollbar{display:none}
+.rail > *{flex:none}
+.shead{display:flex;align-items:center;gap:8px}
+.shead .sec{flex-grow:1;font-size:16px}
+.hist{display:flex;align-items:center;gap:12px;padding:13px 0;border-bottom:1px solid rgba(21,32,43,0.054);font-size:14px;color:#15202B}
+.hist:last-child{border-bottom:0}
+.kv{display:flex;align-items:center;justify-content:space-between;font-size:13px;color:rgba(21,32,43,0.68);padding:6px 0}
+.kv b{color:#15202B;font-weight:700}
+.match{--p:86;width:64px;height:64px;flex:none;border-radius:999px;background:conic-gradient(from 0deg,#6C5CE7,#F168FF calc(var(--p)*1%),rgba(21,32,43,0.072) 0);display:flex;align-items:center;justify-content:center}
+.match > span{width:52px;height:52px;border-radius:999px;background:#FFFFFF;display:flex;align-items:center;justify-content:center;font-size:15px;font-weight:700}
+.live{width:8px;height:8px;border-radius:999px;background:#F168FF;box-shadow:0 0 0 4px rgba(241,104,255,.18);flex:none;animation:pl-pulse 1.6s ease-in-out infinite}
+@keyframes pl-pulse{0%,100%{box-shadow:0 0 0 3px rgba(241,104,255,.25)}50%{box-shadow:0 0 0 7px rgba(241,104,255,0)}}
+.drop-pill{transform:rotate(var(--r,0deg));animation:pl-drop 1s cubic-bezier(.25,1.35,.45,1) both}
+@keyframes pl-drop{0%{transform:translateY(-460px) rotate(0deg);opacity:0}45%{opacity:1}100%{transform:translateY(0) rotate(var(--r,0deg));opacity:1}}
+.float{animation:pl-float 6s ease-in-out infinite}
+@keyframes pl-float{0%,100%{transform:translateY(0)}50%{transform:translateY(-10px)}}
+.shine{background-size:200% 100%;animation:pl-shine 2.4s linear infinite}
+@keyframes pl-shine{0%{background-position:100% 0}100%{background-position:-100% 0}}
+@media (prefers-reduced-motion:reduce){.drop-pill,.float,.live,.shine{animation:none}}
+img:not([data-logo]){filter:brightness(.74) saturate(.8) contrast(1.06)}.av img:not([data-logo]){filter:brightness(.9) saturate(.88)}
+/* light mode */
+body,.scr{background:#F4F5FA}
+.card,.glass{background:#FFFFFF;border-color:rgba(21,32,43,.07);box-shadow:0 1px 3px rgba(21,32,43,.05)}
+.gb{background:linear-gradient(#FFFFFF,#FFFFFF) padding-box,linear-gradient(120deg,#6C5CE7,#F168FF) border-box}
+.ib,.field,.btn2,.btn-s2,.chip{background:#FFFFFF;border-color:rgba(21,32,43,.1)}
+.gt{background:linear-gradient(100deg,#6C5CE7 0%,#8B5CF6 45%,#D946EF 100%);-webkit-background-clip:text;background-clip:text;color:transparent}
+.foot{background:rgba(255,255,255,.92);border-top-color:rgba(21,32,43,.07)}
+.sheet{background:#FFFFFF;border-top-color:rgba(21,32,43,.06)}
+.dnav{filter:drop-shadow(0 -3px 14px rgba(21,32,43,.08))}
+.aura{opacity:.14!important}
+img:not([data-logo]),.av img:not([data-logo]){filter:none}</style>
+</head>
+<body>
+<main class="stage">
+<div class="device">
+<div class="scr screen">
+  <span class="aura" style="width: 420px; height: 420px; top: 150px; right: -90px; background: #6C5CE7; opacity: 0.33;"></span>
+  <span class="aura" style="width: 300px; height: 300px; top: 400px; left: -90px; background: #F168FF; opacity: 0.19;"></span>
+  <a href="lite-onboarding.html" aria-label="متابعة" style="position: absolute; inset: 0; z-index: 2; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 18px; color: #15202B;">
+    <span class="float" style="position: relative; width: 136px; height: 136px; display: flex; align-items: center; justify-content: center;">
+      <span style="position: absolute; inset: 6px; border-radius: 40px; background: linear-gradient(140deg, #6C5CE7, #F168FF); filter: blur(26px); opacity: 0.34;"></span>
+      <span style="position: relative; width: 112px; height: 112px; border-radius: 34px; background: linear-gradient(140deg, #6C5CE7 0%, #A55CF0 55%, #F168FF 100%); display: flex; align-items: center; justify-content: center; box-shadow: inset 0 1px 0 rgba(255,255,255,0.35);">
+        <img data-logo src="brand/logo-symbol.png" alt="" width="72" height="72" style="width: 72px; height: 72px; display: block;">
+      </span>
+    </span>
+    <span style="font-size: 36px; font-weight: 700; direction: ltr; margin-top: 6px;">Path <span class="gt">Link</span></span>
+    <span style="font-size: 14px; color: rgba(21,32,43,0.66);">مستقبل الفرص المهنية في منصة واحدة</span>
+  </a>
+  <span style="position: absolute; z-index: 2; bottom: 54px; left: 50%; width: 120px; margin-left: -60px; height: 3px; border-radius: 999px; background: rgba(21,32,43,0.072); overflow: hidden;"><span class="shine" style="display: block; height: 100%; border-radius: 999px; background-image: linear-gradient(90deg, transparent, #6C5CE7, #F168FF, transparent);"></span></span>
+  <span style="position: absolute; z-index: 2; bottom: 28px; right: 0; left: 0; text-align: center; font-size: 11px; color: rgba(21,32,43,0.46);">منصة سعودية · تنتقل تلقائيًا بعد ثانيتين</span>
+</div>
+</div>
+</main>
+<script src="app.js"></script>
+<script>
+if ('serviceWorker' in navigator && (location.protocol === 'https:' || location.hostname === 'localhost' || location.hostname === '127.0.0.1')) {
+  window.addEventListener('load', function () { navigator.serviceWorker.register('sw.js').catch(function () {}); });
+}
+</script></body>
+</html>

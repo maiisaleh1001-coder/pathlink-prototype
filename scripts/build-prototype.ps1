@@ -207,6 +207,10 @@ $pages = @(
   @('DarkNewPassword.dc.html',   'dark-new-password.html','Path Link · كلمة مرور جديدة'),
   @('DarkLoginGate.dc.html',     'dark-login-gate.html', 'Path Link · سجّل للمتابعة')
 )
+# light mode of V2: every dark page that has a LiteX board on the canvas gets a lite-* page (dark.html -> lite.html)
+$pages += @($pages | Where-Object { $_[0] -like 'Dark*' -and (Test-Path (Join-Path $Src ('Lite' + $_[0].Substring(4)))) } | ForEach-Object {
+  , @(('Lite' + $_[0].Substring(4)), ($_[1] -replace '^dark', 'lite'), $_[2])
+})
 # uploaded canvas fonts -> repo fonts/
 $blobs = @{
   '22b0fac2bfa57f68c29fd0f0e3e8ea32' = 'fonts/thmanyahsans-Regular.otf'
@@ -314,6 +318,7 @@ foreach ($pg in $pages) {
   $pageHead = $head.Replace('__TITLE__', $pg[2])
   # dark redesign pages: dark status bar and no light page edges around the screen
   if ($pg[1] -like 'dark*') { $pageHead = $pageHead.Replace('<meta name="theme-color" content="#F9FAFB">', '<meta name="theme-color" content="#04070B">') + "`n<style>html,body,.stage,.device{background:#04070B}.scr{overflow:clip!important}</style>" }
+  if ($pg[1] -like 'lite*') { $pageHead = $pageHead.Replace('<meta name="theme-color" content="#F9FAFB">', '<meta name="theme-color" content="#F4F5FA">') + "`n<style>html,body,.stage,.device{background:#F4F5FA}.scr{overflow:clip!important}</style>" }
   $html = "<!doctype html>`n<html lang=`"ar`" dir=`"rtl`">`n<head>`n" + $pageHead + "`n" + $helmet + "`n</head>`n<body>`n<main class=`"stage`">`n<div class=`"device`">`n" + $body + "`n</div>`n</main>`n" + $tail + "</body>`n</html>`n"
   [IO.File]::WriteAllText((Join-Path $Out $pg[1]), $html, $utf8)
 }
