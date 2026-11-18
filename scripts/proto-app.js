@@ -143,6 +143,27 @@
   }
   applyStories(document);
   storyClicks(document);
+  // account: «للعرض» switcher jumps a profile story to any state (data-fl-set / data-tr-set chips) and redraws the cards at once
+  function paintStorySwitch(root) {
+    [].forEach.call(root.querySelectorAll('[data-story-switch] a.chip'), function (c) {
+      Object.keys(STORIES).forEach(function (k) {
+        var v = c.getAttribute('data-' + k + '-set'); if (v === null) return;
+        c.classList.toggle('on', v === read('pl-' + k, STORIES[k].def || 'none'));
+      });
+    });
+  }
+  document.addEventListener('click', function (e) {
+    var c = e.target.closest && e.target.closest('[data-story-switch] a.chip');
+    if (!c) return;
+    e.preventDefault();
+    setTimeout(function () {
+      applyStories(document); paintStorySwitch(document);
+      var who = c.hasAttribute('data-tr-set') ? 'المدرب' : 'المستقل';
+      toast('ملف ' + who + ': ' + c.textContent.trim());
+    }, 0);
+  });
+  paintStorySwitch(document);
+  window.addEventListener('pageshow', function (e) { if (e.persisted) paintStorySwitch(document); });
   // back/forward from the cache keeps the old page: re-read the state when it shows again
   window.addEventListener('pageshow', function (e) { if (e.persisted) applyStories(document); });
 
