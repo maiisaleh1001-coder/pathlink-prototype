@@ -27,7 +27,7 @@
   }
   if (page === 'dark.html' || page === 'lite.html') {
     // the V2 splash (dark or its light mode): same fresh start, then its own onboarding
-    write('pl-fl', 'none'); write('pl-tr', 'none'); write('pl-au', 'user');
+    write('pl-fl', 'none'); write('pl-tr', 'none'); write('pl-au', 'user'); write('pl-applied', '');
     var v2 = page === 'lite.html' ? 'lite' : 'dark';
     var goDark = function () { location.replace(v2 + '-onboarding.html'); };
     var td = setTimeout(goDark, 1800);
@@ -298,7 +298,7 @@
       initControls(root);
       applyStories(root);
       storyClicks(root);
-      if (file === 'job-apply.html') initApply(root);
+      if (/job-apply\.html$/.test(file)) initApply(root);
       host.getBoundingClientRect(); // commit the closed position so the slide-up animates
       setTimeout(function () { wrap.classList.add('open'); }, 20);
     }).catch(function () { location.href = file; });
@@ -501,7 +501,20 @@
   }
 
   // ---------- apply sheet: pick a CV, send, success ----------
-  if (page === 'job-apply.html') initApply(document);
+  // V2 (dark / light) too: «إرسال الطلب» → sending → success in the sheet; the job then shows «تم التقديم» and links to the application
+  if (/^((dark|lite)-)?job-apply\.html$/.test(page)) initApply(document);
+  function markApplied() {
+    var m = page.match(/^(dark|lite)-job\.html$/);
+    if (!m || read('pl-applied', '') !== '1') return;
+    var b = document.querySelector('.foot a.btn[data-au], .foot a.btn[href*="job-apply"]');
+    if (!b) return;
+    b.removeAttribute('data-au'); b.removeAttribute('data-own-href');
+    b.setAttribute('href', m[1] + '-application.html');
+    b.className = 'btn2';
+    b.innerHTML = '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="color:' + (m[1] === 'dark' ? '#A3D9B8' : '#1E7F4F') + '"><path d="M12 22c5.5 0 10-4.5 10-10S17.5 2 12 2 2 6.5 2 12s4.5 10 10 10Z" stroke-width="1.5"/><path d="m7.75 12 2.83 2.83 5.67-5.66" stroke-width="1.5"/></svg>تم التقديم · تابع طلبك';
+  }
+  markApplied();
+  window.addEventListener('pageshow', function (e) { if (e.persisted) markApplied(); });
   function initApply(root) {
     var confirmStep = root.querySelector('[data-step="confirm"]');
     var doneStep = root.querySelector('[data-step="done"]');
@@ -513,8 +526,9 @@
       [saved, upload].forEach(function (b) {
         if (!b) return;
         var on = b === which;
-        b.style.border = on ? '1.5px solid #6C5CE7' : '1px solid #E8EBEF';
-        var r = ring(b); if (r) r.style.border = on ? '6px solid #6C5CE7' : '1.5px solid #C5CDD6';
+        var off = /^dark/.test(page) ? ['1px solid rgba(255,255,255,0.09)', '1.5px solid rgba(255,255,255,0.28)'] : /^lite/.test(page) ? ['1px solid rgba(21,32,43,0.1)', '1.5px solid rgba(21,32,43,0.25)'] : ['1px solid #E8EBEF', '1.5px solid #C5CDD6'];
+        b.style.border = on ? '1.5px solid #6C5CE7' : off[0];
+        var r = ring(b); if (r) r.style.border = on ? '6px solid #6C5CE7' : off[1];
         b.setAttribute('aria-pressed', on ? 'true' : 'false');
       });
     };
@@ -527,6 +541,7 @@
         confirmStep.classList.add('proto-hide');
         doneStep.classList.remove('proto-hide');
         doneStep.classList.add('proto-pop-in');
+        write('pl-applied', '1'); markApplied();
       }, 700);
     });
     pick(saved);
