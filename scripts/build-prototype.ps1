@@ -29,6 +29,8 @@ $pages = @(
   @('DarkApplicants.dc.html',    'dark-applicants.html', 'Path Link · المتقدمون'),
   @('DarkApplicantDetail.dc.html','dark-applicant.html', 'Path Link · ملف المتقدم'),
   @('DarkCompanyProfile.dc.html','dark-company-profile.html','Path Link · ملف الشركة'),
+  @('DarkCreateCompany.dc.html', 'dark-create-company.html','Path Link · حساب شركة جديد'),
+  @('DarkCompanyPickPlan.dc.html','dark-company-choose-plan.html','Path Link · اختيار الباقة'),
   @('DarkCompanyPlans.dc.html',  'dark-company-plans.html','Path Link · باقات الشركات'),
   @('DarkServiceDetail.dc.html', 'dark-service.html',    'Path Link · تفاصيل الخدمة'),
   @('DarkServiceCheckout.dc.html','dark-service-checkout.html','Path Link · ملخص الطلب'),
