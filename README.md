@@ -2,10 +2,9 @@
 
 Static, clickable, installable (PWA) prototype of the Path Link app (Arabic, RTL), exported from the design canvas.
 
-- `index.html` — home (services, current activity)
-- `jobs.html`, `job.html`, `job-apply.html` — the jobs flow: list, details, apply sheet with success
-- `add.html` — the (+) sheet
-- `splash.html` — shown on the first open of a session and on every launch of the installed app; passes on its own
+- `index.html` — opens V2 (`dark.html` / `lite.html`, the mode last used on the device)
+- `dark-*.html` — V2 dark; `lite-*.html` — the same screens in light mode
+- `dark.html`, `lite.html` — the splash of each mode; passes on its own to the onboarding
 
 Install: open the site on a phone, then "Add to Home Screen". The installed app starts at `./?app=1`, opens full screen and works offline (network first, cache as fallback).
 

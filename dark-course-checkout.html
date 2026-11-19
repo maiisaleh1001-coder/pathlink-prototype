@@ -19,13 +19,6 @@
   try { if (app) sessionStorage.setItem('pl-app', '1'); else app = sessionStorage.getItem('pl-app') === '1'; } catch (e) {}
   var standalone = (window.matchMedia && window.matchMedia('(display-mode: standalone)').matches) || window.navigator.standalone === true || app;
   if (standalone) document.documentElement.classList.add('standalone');
-  // home goes through the splash once per session (before anything paints, so there is no flash)
-  var file = location.pathname.split('/').pop() || 'index.html';
-  var seen = false; try { seen = sessionStorage.getItem('pl-intro-seen') === 'true'; } catch (e) {}
-  if (file === 'index.html' && !seen && !/[?&]skip/.test(location.search)) {
-    try { sessionStorage.setItem('pl-intro-seen', 'true'); } catch (e) {}
-    location.replace('splash.html' + (standalone ? '?app=1' : ''));
-  }
 })();
 </script>
 <link rel="stylesheet" href="ds/pathlink/tokens.css">

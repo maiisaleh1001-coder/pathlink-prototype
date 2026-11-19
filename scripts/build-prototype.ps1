@@ -11,99 +11,6 @@ $read = { param($p) [IO.File]::ReadAllText($p, [Text.Encoding]::UTF8) }
 
 # canvas artboard -> prototype page (links between artboards are rewritten to these names)
 $pages = @(
-  @('HomeV3.dc.html',    'index.html',     'Path Link · الرئيسية'),
-  @('JobsList.dc.html',  'jobs.html',      'Path Link · الوظائف'),
-  @('JobDetail.dc.html', 'job.html',       'Path Link · تفاصيل الوظيفة'),
-  @('JobApply.dc.html',  'job-apply.html', 'Path Link · تأكيد التقديم'),
-  @('AddSheet.dc.html',  'add.html',       'Path Link · ماذا تريد أن تنشر'),
-  @('JobFilter.dc.html',         'job-filter.html',      'Path Link · فلترة الوظائف'),
-  @('MyApplications.dc.html',    'applications.html',    'Path Link · طلباتي'),
-  @('ApplicationDetail.dc.html', 'application.html',     'Path Link · تفاصيل الطلب'),
-  @('SeekerProfile.dc.html',     'profile.html',         'Path Link · الملف المهني'),
-  @('SeekerPlan.dc.html',        'seeker-plan.html',     'Path Link · باقة الباحث عن عمل'),
-  @('AutoApply.dc.html',         'auto-apply.html',      'Path Link · التقديم التلقائي'),
-  @('PostJob.dc.html',           'post-job.html',        'Path Link · نشر وظيفة'),
-  @('CompanyJobs.dc.html',       'company.html',         'Path Link · لوحة الشركة'),
-  @('Applicants.dc.html',        'applicants.html',      'Path Link · المتقدمون'),
-  @('ApplicantDetail.dc.html',   'applicant.html',       'Path Link · تفاصيل المتقدم'),
-  @('CompanyProfile.dc.html',    'company-profile.html', 'Path Link · ملف الشركة'),
-  @('CompanyPlans.dc.html',      'company-plans.html',   'Path Link · باقات الشركات'),
-  @('Search.dc.html',            'search.html',          'Path Link · البحث'),
-  @('SearchResults.dc.html',     'search-results.html',  'Path Link · نتائج البحث'),
-  @('FreelanceFilter.dc.html',   'freelance-filter.html','Path Link · فلترة العمل الحر'),
-  @('ConsultFilter.dc.html',     'consult-filter.html',  'Path Link · فلترة الاستشارات'),
-  @('CourseFilter.dc.html',      'course-filter.html',   'Path Link · فلترة الكورسات'),
-  @('OrdersFilter.dc.html',      'orders-filter.html',   'Path Link · فلترة الطلبات'),
-  @('ConsultList.dc.html',       'consult.html',         'Path Link · الاستشارات'),
-  @('ConsultDetail.dc.html',     'consult-detail.html',  'Path Link · تفاصيل الاستشارة'),
-  @('ConsultBook.dc.html',       'consult-book.html',    'Path Link · اختيار الموعد'),
-  @('ConsultPay.dc.html',        'consult-pay.html',     'Path Link · الدفع'),
-  @('ConsultBooked.dc.html',     'consult-booked.html',  'Path Link · تم تأكيد الحجز'),
-  @('MyBookings.dc.html',        'bookings.html',        'Path Link · حجوزات الاستشارات'),
-  @('BookingDetail.dc.html',     'booking.html',         'Path Link · تفاصيل الحجز'),
-  @('Reschedule.dc.html',        'reschedule.html',      'Path Link · طلب إعادة جدولة'),
-  @('SessionCall.dc.html',       'session.html',         'Path Link · الجلسة'),
-  @('RateSession.dc.html',       'rate-session.html',    'Path Link · تقييم الجلسة'),
-  @('ConsultantProfile.dc.html', 'consultant-profile.html','Path Link · ملف المستشار'),
-  @('ConsultantDash.dc.html',    'consultant.html',      'Path Link · لوحة المستشار'),
-  @('AddConsult.dc.html',        'add-consult.html',     'Path Link · إضافة استشارة'),
-  @('Availability.dc.html',      'availability.html',    'Path Link · جدول الإتاحة'),
-  @('FreelanceHome.dc.html',     'freelance.html',       'Path Link · العمل الحر'),
-  @('ServiceDetail.dc.html',     'service.html',         'Path Link · تفاصيل الخدمة'),
-  @('ServiceCheckout.dc.html',   'service-checkout.html','Path Link · ملخص الطلب'),
-  @('PostProject.dc.html',       'post-project.html',    'Path Link · نشر مشروع'),
-  @('MyProjects.dc.html',        'my-projects.html',     'Path Link · مشاريعي'),
-  @('ProjectOffers.dc.html',     'project-offers.html',  'Path Link · العروض المستلمة'),
-  @('AcceptOffer.dc.html',       'accept-offer.html',    'Path Link · قبول العرض'),
-  @('FreeOrders.dc.html',        'free-orders.html',     'Path Link · طلبات العمل الحر'),
-  @('FreeOrderDetail.dc.html',   'free-order.html',      'Path Link · تفاصيل الطلب'),
-  @('RequestRevision.dc.html',   'request-revision.html','Path Link · طلب تعديل'),
-  @('OrderChat.dc.html',         'order-chat.html',      'Path Link · محادثة الطلب'),
-  @('RateFreelancer.dc.html',    'rate-freelancer.html', 'Path Link · تقييم المستقل'),
-  @('FreelancerProfile.dc.html', 'freelancer-profile.html','Path Link · ملف المستقل'),
-  @('FreelancerDash.dc.html',    'freelancer.html',      'Path Link · لوحة المستقل'),
-  @('AddService.dc.html',        'add-service.html',     'Path Link · نشر خدمة'),
-  @('ProjectsBrowse.dc.html',    'projects.html',        'Path Link · المشاريع المفتوحة'),
-  @('ProjectDetail.dc.html',     'project.html',         'Path Link · تفاصيل المشروع'),
-  @('SubmitOffer.dc.html',       'submit-offer.html',    'Path Link · تقديم عرض'),
-  @('MyOffers.dc.html',          'my-offers.html',       'Path Link · عروضي'),
-  @('FreelancerOrder.dc.html',   'freelancer-order.html','Path Link · طلب للتنفيذ'),
-  @('DeliverWork.dc.html',       'deliver.html',         'Path Link · تسليم العمل'),
-  @('Account.dc.html',           'account.html',         'Path Link · حسابي'),
-  @('ChooseProfile.dc.html',     'new-profile.html',     'Path Link · ملف مهني جديد'),
-  @('CreateConsultant.dc.html',  'new-consultant.html',  'Path Link · ملف المستشار'),
-  @('CreateTrainer.dc.html',     'new-trainer.html',     'Path Link · ملف المدرب'),
-  @('CreateFreelancer.dc.html',  'new-freelancer.html',  'Path Link · ملف المستقل'),
-  @('FreelancerPending.dc.html', 'freelancer-pending.html', 'Path Link · ملف المستقل قيد المراجعة'),
-  @('FreelancerResubmitted.dc.html', 'freelancer-resubmitted.html', 'Path Link · أُعيد إرسال ملف المستقل'),
-  @('NeedApproval.dc.html',      'need-approval.html',   'Path Link · تحتاج ملفًا معتمدًا'),
-  @('CoursesHome.dc.html',       'courses.html',         'Path Link · الكورسات'),
-  @('CourseraSheet.dc.html',     'coursera.html',        'Path Link · كورس من Coursera'),
-  @('CourseDetail.dc.html',      'course.html',          'Path Link · تفاصيل الكورس'),
-  @('CourseCheckout.dc.html',    'course-checkout.html', 'Path Link · شراء الكورس'),
-  @('MyCourses.dc.html',         'my-courses.html',      'Path Link · كورساتي'),
-  @('CoursePlayer.dc.html',      'course-player.html',   'Path Link · مشاهدة الدرس'),
-  @('RateCourse.dc.html',        'rate-course.html',     'Path Link · تقييم الكورس'),
-  @('TrainerPending.dc.html',    'trainer-pending.html', 'Path Link · ملف المدرب قيد المراجعة'),
-  @('TrainerDash.dc.html',       'trainer.html',         'Path Link · لوحة المدرب'),
-  @('AddCourse.dc.html',         'add-course.html',      'Path Link · كورس جديد'),
-  @('CourseContent.dc.html',     'course-content.html',  'Path Link · محتوى الكورس'),
-  @('CourseSales.dc.html',       'course-sales.html',    'Path Link · مبيعات الكورسات'),
-  @('Messages.dc.html',          'messages.html',        'Path Link · الرسائل'),
-  @('InquiryChat.dc.html',       'inquiry.html',         'Path Link · استفسار قبل الطلب'),
-  @('Welcome.dc.html',           'onboarding.html',      'Path Link · أهلًا بك'),
-  @('SignIn.dc.html',            'sign-in.html',         'Path Link · تسجيل الدخول'),
-  @('SignUp.dc.html',            'sign-up.html',         'Path Link · إنشاء حساب'),
-  @('CompleteProfile.dc.html',   'complete-profile.html','Path Link · أكمل بياناتك'),
-  @('VerifyOtp.dc.html',         'verify.html',          'Path Link · رمز التحقق'),
-  @('ForgotPassword.dc.html',    'forgot-password.html', 'Path Link · نسيت كلمة المرور'),
-  @('NewPassword.dc.html',       'new-password.html',    'Path Link · كلمة مرور جديدة'),
-  @('LoginGate.dc.html',         'login-gate.html',      'Path Link · سجّل للمتابعة'),
-  @('Earnings.dc.html',          'earnings.html',        'Path Link · مستحقاتي'),
-  @('EarningDetail.dc.html',     'earning.html',         'Path Link · تفاصيل المستحق'),
-  @('Settlements.dc.html',       'settlements.html',     'Path Link · سجل التسويات'),
-  @('SettlementDetail.dc.html',  'settlement.html',      'Path Link · تفاصيل التسوية'),
-  @('PayoutDetails.dc.html',     'payout.html',          'Path Link · بيانات الاستلام'),
   # dark redesign (V2) — separate pages so the light version stays intact
   @('DarkSplash.dc.html',        'dark.html',            'Path Link · الداكن'),
   @('DarkWelcome.dc.html',       'dark-welcome.html',    'Path Link · أهلًا بك'),
@@ -295,13 +202,6 @@ $head = @'
   try { if (app) sessionStorage.setItem('pl-app', '1'); else app = sessionStorage.getItem('pl-app') === '1'; } catch (e) {}
   var standalone = (window.matchMedia && window.matchMedia('(display-mode: standalone)').matches) || window.navigator.standalone === true || app;
   if (standalone) document.documentElement.classList.add('standalone');
-  // home goes through the splash once per session (before anything paints, so there is no flash)
-  var file = location.pathname.split('/').pop() || 'index.html';
-  var seen = false; try { seen = sessionStorage.getItem('pl-intro-seen') === 'true'; } catch (e) {}
-  if (file === 'index.html' && !seen && !/[?&]skip/.test(location.search)) {
-    try { sessionStorage.setItem('pl-intro-seen', 'true'); } catch (e) {}
-    location.replace('splash.html' + (standalone ? '?app=1' : ''));
-  }
 })();
 </script>
 <link rel="stylesheet" href="ds/pathlink/tokens.css">
@@ -356,44 +256,43 @@ foreach ($pg in $pages) {
   [IO.File]::WriteAllText((Join-Path $Out $pg[1]), $html, $utf8)
 }
 
-# splash (first open of the session and every launch from the home-screen icon); passes on its own after 1.8s
-$splash = @'
+# the site root (and the installed app's start_url ./?app=1): V2 only, in the mode last used on this device (dark the first time).
+# A fresh open goes to that mode's splash; ?skip goes straight to its home.
+$index = @'
 <!doctype html>
 <html lang="ar" dir="rtl">
 <head>
-__HEAD__
-<style>
-body{margin:0}
-.splash{position:relative;width:390px;height:844px;overflow:hidden;background:#6C5CE7;color:#FFFFFF;font-family:'Thmanyah Sans',Tajawal,sans-serif;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:14px;direction:rtl;cursor:pointer}
-.splash .ring{position:absolute;border-radius:999px;border:1px solid rgba(255,255,255,0.16)}
-.splash .mark{width:104px;height:104px;display:block;animation:pl-pop .6s cubic-bezier(.34,1.56,.64,1) both}
-.splash .name{font-size:30px;font-weight:700;direction:ltr;animation:pl-up .5s .2s ease both}
-.splash .name b{font-weight:700}
-.splash .tag{font-size:14px;color:rgba(255,255,255,0.85);animation:pl-up .5s .35s ease both}
-@keyframes pl-pop{from{transform:scale(.6);opacity:0}to{transform:none;opacity:1}}
-@keyframes pl-up{from{transform:translateY(10px);opacity:0}to{transform:none;opacity:1}}
-@media (prefers-reduced-motion:reduce){.splash *{animation:none!important}}
-</style>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#04070B">
+<title>Path Link</title>
+<link rel="icon" href="favicon.png" type="image/png">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="apple-touch-icon" sizes="180x180" href="icons/apple-touch-icon.png">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="Path Link">
+<style>html,body{margin:0;background:#04070B}</style>
+<script>
+(function () {
+  var q = location.search, app = /[?&]app=1/.test(q);
+  try { if (app) sessionStorage.setItem('pl-app', '1'); } catch (e) {}
+  var m = 'dark'; try { if (localStorage.getItem('pl-mode') === 'lite') m = 'lite'; } catch (e) {}
+  location.replace(/[?&]skip/.test(q) ? m + '-home.html' : m + '.html' + (app ? '?app=1' : ''));
+})();
+</script>
 </head>
 <body>
-<main class="stage">
-<div class="device">
-<div class="screen splash" role="button" aria-label="متابعة">
-<span class="ring" aria-hidden="true" style="width:520px;height:520px;top:-330px;left:-330px"></span>
-<span class="ring" aria-hidden="true" style="width:300px;height:300px;top:-190px;left:-190px"></span>
-<span class="ring" aria-hidden="true" style="width:420px;height:420px;bottom:-300px;right:-290px"></span>
-<img class="mark" src="brand/logo-symbol.png" alt="" width="104" height="104">
-<span class="name">Path <b>Link</b></span>
-<span class="tag">كل خدماتك المهنية في مكان واحد</span>
-</div>
-</div>
-</main>
-__TAIL__</body>
+<noscript><a href="dark.html">Path Link</a></noscript>
+<script>
+if ('serviceWorker' in navigator && (location.protocol === 'https:' || location.hostname === 'localhost' || location.hostname === '127.0.0.1')) {
+  window.addEventListener('load', function () { navigator.serviceWorker.register('sw.js').catch(function () {}); });
+}
+</script>
+</body>
 </html>
 '@
-$splash = $splash.Replace('__HEAD__', $head.Replace('__TITLE__', 'Path Link').Replace('<meta name="theme-color" content="#F9FAFB">', '<meta name="theme-color" content="#6C5CE7">')).Replace('__TAIL__', $tail)
-$splash = $splash.Replace('<style>', "<style>`n@font-face{font-family:`"Thmanyah Sans`";src:url(`"fonts/thmanyahsans-Bold.otf`") format(`"opentype`");font-weight:700;font-display:swap}")
-[IO.File]::WriteAllText((Join-Path $Out 'splash.html'), $splash, $utf8)
+[IO.File]::WriteAllText((Join-Path $Out 'index.html'), $index, $utf8)
 
 $css = @'
 * { -webkit-tap-highlight-color: transparent; }
@@ -495,7 +394,7 @@ $logoFull.Dispose(); $logoMark.Dispose()
 if (Test-Path (Join-Path $Out 'favicon.svg')) { Remove-Item (Join-Path $Out 'favicon.svg') }
 # service worker: network first (every push shows on the next open), cache only as the offline fallback
 $files = @('./', './index.html') + ($pages | Where-Object { $_[1] -ne 'index.html' } | ForEach-Object { './' + $_[1] }) + @(
-  './splash.html', './app.js', './styles.css', './manifest.webmanifest', './favicon.png', './brand/logo-mark.png', './brand/logo-app.png', './brand/logo-symbol.png', './ds/pathlink/tokens.css',
+  './app.js', './styles.css', './manifest.webmanifest', './favicon.png', './brand/logo-mark.png', './brand/logo-app.png', './brand/logo-symbol.png', './ds/pathlink/tokens.css',
   './icons/apple-touch-icon.png', './icons/icon-192.png', './icons/icon-512.png', './icons/icon-512-maskable.png',
   './fonts/thmanyahsans-Regular.otf', './fonts/thmanyahsans-Medium.otf', './fonts/thmanyahsans-Bold.otf') +
   @(Get-ChildItem (Join-Path $Out 'img') -Filter *.jpg -ErrorAction SilentlyContinue | ForEach-Object { './img/' + $_.Name })
@@ -545,10 +444,9 @@ $readme = @'
 
 Static, clickable, installable (PWA) prototype of the Path Link app (Arabic, RTL), exported from the design canvas.
 
-- `index.html` — home (services, current activity)
-- `jobs.html`, `job.html`, `job-apply.html` — the jobs flow: list, details, apply sheet with success
-- `add.html` — the (+) sheet
-- `splash.html` — shown on the first open of a session and on every launch of the installed app; passes on its own
+- `index.html` — opens V2 (`dark.html` / `lite.html`, the mode last used on the device)
+- `dark-*.html` — V2 dark; `lite-*.html` — the same screens in light mode
+- `dark.html`, `lite.html` — the splash of each mode; passes on its own to the onboarding
 
 Install: open the site on a phone, then "Add to Home Screen". The installed app starts at `./?app=1`, opens full screen and works offline (network first, cache as fallback).
 

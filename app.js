@@ -8,23 +8,9 @@
   function read(key, fallback) { try { var v = sessionStorage.getItem(key); return v === null ? fallback : JSON.parse(v); } catch (e) { return fallback; } }
   function write(key, value) { try { sessionStorage.setItem(key, JSON.stringify(value)); } catch (e) {} }
 
-  // ---------- splash: once per session (and every cold start of the installed app) ----------
-  if (page === 'index.html' && !read('pl-intro-seen', false) && !/[?&]skip/.test(location.search)) {
-    write('pl-intro-seen', true);
-    location.replace('splash.html' + (standalone || /[?&]app=1/.test(location.search) ? '?app=1' : ''));
-    return;
-  }
-  if (page === 'splash.html') {
-    write('pl-intro-seen', true);
-    write('pl-fl', 'none'); // every presentation starts the profile stories from the beginning
-    write('pl-tr', 'none');
-    write('pl-au', 'user');
-    // a new session starts at the onboarding (skip → sign in → home); the home page itself skips the splash
-    var go = function () { location.replace('onboarding.html'); };
-    var t = setTimeout(go, 1800); // passes on its own; a tap skips it
-    if (screen) screen.addEventListener('click', function () { clearTimeout(t); go(); });
-    return;
-  }
+  // the site root (index.html) opens V2 in the mode last used on this device; remember it on every V2 page
+  var mode = (page.match(/^(dark|lite)[-.]/) || [])[1];
+  if (mode) { try { localStorage.setItem('pl-mode', mode); } catch (e) {} }
   if (page === 'dark.html' || page === 'lite.html') {
     // the V2 splash (dark or its light mode): same fresh start, then its own onboarding
     write('pl-fl', 'none'); write('pl-tr', 'none'); write('pl-au', 'user'); write('pl-applied', '');
@@ -548,16 +534,16 @@
   }
 
   // ---------- presenter flows panel (prototype only, never inside the app design) ----------
-  // Wide screens: a panel beside the phone listing every flow + the version (original / V2 dark / V2 light) + start over.
+  // Wide screens: a panel beside the phone listing every flow + the mode (V2 dark / V2 light) + start over.
   // Phones / installed app: nothing shows on screen; three quick taps on the top strip open the same list as a side drawer.
   // Key "H" = home of the current version.
   (function () {
     var host = document.querySelector('.device');
-    if (!host || /^(splash|dark|lite)\.html$/.test(page)) return;
     var v = (page.match(/^(dark|lite)-/) || [])[1] || '';
-    var pre = v ? v + '-' : '';
-    var home = v ? v + '-home.html' : 'index.html?skip=1';
-    var start = v ? v + '.html' : 'splash.html';
+    if (!host || !v) return; // V2 screens only (the splashes and the root redirect have no panel)
+    var pre = v + '-';
+    var home = v + '-home.html';
+    var start = v + '.html';
     var typing = function (e) { var t = e.target; return t && (t.tagName === 'INPUT' || t.tagName === 'TEXTAREA' || t.isContentEditable); };
     document.addEventListener('keydown', function (e) { if ((e.key === 'h' || e.key === 'H') && !e.metaKey && !e.ctrlKey && !typing(e)) location.href = home; });
     var flows = [
@@ -604,7 +590,7 @@
       '.pl-flows-dim{position:fixed;inset:0;z-index:79;background:rgba(0,0,0,.35);opacity:0;pointer-events:none;transition:opacity .25s}.pl-flows-dim.open{opacity:1;pointer-events:auto}';
     document.head.appendChild(st);
     var cur = page + (location.search || '');
-    var versions = [['الأولى', 'index.html?skip=1', ''], ['V2 داكن', 'dark', 'dark'], ['V2 فاتح', 'lite', 'lite']];
+    var versions = [['V2 داكن', 'dark', 'dark'], ['V2 فاتح', 'lite', 'lite']];
     var verLink = function (it) {
       if (!it[2]) return it[1];
       if (v) return page.replace(/^(dark|lite)/, it[2]); // same screen in the other mode
